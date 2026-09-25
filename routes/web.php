@@ -1,0 +1,25 @@
+<?php
+
+return [
+	['GET', '/', 'home', 'AapleGuruji', 'Your trusted guide for astrology, puja and vastu services.'],
+	['GET', '/about', 'about', 'About AapleGuruji', 'Discover the people and practices behind AapleGuruji.'],
+	['GET', '/contact', 'contact', 'Contact Us', 'Reach our team for help choosing a service.'],
+	['GET', '/login', 'login', 'Login', 'Sign in to manage your bookings and profile.'],
+	['GET', '/register', 'register', 'Create an Account', 'Create an account to book services quickly.'],
+	['GET', '/bookings', 'bookings', 'My Bookings', 'View and manage your upcoming bookings.'],
+	['GET', '/booking', 'booking', 'Book a Service', 'Choose a service and request a booking.'],
+	['GET', '/kundali', 'kundali', 'Kundali', 'Explore personalised birth-chart readings.'],
+	['GET', '/kundali/create', 'kundali-create', 'Create Your Kundali', 'Enter your birth details for a personalised reading.'],
+	['GET', '/pandits', 'pandits', 'Find a Pandit', 'Connect with trusted pandits for your ceremony.'],
+	['GET', '/pandits/{id}', 'pandit', 'Pandit Profile', 'View availability and request a consultation.'],
+	['GET', '/puja', 'puja', 'Puja Services', 'Book ceremonies for home, office and family occasions.'],
+	['GET', '/puja/{id}', 'puja-detail', 'Puja Details', 'Review ceremony details and availability.'],
+	['GET', '/vastu', 'vastu', 'Vastu Consultation', 'Get practical guidance for a balanced space.'],
+	['GET', '/payment/success', 'payment-success', 'Payment Successful', 'Your payment has been received.'],
+	['GET', '/payment/cancel', 'payment-cancel', 'Payment Cancelled', 'Your payment was cancelled.'],
+	['POST', '/login', 'login', 'Login', 'Sign in to manage your bookings and profile.'],
+	['POST', '/register', 'register', 'Create an Account', 'Create an account to book services quickly.'],
+	['POST', '/booking', 'booking', 'Book a Service', 'Choose a service and request a booking.'],
+	['POST', '/kundali/create', 'kundali-create', 'Create Your Kundali', 'Enter your birth details for a personalised reading.'],
+	['POST', '/contact', 'contact', 'Contact Us', 'Reach our team for help choosing a service.'],
+];
