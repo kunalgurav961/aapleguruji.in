@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { loginAccount, logoutAccount, refreshSession, registerAccount } from "../api/authApi";
+import { getCurrentUser, loginAccount, logoutAccount, refreshSession, registerAccount } from "../api/authApi";
 
 const apiError = (error) => error.response?.data || { message: "Unable to complete your request. Please try again." };
 
@@ -29,9 +29,13 @@ export const hydrateUser = createAsyncThunk(
   "auth/hydrate",
   async (_, { rejectWithValue }) => {
     try {
-      return await refreshSession();
+      return await getCurrentUser();
     } catch (error) {
-      return rejectWithValue(apiError(error));
+      try {
+        return await refreshSession();
+      } catch (refreshError) {
+        return rejectWithValue(apiError(refreshError));
+      }
     }
   },
 );

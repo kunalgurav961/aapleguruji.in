@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { LogOut, Menu, UserCircle, X } from "lucide-react";
 import { toast } from "react-toastify";
 import { logoutUser } from "../../../features/auth/state/authActions";
+import logo from "../../../assets/images/logo.png";
 
 const linksByRole = {
   devotee: [
@@ -72,7 +73,7 @@ const Navbar = () => {
         {/* Logo */}
         <NavLink to={homePath} className="flex items-center">
           <img
-            src="/src/assets/images/logo.png"
+            src={logo}
             alt="Aaple Guruji"
             className="h-11 w-auto object-contain sm:h-14"
           />

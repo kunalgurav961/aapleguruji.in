@@ -86,7 +86,7 @@ const RegisterPage = () => {
                   <FormInput
                     label="Full Name / पूर्ण नाव"
                     name="fullName"
-                    placeholder="e.g. Rajeshwar Kulkarni / राजेश्वर कुलकर्णी"
+                    placeholder="तुमचे पूर्ण नाव"
                     icon="user"
                     register={register}
                     error={errors.fullName}
@@ -104,7 +104,7 @@ const RegisterPage = () => {
                       label="Mobile Number / मोबाईल नंबर"
                       name="mobileNumber"
                       type="tel"
-                      placeholder="98230 XXXXX"
+                      placeholder="8888333430"
                       prefix="+91"
                       icon="smartphone"
                       register={register}
