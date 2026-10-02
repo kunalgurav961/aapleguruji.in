@@ -72,6 +72,19 @@
   --color-info: #3b82f6;
 
   /* ================================
+     BOOKING PAGE
+  ================================= */
+
+  --color-booking-bg: #f8f9ff;
+  --color-booking-panel: #ffffff;
+  --color-booking-muted: #eff4ff;
+  --color-booking-selected: #fff4ec;
+  --color-booking-badge: #ffdbd0;
+  --color-booking-ink: #121c2a;
+  --color-booking-muted-ink: #584237;
+  --color-booking-border: #d9e3f6;
+
+  /* ================================
      SUPPORTING ACCENTS
   ================================= */
 
@@ -137,6 +150,9 @@
 
   --shadow-card:
     0px 2px 8px -2px rgba(124, 45, 18, 0.06), 0px 1px 3px rgba(0, 0, 0, 0.04);
+
+  --shadow-booking-card: 0px 2px 8px -2px rgba(40, 52, 75, 0.08);
+  --shadow-booking-cta: 0px 8px 18px -5px rgba(249, 115, 22, 0.35);
 
   --shadow-hover:
     0px 10px 20px -4px rgba(249, 115, 22, 0.12),
@@ -272,6 +288,30 @@ button {
   box-shadow: var(--shadow-card);
 }
 
+.booking-card {
+  border: 1px solid var(--color-booking-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-booking-panel);
+  padding: 20px;
+  box-shadow: var(--shadow-booking-card);
+}
+
+.booking-input {
+  width: 100%;
+  border: 1px solid var(--color-booking-border);
+  border-radius: var(--radius);
+  background: var(--color-booking-muted);
+  padding: 11px 13px;
+  color: var(--color-booking-ink);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.booking-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
+}
+
 .input {
   width: 100%;
   background: white;
@@ -296,6 +336,10 @@ button {
 
   .container-app {
     padding-inline: var(--gutter-mobile);
+  }
+
+  .booking-card {
+    padding: 16px;
   }
 }
 

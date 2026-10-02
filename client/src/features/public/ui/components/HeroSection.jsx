@@ -44,13 +44,14 @@ const HeroSection = () => {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
-              <a
-                href="#contact"
+              <button
+                type="button"
+                onClick={() => handleBook()}
                 className="group inline-flex items-center gap-3 rounded-lg bg-saffron px-7 py-4 font-semibold text-white shadow-lg shadow-orange-200 transition hover:bg-maroon"
               >
                 Book a Puja
                 <ArrowRight className="h-5 w-5 transition group-hover:translate-x-1" />
-              </a>
+              </button>
               <a
                 href="#services"
                 className="inline-flex items-center gap-3 rounded-lg bg-[#e7edff] px-7 py-4 font-semibold text-deepMaroon transition hover:bg-[#dbe5ff]"

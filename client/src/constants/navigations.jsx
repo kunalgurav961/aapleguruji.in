@@ -3,6 +3,8 @@ import RegisterPage from "../features/auth/ui/pages/RegisterPage";
 import AboutPage from "../features/public/ui/pages/AboutPage";
 import Home from "../features/public/ui/pages/Home";
 import PoojaPage from "../features/public/ui/pages/PoojaPage";
+import BookingPage from "../features/booking/ui/pages/BookingPage";
+import AdminDashboard from "../features/admin/ui/pages/AdminDashboard";
 
 const public_navigations = [
   {
@@ -39,6 +41,10 @@ const user_navigations = [
   {
     path: "/home",
     element: <div><h1>Welcome to Aaple Guruji</h1></div>,
+  },
+  {
+    path: "/home/book-pooja",
+    element: <BookingPage />,
   },
   {
     path: "/home/my-bookings",
@@ -78,19 +84,19 @@ const pandit_navigations = [
 const admin_navigations = [
   {
     path: "/admin",
-    element: <div><h1>Admin Dashboard</h1></div>,
-  },
-  {
-    path: "/admin/users",
-    element: <div><h1>Users</h1></div>,
+    element: <AdminDashboard />,
   },
   {
     path: "/admin/services",
-    element: <div><h1>Services</h1></div>,
+    element: <AdminDashboard />,
   },
   {
     path: "/admin/bookings",
-    element: <div><h1>All Bookings</h1></div>,
+    element: <AdminDashboard />,
+  },
+  {
+    path: "/admin/users",
+    element: <AdminDashboard />,
   },
   {
     path: "/admin/profile",

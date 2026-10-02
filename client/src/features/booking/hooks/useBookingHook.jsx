@@ -1,10 +1,18 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { addBooking } from "../state/bookingSlice";
 
 export const useBookingHook = () => {
-  let dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   const handleBooking = (data) => {
-    dispatch(addBooking(data));
+    if (data) {
+      dispatch(addBooking(data));
+    }
+
+    navigate(isAuthenticated ? "/home/booking" : "/login");
   };
 
   return {

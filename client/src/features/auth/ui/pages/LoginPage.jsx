@@ -14,7 +14,9 @@ const LoginPage = () => {
     try {
       const response = await dispatch(loginUser(credentials)).unwrap();
       toast.success(response.message);
-      navigate("/home");
+      navigate(
+        response.data.user.role === "admin" ? "/admin" : "/home",
+      );
     } catch (error) {
       error.errors?.forEach(({ path, message }) => setError(path, { type: "server", message }));
       toast.error(error.message || "Unable to sign you in. Please try again.");

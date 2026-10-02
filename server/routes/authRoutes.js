@@ -11,4 +11,5 @@ router.post("/refresh", refreshSessionController);
 router.post("/logout", logoutController);
 router.get("/me", requireAuth, (req, res) => res.status(200).json({ data: { user: req.user } }));
 
+
 export default router;

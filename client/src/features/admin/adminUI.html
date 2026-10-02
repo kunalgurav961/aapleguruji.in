@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_dashboard" name="shell-type"/>
+<title>Aaple Guruji - Vedic Admin Dashboard</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "background": "#FBFBFB",
+            "surface": "#FFFFFF",
+            "surface-dim": "#F5F5F7",
+            "surface-low": "#FAF9F6",
+            "surface-border": "#EAE7E2",
+            "primary": "#C2540A",
+            "primary-dark": "#9A3B00",
+            "primary-subtle": "#FFF5EE",
+            "primary-border": "#FED7AA",
+            "on-surface": "#1E2024",
+            "on-surface-variant": "#646B78",
+            "on-surface-subtle": "#98A1B0",
+            "accent-gold": "#B47E19",
+            "accent-gold-bg": "#FDF9EC",
+            "success": "#15803D",
+            "success-bg": "#F0FDF4",
+            "error": "#BE123C",
+            "error-bg": "#FFF1F2"
+          },
+          fontFamily: {
+            sans: ["Plus Jakarta Sans", "sans-serif"],
+            serif: ["Playfair Display", "serif"]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #FBFBFB;
+      color: #1E2024;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-serif {
+      font-family: 'Playfair Display', serif;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #E2E8F0;
+      border-radius: 9999px;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 350, 'GRAD' 0, 'opsz' 22;
+      vertical-align: middle;
+    }
+    .material-symbols-fill {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 22;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased flex min-h-screen">
+<!-- Minimal Sleek Sidebar -->
+<aside class="w-64 flex-shrink-0 bg-surface border-r border-surface-border flex flex-col justify-between fixed top-0 bottom-0 left-0 z-40">
+<div class="flex flex-col flex-1 overflow-y-auto">
+<!-- Brand Logo Header -->
+<div class="h-16 px-6 flex items-center gap-3 border-b border-surface-border/60">
+<img alt="Aaple Guruji" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XjAeU2y7cwOG1B0-HWpn3B8pgloi6Z-4VQx3ToDBiWHt9liOvQ-mALhpJ9m_0vMxu1NoALe5Gln-69XZWrKutMN5L8htS_hv7FCMjZDAuq7XNEfDwPsy6sEhIJeDAZk51POlUDCrc7QZvS8I9cv6UIy_3PQGCYTsqJPSWYU2Nca07jTy_sA16s8NsaeSBVIBdtUZaZiBhjpTcSW8KZqE9mp-R9hB7Yd7dGU678ezgyoZdHE310_XTb6bwUqS1Iv1E-RI01c0aqtQ"/>
+<div class="flex flex-col">
+<span class="font-serif font-semibold text-[15px] tracking-tight text-on-surface leading-tight">आपले गुरुजी</span>
+<span class="text-[11px] text-on-surface-subtle font-medium tracking-wide">Vedic Administration</span>
+</div>
+</div>
+<!-- Navigation Section -->
+<div class="p-3 space-y-1">
+<div class="px-3 pt-3 pb-2 text-[10px] font-semibold text-on-surface-subtle uppercase tracking-wider">
+          प्रशासन कक्ष • Administration
+        </div>
+<nav class="space-y-0.5">
+<!-- Active Nav Item -->
+<a class="flex items-center justify-between px-3 py-2 rounded-lg text-primary bg-primary-subtle font-medium text-[13px] border border-primary-border/40 transition-colors" href="#">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[19px]">dashboard</span>
+<span>अवलोकन / Dashboard</span>
+</div>
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+</a>
+<a class="flex items-center justify-between px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-dim font-medium text-[13px] transition-colors" href="#">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[19px]">group</span>
+<span>यजमान / Devotees</span>
+</div>
+</a>
+<a class="flex items-center justify-between px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-dim font-medium text-[13px] transition-colors" href="#">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[19px]">temple_hindu</span>
+<span>पुरोहित / Pandits</span>
+</div>
+<span class="px-1.5 py-0.2 rounded text-[10.5px] font-semibold bg-amber-50 text-amber-800 border border-amber-200/60">4 New</span>
+</a>
+<a class="flex items-center justify-between px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-dim font-medium text-[13px] transition-colors" href="#">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[19px]">event_available</span>
+<span>पूजा बुकिंग्स / Bookings</span>
+</div>
+<span class="px-1.5 py-0.2 rounded text-[10.5px] font-semibold bg-orange-50 text-primary border border-primary-border/60">12</span>
+</a>
+<a class="flex items-center justify-between px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-dim font-medium text-[13px] transition-colors" href="#">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[19px]">inventory_2</span>
+<span>पूजा साहित्य / Samagri</span>
+</div>
+</a>
+<a class="flex items-center justify-between px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-dim font-medium text-[13px] transition-colors" href="#">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[19px]">local_shipping</span>
+<span>ऑर्डर्स / Dispatch</span>
+</div>
+</a>
+<a class="flex items-center justify-between px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-dim font-medium text-[13px] transition-colors" href="#">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[19px]">account_balance_wallet</span>
+<span>दक्षिणा / Accounts</span>
+</div>
+</a>
+<a class="flex items-center justify-between px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-dim font-medium text-[13px] transition-colors" href="#">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[19px]">rate_review</span>
+<span>अभिप्राय / Reviews</span>
+</div>
+</a>
+<a class="flex items-center justify-between px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-dim font-medium text-[13px] transition-colors" href="#">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[19px]">insights</span>
+<span>अहवाल / Reports</span>
+</div>
+</a>
+<a class="flex items-center justify-between px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-dim font-medium text-[13px] transition-colors" href="#">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[19px]">settings</span>
+<span>सेटिंग्ज / Settings</span>
+</div>
+</a>
+</nav>
+</div>
+</div>
+<!-- Bottom Helpline & User Profile -->
+<div class="p-3 border-t border-surface-border space-y-2 bg-surface">
+<div class="px-3 py-2 rounded-lg bg-surface-dim/60 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">support_agent</span>
+<div>
+<div class="text-[11.5px] font-semibold text-on-surface leading-none">गुरुजी सहाय्यता</div>
+<div class="text-[10.5px] text-on-surface-subtle font-mono mt-0.5">+91 1800 233 4567</div>
+</div>
+</div>
+<a class="text-on-surface-subtle hover:text-primary transition-colors" href="tel:18002334567">
+<span class="material-symbols-outlined text-[16px]">call</span>
+</a>
+</div>
+<div class="px-3 py-2 rounded-lg hover:bg-surface-dim/70 transition-colors flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-surface-dim border border-surface-border flex items-center justify-center text-primary font-semibold text-xs">
+            SK
+          </div>
+<div>
+<div class="text-[12.5px] font-semibold text-on-surface leading-tight">Shri. Kulkarni</div>
+<div class="text-[10.5px] text-on-surface-subtle">Super Admin</div>
+</div>
+</div>
+<button class="text-on-surface-subtle hover:text-error transition-colors" title="Log out">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="ml-64 flex-1 flex flex-col min-w-0">
+<!-- Top Header Bar -->
+<header class="h-16 bg-surface/90 backdrop-blur-md border-b border-surface-border sticky top-0 z-30 px-8 flex items-center justify-between gap-6">
+<!-- Breadcrumb & Engine Status -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 text-[13px]">
+<span class="font-semibold text-on-surface">मुख्य नियंत्रण कक्ष</span>
+<span class="text-on-surface-subtle">/</span>
+<span class="text-on-surface-variant">Dashboard</span>
+</div>
+<span class="h-3.5 w-px bg-surface-border"></span>
+<div class="hidden lg:flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/50 text-[11px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+<span>Muhurat Engine Active</span>
+</div>
+</div>
+<!-- Quick Global Search Bar -->
+<div class="flex-1 max-w-md hidden md:block">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-[18px] text-on-surface-subtle pointer-events-none">search</span>
+<input class="w-full pl-9 pr-12 py-1.5 text-[12.5px] bg-surface-dim/60 hover:bg-surface-dim focus:bg-surface border border-surface-border focus:border-primary/50 rounded-lg text-on-surface placeholder:text-on-surface-subtle transition-all outline-none" placeholder="Search bookings, devotees, pandits, SKU... (⌘K)" type="text"/>
+<kbd class="absolute right-2.5 px-1.5 py-0.5 text-[9.5px] font-mono text-on-surface-subtle bg-surface border border-surface-border rounded shadow-2xs pointer-events-none">⌘K</kbd>
+</div>
+</div>
+<!-- Right Header Actions -->
+<div class="flex items-center gap-3">
+<!-- Panchang Date Pill -->
+<div class="hidden xl:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-dim border border-surface-border text-on-surface text-[12px] font-medium">
+<span class="material-symbols-outlined text-primary text-[17px]">calendar_today</span>
+<span>श्रावण शुद्ध एकादशी</span>
+</div>
+<button class="relative p-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-dim transition-colors" title="Notifications">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary ring-2 ring-surface"></span>
+</button>
+<button class="p-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-dim transition-colors" title="Messages">
+<span class="material-symbols-outlined text-[20px]">chat</span>
+</button>
+<div class="h-4 w-px bg-surface-border"></div>
+<!-- Primary CTA -->
+<button class="px-3.5 py-1.5 rounded-lg bg-primary hover:bg-primary-dark text-white font-medium text-[12.5px] flex items-center gap-1.5 shadow-sm transition-colors">
+<span class="material-symbols-outlined text-[17px]">add_circle</span>
+<span>+ New Puja</span>
+</button>
+</div>
+</header>
+<!-- Main Workspace Area -->
+<main class="flex-1 p-8 space-y-6">
+<!-- Executive Panchang & Filter Bar -->
+<section class="bg-surface rounded-xl border border-surface-border p-6 shadow-xs flex flex-col xl:flex-row xl:items-center justify-between gap-6">
+<div class="space-y-1.5">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-amber-50 text-amber-900 border border-amber-200/50">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+              पंचांग प्रमाणीकरण • LIVE
+            </span>
+<span class="text-on-surface-subtle text-[11px]">अष्टम पटल संकलन</span>
+</div>
+<h1 class="font-serif text-2xl font-semibold text-on-surface tracking-tight">
+            Namaste, Administrator <span class="font-normal text-on-surface-variant text-lg">(नमस्कार श्री. कुलकर्णी)</span>
+</h1>
+<div class="flex flex-wrap items-center gap-2 text-[12px] text-on-surface-variant">
+<div class="flex items-center gap-1 text-primary font-medium">
+<span class="material-symbols-outlined text-[16px]">wb_sunny</span>
+<span>फाल्गुन शुक्ल पक्ष • शुभ अमृत योग</span>
+</div>
+<span class="text-surface-border">|</span>
+<span>सोमवार, २४ फेब्रुवारी २०२५</span>
+<span class="text-surface-border">|</span>
+<span class="text-on-surface-subtle">नक्षत्र: मृगशीर्ष • राहुकाल: ०८:१२ - ०९:३८ (अमान्य काळ)</span>
+</div>
+</div>
+<!-- Filters & Action Buttons -->
+<div class="flex flex-wrap items-center gap-3">
+<!-- Time Segment Switcher -->
+<div class="inline-flex bg-surface-dim p-1 rounded-lg border border-surface-border text-[12px] font-medium">
+<button class="px-3 py-1 rounded-md text-on-surface-variant hover:text-on-surface transition-colors">Today</button>
+<button class="px-3 py-1 rounded-md text-on-surface-variant hover:text-on-surface transition-colors">This Week</button>
+<button class="px-3 py-1 rounded-md bg-surface text-on-surface font-semibold shadow-2xs border border-surface-border/60">This Month</button>
+<button class="px-3 py-1 rounded-md text-on-surface-variant hover:text-on-surface transition-colors">Quarterly</button>
+</div>
+<div class="h-5 w-px bg-surface-border hidden sm:block"></div>
+<!-- Action Buttons -->
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg border border-surface-border bg-surface hover:bg-surface-dim text-on-surface font-medium text-[12px] flex items-center gap-1.5 transition-colors" title="Export reports">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">download</span>
+<span>Export</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg border border-surface-border bg-surface hover:bg-surface-dim text-on-surface font-medium text-[12px] flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">person_add</span>
+<span>Add Pandit</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg border border-surface-border bg-surface hover:bg-surface-dim text-on-surface font-medium text-[12px] flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">local_shipping</span>
+<span>Dispatch Kit</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg bg-on-surface hover:bg-black text-white font-medium text-[12px] flex items-center gap-1.5 shadow-xs transition-colors">
+<span class="material-symbols-outlined text-[16px]">post_add</span>
+<span>Manual Puja</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Sleek Metrics Grid (4 Primary + 4 Secondary Pulse Indicators) -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- KPI 1: Total Ritual Bookings -->
+<div class="bg-surface rounded-xl border border-surface-border p-4.5 hover:border-surface-border/80 transition-shadow">
+<div class="flex items-center justify-between">
+<span class="text-[12px] font-medium text-on-surface-variant">Total Ritual Bookings</span>
+<div class="w-7 h-7 rounded-lg bg-surface-dim flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[17px]">calendar_month</span>
+</div>
+</div>
+<div class="mt-2.5 flex items-baseline justify-between">
+<span class="font-serif text-2xl font-semibold text-on-surface tracking-tight">12,845</span>
+<span class="inline-flex items-center gap-0.5 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-[13px]">trending_up</span> 18.4%
+            </span>
+</div>
+<div class="mt-2 pt-2 border-t border-surface-border/60 text-[11px] text-on-surface-subtle flex justify-between">
+<span>vs. Jan 2025</span>
+<span class="text-on-surface-variant font-medium">98.2% fulfillment</span>
+</div>
+</div>
+<!-- KPI 2: Gross Puja Dakshina -->
+<div class="bg-surface rounded-xl border border-surface-border p-4.5 hover:border-surface-border/80 transition-shadow">
+<div class="flex items-center justify-between">
+<span class="text-[12px] font-medium text-on-surface-variant">Gross Puja Dakshina</span>
+<div class="w-7 h-7 rounded-lg bg-surface-dim flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[17px]">payments</span>
+</div>
+</div>
+<div class="mt-2.5 flex items-baseline justify-between">
+<span class="font-serif text-2xl font-semibold text-on-surface tracking-tight">₹48,92,450</span>
+<span class="inline-flex items-center gap-0.5 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-[13px]">trending_up</span> 24.2%
+            </span>
+</div>
+<div class="mt-2 pt-2 border-t border-surface-border/60 text-[11px] text-on-surface-subtle flex justify-between">
+<span>Dakshina &amp; Samagri</span>
+<span class="text-on-surface-variant font-medium">Auto-settled</span>
+</div>
+</div>
+<!-- KPI 3: Verified Pandits -->
+<div class="bg-surface rounded-xl border border-surface-border p-4.5 hover:border-surface-border/80 transition-shadow">
+<div class="flex items-center justify-between">
+<span class="text-[12px] font-medium text-on-surface-variant">Verified Pandits</span>
+<div class="w-7 h-7 rounded-lg bg-surface-dim flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[17px]">temple_hindu</span>
+</div>
+</div>
+<div class="mt-2.5 flex items-baseline justify-between">
+<span class="font-serif text-2xl font-semibold text-on-surface tracking-tight">1,420</span>
+<span class="text-[11px] font-medium text-primary bg-primary-subtle px-1.5 py-0.5 rounded">
+              +42 this month
+            </span>
+</div>
+<div class="mt-2 pt-2 border-t border-surface-border/60 text-[11px] text-on-surface-subtle flex justify-between">
+<span>Pathshala Acharyas</span>
+<span class="text-on-surface-variant font-medium">96% active roster</span>
+</div>
+</div>
+<!-- KPI 4: Active Devotees -->
+<div class="bg-surface rounded-xl border border-surface-border p-4.5 hover:border-surface-border/80 transition-shadow">
+<div class="flex items-center justify-between">
+<span class="text-[12px] font-medium text-on-surface-variant">Active Devotees</span>
+<div class="w-7 h-7 rounded-lg bg-surface-dim flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[17px]">group</span>
+</div>
+</div>
+<div class="mt-2.5 flex items-baseline justify-between">
+<span class="font-serif text-2xl font-semibold text-on-surface tracking-tight">58,320</span>
+<span class="inline-flex items-center gap-0.5 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-[13px]">trending_up</span> 14.1%
+            </span>
+</div>
+<div class="mt-2 pt-2 border-t border-surface-border/60 text-[11px] text-on-surface-subtle flex justify-between">
+<span>MH, Goa &amp; NCR</span>
+<span class="text-on-surface-variant font-medium">78% repeat sankalpa</span>
+</div>
+</div>
+<!-- Secondary Pulse Row: Operational Indicators -->
+<div class="bg-surface rounded-xl border border-surface-border p-3.5 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-rose-50 text-rose-700 border border-rose-200/60 flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">priority_high</span>
+</div>
+<div>
+<div class="text-[11px] text-on-surface-subtle font-medium uppercase tracking-wider">Pending Pujas</div>
+<div class="text-[15px] font-semibold text-on-surface">38 Ceremonies</div>
+</div>
+</div>
+<a class="text-[11px] font-medium text-primary hover:underline flex items-center gap-0.5" href="#">
+            Assign <span class="material-symbols-outlined text-[13px]">arrow_forward</span>
+</a>
+</div>
+<div class="bg-surface rounded-xl border border-surface-border p-3.5 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-800 border border-amber-200/60 flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</div>
+<div>
+<div class="text-[11px] text-on-surface-subtle font-medium uppercase tracking-wider">Guruji Verification</div>
+<div class="text-[15px] font-semibold text-on-surface">7 Pandits</div>
+</div>
+</div>
+<span class="text-[11px] text-on-surface-variant">3 Varanasi, 4 Pune</span>
+</div>
+<div class="bg-surface rounded-xl border border-surface-border p-3.5 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-dim text-on-surface-variant border border-surface-border flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">inventory</span>
+</div>
+<div>
+<div class="text-[11px] text-on-surface-subtle font-medium uppercase tracking-wider">Samagri In Dispatch</div>
+<div class="text-[15px] font-semibold text-on-surface">164 Kits</div>
+</div>
+</div>
+<span class="text-[11px] text-on-surface-variant">84 Dispatched • 80 Prep</span>
+</div>
+<div class="bg-surface rounded-xl border border-surface-border p-3.5 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-800 border border-amber-200/60 flex items-center justify-center">
+<span class="material-symbols-outlined material-symbols-fill text-[18px] text-amber-500">star</span>
+</div>
+<div>
+<div class="text-[11px] text-on-surface-subtle font-medium uppercase tracking-wider">Devotee Rating</div>
+<div class="text-[15px] font-semibold text-on-surface">4.92 <span class="text-[11.5px] font-normal text-on-surface-subtle">/ 5.0</span></div>
+</div>
+</div>
+<span class="text-[11px] text-on-surface-variant">8,430 Reviews</span>
+</div>
+</section>
+<!-- Minimal Live Feed Bar -->
+<section class="bg-surface rounded-xl border border-surface-border px-4 py-2.5 flex items-center gap-3 text-[12px] text-on-surface-variant">
+<div class="flex items-center gap-1.5 text-primary font-semibold flex-shrink-0">
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+<span>प्रवाह थेट दर्शन (Live):</span>
+</div>
+<div class="flex items-center gap-6 overflow-x-auto whitespace-nowrap text-on-surface-variant">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[15px]">check_circle</span>
+<span>Pandit Rameshwar Shastri checked in for Satyanarayan Puja at Baner, Pune</span>
+<span class="text-on-surface-subtle text-[11px]">(10m ago)</span>
+</div>
+<span class="text-surface-border">•</span>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-emerald-600 text-[15px]">currency_rupee</span>
+<span>New Griha Pravesh booking received from Mumbai (₹5,100 paid via UPI)</span>
+<span class="text-on-surface-subtle text-[11px]">(18m ago)</span>
+</div>
+<span class="text-surface-border">•</span>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-on-surface-subtle text-[15px]">local_shipping</span>
+<span>Samagri Batch #842 packed for Thane delivery</span>
+<span class="text-on-surface-subtle text-[11px]">(24m ago)</span>
+</div>
+</div>
+</section>
+<!-- Balanced 2-Column Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+<!-- Left / Main Column (8 cols) -->
+<div class="xl:col-span-8 space-y-6">
+<!-- Revenue & Dakshina Trends Card -->
+<div class="bg-surface rounded-xl border border-surface-border p-6 shadow-xs">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-surface-border/60">
+<div>
+<h2 class="font-serif text-lg font-semibold text-on-surface">Revenue &amp; Dakshina Trends</h2>
+<p class="text-[12px] text-on-surface-subtle mt-0.5">Aggregate flow across Vedic Rituals, Guru Dakshina, and Consecrated Samagri</p>
+</div>
+<div class="inline-flex bg-surface-dim p-0.5 rounded-lg border border-surface-border text-[11.5px] font-medium">
+<button class="px-2.5 py-1 rounded text-on-surface-variant hover:text-on-surface">Day</button>
+<button class="px-2.5 py-1 rounded text-on-surface-variant hover:text-on-surface">Week</button>
+<button class="px-2.5 py-1 rounded bg-surface text-on-surface font-semibold shadow-2xs border border-surface-border/60">Month</button>
+<button class="px-2.5 py-1 rounded text-on-surface-variant hover:text-on-surface">Fiscal 2024-25</button>
+</div>
+</div>
+<!-- Revenue Source Breakdown Tabs -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3 my-4">
+<div class="p-3 rounded-lg bg-surface-low border border-surface-border/70 flex items-center justify-between">
+<div>
+<div class="text-[11px] font-medium text-on-surface-variant flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                    Puja Ceremonies
+                  </div>
+<div class="text-[16px] font-semibold text-on-surface mt-0.5">₹32,40,200</div>
+</div>
+<span class="text-[11px] font-semibold text-primary">66.2%</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-low border border-surface-border/70 flex items-center justify-between">
+<div>
+<div class="text-[11px] font-medium text-on-surface-variant flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-stone-700"></span>
+                    Pandit Services
+                  </div>
+<div class="text-[16px] font-semibold text-on-surface mt-0.5">₹10,82,250</div>
+</div>
+<span class="text-[11px] font-semibold text-on-surface-variant">22.1%</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-low border border-surface-border/70 flex items-center justify-between">
+<div>
+<div class="text-[11px] font-medium text-on-surface-variant flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-amber-600"></span>
+                    Samagri Store
+                  </div>
+<div class="text-[16px] font-semibold text-on-surface mt-0.5">₹5,70,000</div>
+</div>
+<span class="text-[11px] font-semibold text-amber-700">11.7%</span>
+</div>
+</div>
+<!-- Clean Area Chart SVG -->
+<div class="relative w-full h-64 pt-2">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 760 210">
+<defs>
+<lineargradient id="cleanPrimaryGrad" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#C2540A" stop-opacity="0.18"></stop>
+<stop offset="100%" stop-color="#C2540A" stop-opacity="0.0"></stop>
+</lineargradient>
+<lineargradient id="cleanSecondaryGrad" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#78716C" stop-opacity="0.10"></stop>
+<stop offset="100%" stop-color="#78716C" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<!-- Subtle Grid Lines -->
+<line stroke="#F1F1F4" stroke-dasharray="3 3" x1="0" x2="760" y1="20" y2="20"></line>
+<line stroke="#F1F1F4" stroke-dasharray="3 3" x1="0" x2="760" y1="70" y2="70"></line>
+<line stroke="#F1F1F4" stroke-dasharray="3 3" x1="0" x2="760" y1="120" y2="120"></line>
+<line stroke="#F1F1F4" stroke-dasharray="3 3" x1="0" x2="760" y1="170" y2="170"></line>
+<!-- Secondary Curve -->
+<path d="M0,180 C80,175 140,165 210,160 C280,155 350,140 430,135 C510,130 580,148 650,130 C710,115 760,110 760,110 L760,200 L0,200 Z" fill="url(#cleanSecondaryGrad)"></path>
+<path d="M0,180 C80,175 140,165 210,160 C280,155 350,140 430,135 C510,130 580,148 650,130 C710,115 760,110 760,110" fill="none" stroke="#78716C" stroke-dasharray="4 2" stroke-width="1.75"></path>
+<!-- Primary Curve -->
+<path d="M0,160 C70,140 140,120 220,115 C300,110 380,45 440,30 C500,15 570,80 640,65 C700,50 760,35 760,35 L760,200 L0,200 Z" fill="url(#cleanPrimaryGrad)"></path>
+<path d="M0,160 C70,140 140,120 220,115 C300,110 380,45 440,30 C500,15 570,80 640,65 C700,50 760,35 760,35" fill="none" stroke="#C2540A" stroke-linecap="round" stroke-width="2.5"></path>
+<!-- Peak Marker -->
+<circle cx="440" cy="30" fill="#FFFFFF" r="5" stroke="#C2540A" stroke-width="2.5"></circle>
+<line stroke="#C2540A" stroke-dasharray="2 2" stroke-opacity="0.4" x1="440" x2="440" y1="30" y2="195"></line>
+</svg>
+<!-- Refined Floating Peak Callout -->
+<div class="absolute top-1 left-1/2 transform translate-x-2 bg-surface text-on-surface border border-surface-border shadow-sm px-3 py-1.5 rounded-lg pointer-events-none text-left">
+<div class="flex items-center gap-1 text-[11px] font-semibold text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                  महाशिवरात्र पूर्व-नोंदणी Peak
+                </div>
+<div class="text-[12px] font-medium text-on-surface">₹8,45,000 / day</div>
+</div>
+</div>
+<!-- X-Axis Labels -->
+<div class="flex justify-between items-center text-on-surface-subtle text-[11px] font-medium pt-2 px-1 border-t border-surface-border/50 mt-1">
+<span>०१ फेब्रु</span>
+<span>०६ फेब्रु</span>
+<span>११ फेब्रु</span>
+<span class="text-primary font-semibold">१६ फेब्रु (Peak)</span>
+<span>२१ फेब्रु</span>
+<span class="text-on-surface font-semibold">२४ फेब्रु (Today)</span>
+<span>२८ फेब्रु (Proj.)</span>
+</div>
+</div>
+<!-- Recent High-Priority Puja Bookings Table -->
+<div class="bg-surface rounded-xl border border-surface-border shadow-xs overflow-hidden">
+<div class="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-border/60">
+<div>
+<h3 class="font-serif text-lg font-semibold text-on-surface">Recent High-Priority Puja Bookings</h3>
+<p class="text-[12px] text-on-surface-subtle mt-0.5">Live devotee requests mapped to verified shastri ji roster</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-[12px] text-on-surface-subtle">Filter:</span>
+<select class="text-[12px] py-1 pl-2.5 pr-8 bg-surface-dim border border-surface-border rounded-lg text-on-surface font-medium focus:ring-1 focus:ring-primary focus:border-primary">
+<option>All Ceremonies (38 Pending)</option>
+<option>Griha Pravesh</option>
+<option>Vedic Vivah Sanskar</option>
+<option>Maha Mrityunjaya Jaap</option>
+<option>Rudrabhishek</option>
+</select>
+</div>
+</div>
+<!-- Clean Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left text-[12.5px]">
+<thead>
+<tr class="bg-surface-low border-b border-surface-border/60 text-on-surface-subtle text-[11px] uppercase tracking-wider font-semibold">
+<th class="py-3 px-4">Booking ID</th>
+<th class="py-3 px-4">Devotee (यजमान)</th>
+<th class="py-3 px-4">Requested Ritual</th>
+<th class="py-3 px-4">Muhurat</th>
+<th class="py-3 px-4">Assigned Pandit</th>
+<th class="py-3 px-4">Dakshina</th>
+<th class="py-3 px-4">Status</th>
+<th class="py-3 px-4 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-border/50 text-on-surface">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-dim/40 transition-colors">
+<td class="py-3.5 px-4 font-mono font-medium text-primary">#AG-8942</td>
+<td class="py-3.5 px-4">
+<div class="font-medium text-on-surface">Rajeshwar Joshi</div>
+<div class="text-[11px] text-on-surface-subtle">Kothrud, Pune</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-medium text-on-surface">गृहप्रवेश व वास्तुशांती</div>
+<div class="text-[11px] text-on-surface-subtle">Hawan &amp; Purnahuti kit</div>
+</td>
+<td class="py-3.5 px-4">
+<div>२६ फेब्रु २०२५</div>
+<div class="text-[11px] text-primary">०७:१५ AM (अमृत)</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-primary-subtle text-primary border border-primary-border flex items-center justify-center text-[10px] font-bold">DK</div>
+<div>
+<div class="font-medium">दत्तात्रय कुलकर्णी</div>
+<div class="text-[10px] text-on-surface-subtle">पुणे विद्यापीठ</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-on-surface">₹7,500</div>
+<span class="text-[10.5px] text-emerald-700">Paid (UPI)</span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-50 text-emerald-800 border border-emerald-200/50">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Assigned
+                      </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<button class="p-1 rounded text-on-surface-subtle hover:text-on-surface hover:bg-surface-dim">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-dim/40 transition-colors">
+<td class="py-3.5 px-4 font-mono font-medium text-primary">#AG-8941</td>
+<td class="py-3.5 px-4">
+<div class="font-medium text-on-surface">Sunanda Deshpande</div>
+<div class="text-[11px] text-on-surface-subtle">Dombivli, Thane</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-medium text-on-surface">श्री सत्यनारायण महापूजा</div>
+<div class="text-[11px] text-on-surface-subtle">Mahaprasad Kit incl.</div>
+</td>
+<td class="py-3.5 px-4">
+<div>२५ फेब्रु २०२५</div>
+<div class="text-[11px] text-primary">०९:३० AM (शुभ)</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-rose-50 text-rose-800 border border-rose-200/50">
+<span class="material-symbols-outlined text-[13px]">warning</span> Unassigned
+                      </span>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-on-surface">₹3,800</div>
+<span class="text-[10.5px] text-emerald-700">Paid (Card)</span>
+</td>
+<td class="py-3.5 px-4">
+<button class="px-2.5 py-1 rounded-md bg-primary hover:bg-primary-dark text-white font-medium text-[11px] transition-colors">
+                        Assign
+                      </button>
+</td>
+<td class="py-3.5 px-4 text-right">
+<button class="p-1 rounded text-on-surface-subtle hover:text-on-surface hover:bg-surface-dim">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-dim/40 transition-colors">
+<td class="py-3.5 px-4 font-mono font-medium text-primary">#AG-8940</td>
+<td class="py-3.5 px-4">
+<div class="font-medium text-on-surface">Amitabh Shinde</div>
+<div class="text-[11px] text-on-surface-subtle">Shivaji Nagar, Nashik</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-medium text-on-surface">कालसर्प योग शांति अनुष्ठान</div>
+<div class="text-[11px] text-on-surface-subtle">Trimbakeshwar Teerth</div>
+</td>
+<td class="py-3.5 px-4">
+<div>२७ फेब्रु २०२५</div>
+<div class="text-[11px] text-primary">०६:०० AM (ब्रह्म)</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-dim text-on-surface border border-surface-border flex items-center justify-center text-[10px] font-bold">VT</div>
+<div>
+<div class="font-medium">विद्याधर ताम्हणकर</div>
+<div class="text-[10px] text-on-surface-subtle">त्र्यंबकेश्वर गुरुकुल</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-on-surface">₹11,500</div>
+<span class="text-[10.5px] text-emerald-700">Verified NetBanking</span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-surface-dim text-on-surface border border-surface-border">
+<span class="material-symbols-outlined text-[13px]">local_shipping</span> Kit Packed
+                      </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<button class="p-1 rounded text-on-surface-subtle hover:text-on-surface hover:bg-surface-dim">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-dim/40 transition-colors">
+<td class="py-3.5 px-4 font-mono font-medium text-primary">#AG-8939</td>
+<td class="py-3.5 px-4">
+<div class="font-medium text-on-surface">Dr. Meera Patwardhan</div>
+<div class="text-[11px] text-on-surface-subtle">Aundh, Pune</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-medium text-on-surface">महामृत्युंजय मंत्र जप</div>
+<div class="text-[11px] text-on-surface-subtle">११ आवर्तन संकल्प</div>
+</td>
+<td class="py-3.5 px-4">
+<div>२८ फेब्रु २०२५</div>
+<div class="text-[11px] text-primary">०५:३० AM (अमृत)</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-amber-50 text-amber-800 border border-amber-200/50 flex items-center justify-center text-[10px] font-bold">SB</div>
+<div>
+<div class="font-medium">सुबोध भट</div>
+<div class="text-[10px] text-on-surface-subtle">काशी विद्यापीठ</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-on-surface">₹6,200</div>
+<span class="text-[10.5px] text-emerald-700">Paid (UPI)</span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-50 text-emerald-800 border border-emerald-200/50">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Confirmed
+                      </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<button class="p-1 rounded text-on-surface-subtle hover:text-on-surface hover:bg-surface-dim">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Pagination Strip -->
+<div class="p-4 bg-surface-low border-t border-surface-border/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-[12px] text-on-surface-subtle">
+<span>Showing 4 of 38 high-priority ritual ceremonies</span>
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1 rounded bg-surface border border-surface-border hover:bg-surface-dim text-on-surface font-medium transition-colors">Previous</button>
+<span class="text-on-surface font-medium px-2">Page 1 of 10</span>
+<button class="px-2.5 py-1 rounded bg-surface border border-surface-border hover:bg-surface-dim text-on-surface font-medium transition-colors">Next</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column (4 cols) -->
+<div class="xl:col-span-4 space-y-6">
+<!-- Ceremony Fulfillment Donut Card -->
+<div class="bg-surface rounded-xl border border-surface-border p-6 shadow-xs">
+<div class="flex items-center justify-between pb-3 border-b border-surface-border/60">
+<div>
+<h3 class="font-serif text-base font-semibold text-on-surface">Ceremony Fulfillment</h3>
+<p class="text-[11.5px] text-on-surface-subtle">Monthly booking lifecycle distribution</p>
+</div>
+<span class="material-symbols-outlined text-[19px] text-on-surface-subtle">pie_chart</span>
+</div>
+<div class="flex flex-col items-center justify-center my-6 relative">
+<svg class="w-44 h-44 -rotate-90 transform" viewbox="0 0 160 160">
+<circle cx="80" cy="80" fill="transparent" r="62" stroke="#F1F1F4" stroke-width="16"></circle>
+<!-- Completed 68% (~265 / 389) -->
+<circle cx="80" cy="80" fill="transparent" r="62" stroke="#C2540A" stroke-dasharray="265 389" stroke-dashoffset="0" stroke-width="16"></circle>
+<!-- Confirmed 22% (~85) -->
+<circle cx="80" cy="80" fill="transparent" r="62" stroke="#FB923C" stroke-dasharray="85 389" stroke-dashoffset="-265" stroke-width="16"></circle>
+<!-- Pending 7% (~27) -->
+<circle cx="80" cy="80" fill="transparent" r="62" stroke="#FBBF24" stroke-dasharray="27 389" stroke-dashoffset="-350" stroke-width="16"></circle>
+<!-- Rescheduled 3% (~12) -->
+<circle cx="80" cy="80" fill="transparent" r="62" stroke="#F43F5E" stroke-dasharray="12 389" stroke-dashoffset="-377" stroke-width="16"></circle>
+</svg>
+<!-- Donut Center Callout -->
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
+<span class="text-[10px] text-on-surface-subtle uppercase tracking-wider font-semibold">Total</span>
+<span class="font-serif text-2xl font-bold text-on-surface leading-tight">12,845</span>
+<span class="text-[10.5px] font-medium text-primary">संकल्प संपन्न</span>
+</div>
+</div>
+<!-- Crisp Donut Legend -->
+<div class="space-y-2 text-[12px]">
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-low border border-surface-border/50">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<span class="font-medium text-on-surface">संपन्न / Completed</span>
+</div>
+<div class="font-semibold text-on-surface">8,734 <span class="text-on-surface-subtle font-normal text-[11px]">(68%)</span></div>
+</div>
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-low border border-surface-border/50">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-orange-400"></span>
+<span class="font-medium text-on-surface">नियोजित / Confirmed</span>
+</div>
+<div class="font-semibold text-on-surface">2,825 <span class="text-on-surface-subtle font-normal text-[11px]">(22%)</span></div>
+</div>
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-low border border-surface-border/50">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+<span class="font-medium text-on-surface">नियुक्ती प्रलंबित / Pending</span>
+</div>
+<div class="font-semibold text-on-surface">899 <span class="text-on-surface-subtle font-normal text-[11px]">(7%)</span></div>
+</div>
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-low border border-surface-border/50">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+<span class="font-medium text-on-surface">रद्द / Rescheduled</span>
+</div>
+<div class="font-semibold text-on-surface">387 <span class="text-on-surface-subtle font-normal text-[11px]">(3%)</span></div>
+</div>
+</div>
+</div>
+<!-- Pending Pandit Verifications Queue -->
+<div class="bg-surface rounded-xl border border-surface-border p-6 shadow-xs">
+<div class="flex items-center justify-between pb-3 border-b border-surface-border/60">
+<div class="flex items-center gap-2">
+<h3 class="font-serif text-base font-semibold text-on-surface">Pandit Verifications</h3>
+<span class="px-1.5 py-0.2 rounded text-[10.5px] font-semibold bg-amber-50 text-amber-900 border border-amber-200/50">7 Pending</span>
+</div>
+<a class="text-[11.5px] font-medium text-primary hover:underline" href="#">View All</a>
+</div>
+<div class="space-y-3 mt-4">
+<!-- Pandit 1 -->
+<div class="p-3 rounded-lg border border-surface-border/80 bg-surface-low space-y-2">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2.5">
+<div class="relative">
+<img alt="Omkareshwar Shastri" class="w-9 h-9 rounded-full object-cover border border-surface-border" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCP-1LvaweI8xpu5sc3lAPc7RtwUV2BUNknxV71RtdPqU0kfJZjvKbU8759RXnYGMcTQzJSWj90acmp8_8EYY6jKWRVYG2AcY-YuVFDbnRkpeFg8nFOt8SkVc310jZwOlC-dRzfZEyJr7yIfWNTzhPhWUtgpbv-qPQMghdGg7guLrzj7bgcNRoQY8-omvaO3Xc-LOMklJ-TFkcAKh336fFw46xi58F5k_wu5bwXqWcLaPNnmBokDJBk"/>
+<span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[9px]">✓</span>
+</div>
+<div>
+<h4 class="text-[12.5px] font-semibold text-on-surface leading-tight">आचार्य ओंकारेश्वर शास्त्री</h4>
+<div class="text-[11px] text-on-surface-subtle">शुक्ल यजुर्वेद • माध्यंदिन शाखा</div>
+</div>
+</div>
+<span class="text-[10.5px] font-medium text-on-surface-variant bg-surface px-1.5 py-0.5 rounded border border-surface-border">Varanasi</span>
+</div>
+<div class="flex items-center justify-between text-[11px] text-on-surface-subtle pt-0.5">
+<span>Exp: 14 वर्षे • संपूर्ण रुद्र पठण</span>
+<span class="text-emerald-700 font-medium">KYC 100%</span>
+</div>
+<div class="flex items-center gap-2 pt-1 border-t border-surface-border/60">
+<button class="flex-1 py-1 rounded bg-primary hover:bg-primary-dark text-white font-medium text-[11px] transition-colors">Approve &amp; Issue ID</button>
+<button class="px-2.5 py-1 rounded bg-surface hover:bg-surface-dim border border-surface-border text-on-surface text-[11px] font-medium transition-colors">Audit</button>
+</div>
+</div>
+<!-- Pandit 2 -->
+<div class="p-3 rounded-lg border border-surface-border/80 bg-surface-low space-y-2">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2.5">
+<div class="relative">
+<img alt="Gajanan Ghanekar" class="w-9 h-9 rounded-full object-cover border border-surface-border" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBl0hmV2AfY-WutQfZwBjxO-FQ-FOkgZcCHyaAD0grnHNTBn0ji9Jl7HQa-fFEL4v4q9U_Ftj7XV5vF1_W_SIzRfjmgrhIuKUCZEiabp3UJp41M9x0_TbogapwpMp4Vzk63JqPw95BH2ii1xb2bLMQmxJHC0ifseZk8xY183IOAUwJFne8kmBPTnIzQSCcy0Xo9f7ZguxDCAhQYuXhg8MRmKoYc0qBOO9moby9AqnSrx0XpFRLbGMPP"/>
+<span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[9px]">✓</span>
+</div>
+<div>
+<h4 class="text-[12.5px] font-semibold text-on-surface leading-tight">वेदमूर्ती गजानन घाणेकर</h4>
+<div class="text-[11px] text-on-surface-subtle">ऋग्वेद संहिता • संस्कार भूषण</div>
+</div>
+</div>
+<span class="text-[10.5px] font-medium text-on-surface-variant bg-surface px-1.5 py-0.5 rounded border border-surface-border">Nashik</span>
+</div>
+<div class="flex items-center justify-between text-[11px] text-on-surface-subtle pt-0.5">
+<span>Exp: 22 वर्षे • नारायण बळी तज्ञ</span>
+<span class="text-amber-700 font-medium">In Review</span>
+</div>
+<div class="flex items-center gap-2 pt-1 border-t border-surface-border/60">
+<button class="flex-1 py-1 rounded bg-primary hover:bg-primary-dark text-white font-medium text-[11px] transition-colors">Approve &amp; Issue ID</button>
+<button class="px-2.5 py-1 rounded bg-surface hover:bg-surface-dim border border-surface-border text-on-surface text-[11px] font-medium transition-colors">Clarify</button>
+</div>
+</div>
+<!-- Pandit 3 -->
+<div class="p-3 rounded-lg border border-surface-border/80 bg-surface-low space-y-2">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2.5">
+<div class="relative">
+<img alt="Bhalchandra Joshi" class="w-9 h-9 rounded-full object-cover border border-surface-border" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAw4Teji6haX-PWFmxiO1lsoSS_TrxoEhqZFetDeNtrUkwUSjduEVe8JieHkPiltj8h9qPFeVJGzHMysKd0EReQrrV3V10ShZsy7HZhLRCarl3Sh109Fy4bBunCy9AggymeQVdv29-usJiyloRI2IdrPTPrOXLqEzLfW2TMBy3Eugfi9gsDHFcTmvNU7mlNYq23HN-hjhuE3_yEFTV4FKSHBeVEs9TrIgGgAeTuSvFdXGcIJTujFjvj"/>
+<span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-stone-400 text-white flex items-center justify-center text-[9px]">?</span>
+</div>
+<div>
+<h4 class="text-[12.5px] font-semibold text-on-surface leading-tight">पंडित भालचंद्र जोशी</h4>
+<div class="text-[11px] text-on-surface-subtle">सामवेद गान • वास्तुशांती</div>
+</div>
+</div>
+<span class="text-[10.5px] font-medium text-on-surface-variant bg-surface px-1.5 py-0.5 rounded border border-surface-border">Alandi</span>
+</div>
+<div class="flex items-center justify-between text-[11px] text-on-surface-subtle pt-0.5">
+<span>Exp: 7 वर्षे • फलज्योतिष</span>
+<span class="text-rose-700 font-medium">Re-upload Needed</span>
+</div>
+<div class="flex items-center gap-2 pt-1 border-t border-surface-border/60">
+<button class="flex-1 py-1 rounded bg-surface hover:bg-surface-dim border border-surface-border text-on-surface text-[11px] font-medium transition-colors">Request Aadhaar</button>
+<button class="px-2.5 py-1 rounded bg-surface hover:bg-surface-dim border border-surface-border text-on-surface text-[11px] font-medium transition-colors">Profile</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Sacred Samagri Inventory Health -->
+<div class="bg-surface rounded-xl border border-surface-border p-6 shadow-xs">
+<div class="flex items-center justify-between pb-3 border-b border-surface-border/60">
+<div>
+<h3 class="font-serif text-base font-semibold text-on-surface">Samagri Inventory Health</h3>
+<p class="text-[11.5px] text-on-surface-subtle">Critical ritual commodities stock level</p>
+</div>
+<span class="material-symbols-outlined text-[19px] text-on-surface-subtle">inventory_2</span>
+</div>
+<div class="space-y-3.5 mt-4 text-[12px]">
+<!-- Item 1: Cow Ghee (Critical) -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="font-medium text-on-surface">शुद्ध देशी गायीचे तूप (Pure Cow Ghee)</span>
+<span class="text-[11px] font-semibold text-rose-700 bg-rose-50 px-1.5 py-0.2 rounded">18 Tins (Critical)</span>
+</div>
+<div class="w-full bg-surface-dim h-1.5 rounded-full overflow-hidden">
+<div class="bg-rose-500 h-1.5 rounded-full w-[14%]"></div>
+</div>
+</div>
+<!-- Item 2: Gangajal -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="font-medium text-on-surface">हरिद्वार गंगाजल (Gangajal 500ml)</span>
+<span class="text-[11px] text-on-surface-subtle">420 Bottles (Healthy)</span>
+</div>
+<div class="w-full bg-surface-dim h-1.5 rounded-full overflow-hidden">
+<div class="bg-emerald-600 h-1.5 rounded-full w-[78%]"></div>
+</div>
+</div>
+<!-- Item 3: Hawan Samagri -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="font-medium text-on-surface">हवन सामग्री व समिधा किट (Hawan Kit)</span>
+<span class="text-[11px] text-on-surface-subtle">610 Packs (Optimum)</span>
+</div>
+<div class="w-full bg-surface-dim h-1.5 rounded-full overflow-hidden">
+<div class="bg-emerald-600 h-1.5 rounded-full w-[88%]"></div>
+</div>
+</div>
+<!-- Item 4: Copper Kalash -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="font-medium text-on-surface">पंचधातू कलश व नारळ (Copper Kalash)</span>
+<span class="text-[11px] font-medium text-amber-800 bg-amber-50 px-1.5 py-0.2 rounded">32 Units (Reorder)</span>
+</div>
+<div class="w-full bg-surface-dim h-1.5 rounded-full overflow-hidden">
+<div class="bg-amber-500 h-1.5 rounded-full w-[26%]"></div>
+</div>
+</div>
+</div>
+<button class="w-full mt-5 py-2 rounded-lg border border-surface-border bg-surface hover:bg-surface-dim text-on-surface font-medium text-[12px] flex items-center justify-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[16px] text-primary">add_shopping_cart</span>
+<span>Raise Purchase Requisition</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Minimalist System Footer Strip -->
+<footer class="pt-4 pb-2 border-t border-surface-border flex flex-col sm:flex-row items-center justify-between gap-3 text-[11.5px] text-on-surface-subtle">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">shield</span>
+<span>Aaple Guruji Central Vedic Administration Node #01 (Pune, Maharashtra)</span>
+</div>
+<div class="flex items-center gap-4">
+<span>सर्व हक्क राखीव © २०२५ आपले गुरुजी प्रा. लि.</span>
+<span class="text-surface-border">•</span>
+<span class="text-emerald-700 font-mono">System Latency: 42ms (Zero Errors)</span>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

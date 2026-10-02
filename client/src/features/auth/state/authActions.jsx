@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getCurrentUser, loginAccount, logoutAccount, refreshSession, registerAccount } from "../api/authApi";
+import { setAccessToken } from "../../../config/api";
 
 const apiError = (error) => error.response?.data || { message: "Unable to complete your request. Please try again." };
 
@@ -7,7 +8,9 @@ export const registerUser = createAsyncThunk(
   "auth/register",
   async (credentials, { rejectWithValue }) => {
     try {
-      return await registerAccount(credentials);
+      const response = await registerAccount(credentials);
+      setAccessToken(response.data.accessToken);
+      return response;
     } catch (error) {
       return rejectWithValue(apiError(error));
     }
@@ -18,7 +21,9 @@ export const loginUser = createAsyncThunk(
   "auth/login",
   async (credentials, { rejectWithValue }) => {
     try {
-      return await loginAccount(credentials);
+      const response = await loginAccount(credentials);
+      setAccessToken(response.data.accessToken);
+      return response;
     } catch (error) {
       return rejectWithValue(apiError(error));
     }
@@ -32,8 +37,11 @@ export const hydrateUser = createAsyncThunk(
       return await getCurrentUser();
     } catch (error) {
       try {
-        return await refreshSession();
+        const response = await refreshSession();
+        setAccessToken(response.data.accessToken);
+        return response;
       } catch (refreshError) {
+        setAccessToken(null);
         return rejectWithValue(apiError(refreshError));
       }
     }
@@ -44,7 +52,9 @@ export const logoutUser = createAsyncThunk(
   "auth/logout",
   async (_, { rejectWithValue }) => {
     try {
-      return await logoutAccount();
+      const response = await logoutAccount();
+      setAccessToken(null);
+      return response;
     } catch (error) {
       return rejectWithValue(apiError(error));
     }
