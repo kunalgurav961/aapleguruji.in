@@ -354,14 +354,14 @@
                     </a>
 
 
-                    <a href="tel:9112212165"
+                    <a href="tel:+918888333430"
                        class="flex items-center gap-3 border border-deepMaroon/20 bg-white/70 px-7 py-4 rounded-full font-semibold hover:bg-white transition">
 
                         <i data-lucide="phone"
                            class="w-5 h-5 text-saffron">
                         </i>
 
-                        9112212165
+                        +91 8888333430
 
                     </a>
 
@@ -1040,12 +1040,12 @@
 
                 <div class="flex flex-wrap justify-center gap-4 mt-9">
 
-                    <a href="tel:9112212165"
+                    <a href="tel:+918888333430"
                        class="flex items-center gap-3 bg-white text-deepMaroon px-7 py-4 rounded-full font-bold">
 
                         <i data-lucide="phone"></i>
 
-                        9112212165
+                        +91 8888333430
 
                     </a>
 
@@ -1136,12 +1136,12 @@
 
                 <div class="space-y-4 text-white/60 text-sm">
 
-                    <a href="tel:9112212165"
+                    <a href="tel:+918888333430"
                        class="flex gap-3">
 
                         <i data-lucide="phone" class="w-4"></i>
 
-                        9112212165
+                        +91 8888333430
 
                     </a>
 

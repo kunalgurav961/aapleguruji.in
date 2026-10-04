@@ -176,6 +176,25 @@
   --color-register-bg: #f6f7ff;
   --color-register-input: #f0f3ff;
   --color-register-panel: #eef3ff;
+  --color-auth-peach: #ffede2;
+  --color-auth-rose: #ffdbd0;
+  --color-auth-amber: #d78900;
+
+  /* LANDING PAGE */
+  --landing-surface: #f8f9ff;
+  --landing-surface-low: #eff4ff;
+  --landing-surface-container: #e6eeff;
+  --landing-surface-high: #dee9fc;
+  --landing-ink: #121c2a;
+  --landing-muted: #584237;
+  --landing-outline: #8c7164;
+  --landing-line: #d9e3f6;
+  --color-home-bg: var(--landing-surface);
+  --color-home-alt: var(--landing-surface-low);
+  --color-home-ink: #172235;
+  --color-home-muted: #77685f;
+  --color-home-line: #e7eaf4;
+  --color-home-card: #ffffff;
 }
 
 /* =====================================

@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   ArrowRight,
   BadgeCheck,
@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { toast } from "react-toastify";
 import { bookPooja, fetchPoojaOptions } from "../../state/bookingActions";
+import { clearCreatedBooking } from "../../state/bookingSlice";
 
 const formatRupees = (amount) =>
   new Intl.NumberFormat("en-IN", {
@@ -282,6 +283,7 @@ const BookingSummary = ({ pooja, bookingDate, bookingTime, isSubmitting }) => (
 
 const BookingPage = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const {
@@ -293,7 +295,9 @@ const BookingPage = () => {
     submitError,
     createdBooking,
   } = useSelector((state) => state.booking);
-  const [selectedPujaId, setSelectedPujaId] = useState("");
+  const [selectedPujaId, setSelectedPujaId] = useState(
+    location.state?.poojaId || "",
+  );
   const [bookingDate, setBookingDate] = useState(
     savedBooking?.bookingDate || getLocalDate(),
   );
@@ -306,6 +310,40 @@ const BookingPage = () => {
       : savedBooking?.address?.fullAddress || "",
   );
   const [formError, setFormError] = useState("");
+  const [redirectCountdown, setRedirectCountdown] = useState(5);
+  const [isRedirectPaused, setIsRedirectPaused] = useState(false);
+
+  const goToBookings = useCallback(() => {
+    dispatch(clearCreatedBooking());
+    navigate("/home/my-bookings");
+  }, [dispatch, navigate]);
+
+  useEffect(() => {
+    if (!createdBooking) return undefined;
+
+    setRedirectCountdown(5);
+    setIsRedirectPaused(false);
+  }, [createdBooking]);
+
+  useEffect(() => {
+    if (!createdBooking || isRedirectPaused) return undefined;
+
+    if (redirectCountdown === 0) {
+      goToBookings();
+      return undefined;
+    }
+
+    const countdownTimer = window.setTimeout(() => {
+      setRedirectCountdown((seconds) => Math.max(seconds - 1, 0));
+    }, 1000);
+
+    return () => window.clearTimeout(countdownTimer);
+  }, [
+    createdBooking,
+    goToBookings,
+    isRedirectPaused,
+    redirectCountdown,
+  ]);
 
   useEffect(() => {
     if (poojaOptions.length === 0 && !isLoadingPoojas && !poojaError) {
@@ -319,15 +357,29 @@ const BookingPage = () => {
   );
 
   useEffect(() => {
-    if (!selectedPujaId && poojaOptions.length > 0) {
+    if (
+      poojaOptions.length > 0 &&
+      !poojaOptions.some((pooja) => pooja._id === selectedPujaId)
+    ) {
+      const requestedPooja = poojaOptions.find(
+        (pooja) => pooja._id === location.state?.poojaId,
+      );
       const savedPooja = poojaOptions.find(
         (pooja) =>
           pooja._id === savedBooking?.poojaId ||
           pooja._id === savedBooking?.puja,
       );
-      setSelectedPujaId(savedPooja?._id || poojaOptions[0]._id);
+      setSelectedPujaId(
+        requestedPooja?._id || savedPooja?._id || poojaOptions[0]._id,
+      );
     }
-  }, [poojaOptions, savedBooking?.poojaId, savedBooking?.puja, selectedPujaId]);
+  }, [
+    location.state?.poojaId,
+    poojaOptions,
+    savedBooking?.poojaId,
+    savedBooking?.puja,
+    selectedPujaId,
+  ]);
 
   const handleFormChange = (event) => {
     const { name, value } = event.target;
@@ -354,13 +406,12 @@ const BookingPage = () => {
     try {
       const response = await dispatch(
         bookPooja({
-        userId,
-        poojaId: selectedPooja._id,
-        bookingDate: toApiDate(bookingDate),
-        bookingTime: toApiTime(bookingTime),
-        paymentMethod: "COD",
-        paymentAmount: selectedPooja.basePrice,
-        address: { fullAddress: address.trim() },
+          poojaId: selectedPooja._id,
+          bookingDate: toApiDate(bookingDate),
+          bookingTime: toApiTime(bookingTime),
+          paymentMethod: "COD",
+          paymentAmount: selectedPooja.basePrice,
+          address: { fullAddress: address.trim() },
         }),
       ).unwrap();
       toast.success(response.message || "Booking created successfully");
@@ -426,13 +477,58 @@ const BookingPage = () => {
 
         {createdBooking && (
           <div
-            className="mb-5 rounded-xl border border-[var(--color-success)] bg-[var(--color-success-light)] p-4 text-sm text-[var(--color-success)]"
-            role="status"
+            className="fixed inset-0 z-[120] grid place-items-center bg-slate-950/50 p-4 backdrop-blur-sm"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="booking-created-title"
+            aria-describedby="booking-created-description"
           >
-            <p className="font-bold">बुकिंग यशस्वीरित्या नोंदवली!</p>
-            <p className="mt-1">
-              बुकिंग क्रमांक: {createdBooking.bookingNumber || createdBooking._id}
-            </p>
+            <div
+              className="w-full max-w-md rounded-2xl border border-[var(--color-booking-border)] bg-[var(--color-booking-panel)] p-6 text-center shadow-2xl sm:p-8"
+              onMouseEnter={() => setIsRedirectPaused(true)}
+              onMouseLeave={() => setIsRedirectPaused(false)}
+            >
+              <span className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[var(--color-success-light)] text-[var(--color-success)]">
+                <BadgeCheck aria-hidden="true" size={30} />
+              </span>
+              <h2
+                className="text-xl font-bold text-[var(--color-booking-ink)] sm:text-2xl"
+                id="booking-created-title"
+              >
+                बुकिंग यशस्वीरित्या नोंदवली!
+              </h2>
+              <p
+                className="mt-2 text-sm leading-6 text-[var(--color-booking-muted-ink)]"
+                id="booking-created-description"
+              >
+                बुकिंग क्रमांक:{" "}
+                <strong className="text-[var(--color-booking-ink)]">
+                  {createdBooking.bookingNumber || createdBooking._id}
+                </strong>
+                <br />
+                Your booking has reached us. You will receive a phone call
+                from our team for the next steps.
+                <br />
+                For assistance, call{" "}
+                <a
+                  className="font-bold text-[var(--color-primary-dark)] underline"
+                  href="tel:+918888333430"
+                >
+                  +91 8888333430
+                </a>
+                .
+              </p>
+              <button
+                className="mt-6 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-[var(--color-primary)] px-5 py-3 text-sm font-bold text-white shadow-md transition hover:bg-[var(--color-primary-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)]"
+                onClick={goToBookings}
+                type="button"
+              >
+                बुकिंग पहा <ArrowRight aria-hidden="true" size={17} />
+              </button>
+              <p className="mt-3 text-xs text-[var(--color-booking-muted-ink)]">
+                {redirectCountdown} सेकंदांत आपोआप तुमच्या बुकिंग पृष्ठावर जाल.
+              </p>
+            </div>
           </div>
         )}
 

@@ -1,0 +1,632 @@
+.pooja-shop {
+  min-height: 70vh;
+  color: var(--color-text-primary);
+  background: var(--color-background);
+  font-family: var(--font-body);
+}
+
+.pooja-shop-container {
+  width: min(100% - 48px, var(--container-width));
+  margin-inline: auto;
+}
+
+.pooja-shop-hero {
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 80% 25%, color-mix(in srgb, var(--color-divine-gold) 16%, transparent), transparent 34%),
+    linear-gradient(115deg, var(--color-surface-white), var(--color-surface-soft));
+}
+
+.pooja-shop-hero-inner {
+  display: grid;
+  min-height: 360px;
+  grid-template-columns: minmax(0, 1.2fr) minmax(230px, 0.8fr);
+  align-items: center;
+  gap: clamp(28px, 7vw, 84px);
+  padding-block: clamp(48px, 7vw, 76px);
+}
+
+.pooja-shop-hero-inner > div:first-child {
+  max-width: 660px;
+}
+
+.pooja-shop-hero h1 {
+  color: var(--color-text-primary);
+  font-size: clamp(36px, 4.6vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+}
+
+.pooja-shop-hero-inner > div:first-child > p:not(.public-eyebrow) {
+  max-width: 570px;
+  margin: 16px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.pooja-shop-hero .public-button {
+  margin-top: 22px;
+}
+
+.pooja-shop-hero-art {
+  position: relative;
+  display: grid;
+  min-height: 245px;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--color-border-warm);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(145deg, var(--color-surface-white), var(--color-surface-beige));
+  box-shadow: var(--shadow-hover);
+}
+
+.pooja-shop-aura {
+  position: absolute;
+  width: 176px;
+  height: 176px;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 30%, transparent);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 20px color-mix(in srgb, var(--color-divine-gold) 7%, transparent),
+    0 0 0 42px color-mix(in srgb, var(--color-primary) 5%, transparent);
+}
+
+.pooja-shop-lamp {
+  display: grid;
+  width: 108px;
+  height: 108px;
+  place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-divine-gold) 18%, var(--color-surface-white));
+  font-size: 58px;
+}
+
+.pooja-shop-art-note {
+  position: absolute;
+  right: 12px;
+  bottom: 14px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--color-temple-brown);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.pooja-shop-content {
+  padding-block: clamp(42px, 6vw, 72px);
+}
+
+.pooja-shop-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 26px;
+}
+
+.pooja-shop-heading h2 {
+  color: var(--color-temple-brown);
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.pooja-shop-heading > div > p:last-child {
+  max-width: 700px;
+  margin: 10px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.pooja-shop-count {
+  flex: none;
+  padding: 8px 13px;
+  border: 1px solid var(--color-border-warm);
+  border-radius: var(--radius-full);
+  color: var(--color-secondary);
+  background: var(--color-surface-white);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.pooja-shop-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.pooja-shop-search,
+.pooja-shop-select {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 9px;
+  padding: 0 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-text-muted);
+  background: var(--color-surface-white);
+}
+
+.pooja-shop-search {
+  min-width: min(100%, 300px);
+  flex: 1;
+}
+
+.pooja-shop-search:focus-within,
+.pooja-shop-select:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 14%, transparent);
+}
+
+.pooja-shop-search input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  color: var(--color-text-primary);
+  background: transparent;
+  font: 13px var(--font-body);
+}
+
+.pooja-shop-search input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.pooja-shop-select select {
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  color: var(--color-text-secondary);
+  background: transparent;
+  font: 600 12px var(--font-body);
+  cursor: pointer;
+}
+
+.pooja-shop-price {
+  gap: 6px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.pooja-shop-layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  align-items: start;
+  gap: 24px;
+}
+
+.pooja-shop-sidebar {
+  position: sticky;
+  top: calc(var(--site-navigation-height, 100px) + 18px);
+  padding: 18px;
+  border: 1px solid var(--color-border-warm);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-white);
+  box-shadow: var(--shadow-card);
+}
+
+.pooja-shop-sidebar h3 {
+  margin: 0 0 12px;
+  color: var(--color-temple-brown);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.pooja-shop-sidebar > div:first-of-type {
+  display: grid;
+  gap: 3px;
+}
+
+.pooja-shop-category {
+  display: flex;
+  min-height: 39px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 9px;
+  border: 0;
+  border-radius: var(--radius);
+  color: var(--color-text-secondary);
+  background: transparent;
+  font: 600 11px var(--font-body);
+  text-align: left;
+  cursor: pointer;
+}
+
+.pooja-shop-category:hover,
+.pooja-shop-category.is-active {
+  color: var(--color-primary-dark);
+  background: var(--color-surface-soft);
+}
+
+.pooja-shop-category.is-active {
+  font-weight: 700;
+}
+
+.pooja-shop-category > span:last-child:not(:first-child) {
+  color: var(--color-text-muted);
+  font-size: 10px;
+}
+
+.pooja-shop-assurance {
+  display: grid;
+  gap: 7px;
+  margin-top: 18px;
+  padding: 13px;
+  border-radius: var(--radius);
+  color: var(--color-primary-dark);
+  background: var(--color-surface-soft);
+}
+
+.pooja-shop-assurance strong {
+  font-size: 11px;
+}
+
+.pooja-shop-assurance p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.pooja-shop-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.pooja-product-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--color-border-warm);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-white);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 180ms ease, transform 180ms ease;
+}
+
+.pooja-product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.pooja-product-media {
+  position: relative;
+  display: grid;
+  height: 176px;
+  flex: none;
+  place-items: center;
+  overflow: hidden;
+  background: linear-gradient(145deg, var(--color-surface-soft), var(--color-surface-beige));
+}
+
+.pooja-product-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 220ms ease;
+}
+
+.pooja-product-card:hover .pooja-product-media img {
+  transform: scale(1.035);
+}
+
+.pooja-product-placeholder {
+  display: grid;
+  width: 88px;
+  height: 88px;
+  place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-divine-gold) 18%, var(--color-surface-white));
+  font-size: 44px;
+}
+
+.pooja-product-category {
+  position: absolute;
+  top: 11px;
+  left: 11px;
+  max-width: calc(100% - 22px);
+  overflow: hidden;
+  padding: 6px 9px;
+  border: 1px solid color-mix(in srgb, var(--color-border-warm) 75%, transparent);
+  border-radius: var(--radius-full);
+  color: var(--color-temple-brown);
+  background: rgb(255 255 255 / 94%);
+  font-size: 9px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pooja-product-details {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.pooja-product-eyebrow {
+  margin: 0;
+  color: var(--color-secondary);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.pooja-product-details h3 {
+  display: -webkit-box;
+  overflow: hidden;
+  margin-top: 5px;
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.pooja-product-description {
+  display: -webkit-box;
+  overflow: hidden;
+  min-height: 60px;
+  margin: 8px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 11px;
+  line-height: 1.65;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.pooja-product-meta {
+  display: flex;
+  min-height: 22px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px 12px;
+  margin-top: 10px;
+  color: var(--color-text-muted);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.pooja-product-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.pooja-product-meta svg {
+  color: var(--color-secondary);
+}
+
+.pooja-product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border-warm);
+}
+
+.pooja-product-footer > div {
+  display: grid;
+  gap: 2px;
+}
+
+.pooja-product-footer > div > span {
+  color: var(--color-text-muted);
+  font-size: 9px;
+}
+
+.pooja-product-footer > div > strong {
+  color: var(--color-temple-brown);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.pooja-product-button {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: var(--radius);
+  color: var(--color-surface-white);
+  background: var(--color-primary);
+  font: 700 10px var(--font-body);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.pooja-product-button:hover {
+  background: var(--color-primary-hover);
+}
+
+.pooja-shop-message {
+  margin: 0;
+  padding: 36px 18px;
+  border: 1px solid var(--color-border-warm);
+  border-radius: var(--radius-lg);
+  color: var(--color-text-secondary);
+  background: var(--color-surface-white);
+  font-size: 13px;
+  text-align: center;
+}
+
+.pooja-shop-error {
+  color: var(--color-error);
+}
+
+.pooja-shop-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  margin-top: 34px;
+  padding: 20px;
+  border: 1px solid var(--color-border-warm);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-white);
+}
+
+.pooja-shop-bottom p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+}
+
+.pooja-shop-bottom a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-primary-dark);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.pooja-shop-bottom a:hover {
+  color: var(--color-primary-hover);
+}
+
+@media (max-width: 1050px) {
+  .pooja-shop-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .pooja-shop-container {
+    width: min(100% - 32px, var(--container-width));
+  }
+
+  .pooja-shop-hero-inner {
+    min-height: auto;
+    grid-template-columns: minmax(0, 1fr) 220px;
+    gap: 20px;
+  }
+
+  .pooja-shop-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .pooja-shop-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .pooja-shop-sidebar {
+    position: static;
+    padding: 14px;
+  }
+
+  .pooja-shop-sidebar > div:first-of-type {
+    display: flex;
+    overflow-x: auto;
+    gap: 6px;
+    padding-bottom: 2px;
+  }
+
+  .pooja-shop-category {
+    flex: none;
+    border: 1px solid var(--color-border-warm);
+    border-radius: var(--radius-full);
+  }
+
+  .pooja-shop-category.is-active {
+    border-color: var(--color-primary);
+  }
+
+  .pooja-shop-assurance {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .pooja-shop-hero-inner {
+    grid-template-columns: minmax(0, 1fr);
+    padding-block: 42px;
+  }
+
+  .pooja-shop-hero h1 {
+    font-size: 38px;
+  }
+
+  .pooja-shop-hero-inner > div:first-child > p:not(.public-eyebrow) {
+    font-size: 14px;
+  }
+
+  .pooja-shop-hero-art {
+    min-height: 190px;
+  }
+
+  .pooja-shop-toolbar {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pooja-shop-search {
+    grid-column: 1 / -1;
+  }
+
+  .pooja-shop-select {
+    justify-content: center;
+  }
+
+  .pooja-shop-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pooja-product-card {
+    display: grid;
+    grid-template-columns: 35% minmax(0, 1fr);
+  }
+
+  .pooja-product-media {
+    height: 100%;
+    min-height: 215px;
+  }
+
+  .pooja-product-details {
+    padding: 13px;
+  }
+
+  .pooja-product-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .pooja-product-button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pooja-shop *,
+  .pooja-shop *::before,
+  .pooja-shop *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

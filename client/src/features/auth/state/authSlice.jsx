@@ -1,5 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { hydrateUser, loginUser, logoutUser, registerUser } from "./authActions";
+import {
+  hydrateUser,
+  loginUser,
+  logoutUser,
+  registerUser,
+  updateUserProfile,
+} from "./authActions";
 
 const authSlice = createSlice({
   name: "auth",
@@ -60,6 +66,9 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.isHydrating = false;
         state.user = null;
+      })
+      .addCase(updateUserProfile.fulfilled, (state, action) => {
+        state.user = action.payload.data.user;
       })
       .addCase(logoutUser.pending, (state) => {
         state.isLoading = true;

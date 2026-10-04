@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { bookPooja, fetchPoojaOptions } from "./bookingActions";
+import {
+  bookPooja,
+  fetchMyBookings,
+  fetchPoojaOptions,
+} from "./bookingActions";
 
 const bookingSlice = createSlice({
   name: "booking",
@@ -11,10 +15,16 @@ const bookingSlice = createSlice({
     isSubmitting: false,
     submitError: null,
     createdBooking: null,
+    myBookings: [],
+    isLoadingMyBookings: false,
+    myBookingsError: null,
   },
   reducers: {
     addBooking: (state, action) => {
       state.booking = action.payload;
+    },
+    clearCreatedBooking: (state) => {
+      state.createdBooking = null;
     },
   },
   extraReducers: (builder) => {
@@ -43,9 +53,21 @@ const bookingSlice = createSlice({
       .addCase(bookPooja.rejected, (state, action) => {
         state.isSubmitting = false;
         state.submitError = action.payload || action.error.message;
+      })
+      .addCase(fetchMyBookings.pending, (state) => {
+        state.isLoadingMyBookings = true;
+        state.myBookingsError = null;
+      })
+      .addCase(fetchMyBookings.fulfilled, (state, action) => {
+        state.isLoadingMyBookings = false;
+        state.myBookings = action.payload;
+      })
+      .addCase(fetchMyBookings.rejected, (state, action) => {
+        state.isLoadingMyBookings = false;
+        state.myBookingsError = action.payload || action.error.message;
       });
   },
 });
 
-export const { addBooking } = bookingSlice.actions;
+export const { addBooking, clearCreatedBooking } = bookingSlice.actions;
 export default bookingSlice.reducer;

@@ -1,9 +1,13 @@
 import LoginPage from "../features/auth/ui/pages/LoginPage";
 import RegisterPage from "../features/auth/ui/pages/RegisterPage";
+import ProfilePage from "../features/auth/ui/pages/ProfilePage";
 import AboutPage from "../features/public/ui/pages/AboutPage";
+import BlogPage from "../features/public/ui/pages/BlogPage";
+import BookPujaPage from "../features/public/ui/pages/BookPujaPage";
 import Home from "../features/public/ui/pages/Home";
 import PoojaPage from "../features/public/ui/pages/PoojaPage";
 import BookingPage from "../features/booking/ui/pages/BookingPage";
+import MyBookingsPage from "../features/booking/ui/pages/MyBookingsPage";
 import AdminDashboard from "../features/admin/ui/pages/AdminDashboard";
 
 const public_navigations = [
@@ -15,10 +19,14 @@ const public_navigations = [
     path: "/about",
     element: <AboutPage />,
   },
+  {
+    path: "/book-pooja",
+    element: <BookPujaPage />,
+  },
   { path: "/pooja", element: <PoojaPage /> },
   {
     path: "/blogs",
-    element: <div><h1>Blogs</h1></div>,
+    element: <BlogPage />,
   },
   {
     path: "/bookings",
@@ -26,7 +34,7 @@ const public_navigations = [
   },
   {
     path: "/blog",
-    element: <div><h1>Blog page</h1></div>,
+    element: <BlogPage />,
   },
   {
     path: "/login",
@@ -48,7 +56,7 @@ const user_navigations = [
   },
   {
     path: "/home/my-bookings",
-    element: <div><h1>My Bookings</h1></div>,
+    element: <MyBookingsPage />,
   },
   {
     path: "/home/past-bookings",
@@ -60,7 +68,7 @@ const user_navigations = [
   },
   {
     path: "/home/profile",
-    element: <div><h1>My Profile</h1></div>,
+    element: <ProfilePage />,
   },
 ];
 const pandit_navigations = [
@@ -78,7 +86,7 @@ const pandit_navigations = [
   },
   {
     path: "/pandit/profile",
-    element: <div><h1>Pandit Profile</h1></div>,
+    element: <ProfilePage />,
   },
 ];
 const admin_navigations = [
@@ -99,8 +107,20 @@ const admin_navigations = [
     element: <AdminDashboard />,
   },
   {
+    path: "/admin/pandits",
+    element: <AdminDashboard />,
+  },
+  {
+    path: "/admin/reviews",
+    element: <AdminDashboard />,
+  },
+  {
+    path: "/admin/blogs",
+    element: <AdminDashboard />,
+  },
+  {
     path: "/admin/profile",
-    element: <div><h1>Admin Profile</h1></div>,
+    element: <ProfilePage />,
   },
 ];
 

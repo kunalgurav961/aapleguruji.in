@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { LogOut, Menu, UserCircle, X } from "lucide-react";
 import { toast } from "react-toastify";
 import { logoutUser } from "../../../features/auth/state/authActions";
 import logo from "../../../assets/images/logo.png";
+import "./Navbar.css";
+
+const landingNavItems = [
+  { path: "/", name: "Home" },
+  { path: "/pooja", name: "Puja Services" },
+  { path: "/book-pooja", name: "Book a Puja" },
+  { path: "/blogs", name: "Blog" },
+  { path: "/about", name: "About" },
+];
 
 const linksByRole = {
   devotee: [
@@ -21,6 +30,7 @@ const linksByRole = {
     { path: "/admin", name: "Dashboard" },
     { path: "/admin/users", name: "Users" },
     { path: "/admin/services", name: "Services" },
+    { path: "/admin/reviews", name: "Reviews" },
     { path: "/admin/bookings", name: "Bookings" },
   ],
 };
@@ -41,18 +51,18 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const { isAuthenticated, isLoading, user } = useSelector(
     (store) => store.auth,
   );
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
+
   const role = user?.role;
   const navItems = isAuthenticated
     ? linksByRole[role] || []
-    : [
-        { path: "/", name: "Home" },
-        { path: "/about", name: "About" },
-        { path: "/pooja", name: "Pooja" },
-        { path: "/blogs", name: "Blogs" },
-      ];
+    : landingNavItems;
   const profilePath = profilePathByRole[role];
   const homePath = dashboardPathByRole[role] || "/";
 
@@ -68,31 +78,26 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-[var(--color-border-warm)] bg-[var(--color-background)]/95 backdrop-blur-md">
-      <div className="flex h-16 items-center justify-between px-4 sm:h-20 sm:px-6 lg:px-8">
-        {/* Logo */}
-        <NavLink to={homePath} className="flex items-center">
-          <img
-            src={logo}
-            alt="Aaple Guruji"
-            className="h-11 w-auto object-contain sm:h-14"
-          />
+    <header className="site-navigation">
+      <div className="site-promo-bar">
+        <span>
+          🕉️ Verified Vedic Pandits · Authentic rituals · Serving families
+          across Maharashtra
+        </span>
+        <a href="tel:+918888333430">Call Support: +91 8888333430</a>
+      </div>
+      <nav aria-label="Main navigation" className="site-navigation-row">
+        <NavLink to={homePath} aria-label="Aaple Guruji home" className="site-navigation-logo">
+          <img src={logo} alt="Aaple Guruji" />
         </NavLink>
 
-        {/* Navigation */}
-        <div className="hidden items-center gap-1 lg:gap-2 md:flex">
+        <div className="site-navigation-links">
           {navItems.map((item) => (
             <NavLink
               key={item.name}
               to={item.path}
               className={({ isActive }) =>
-                `rounded-[var(--radius-xl)] px-3 py-2 text-sm font-semibold lg:px-6 lg:py-3 lg:text-base
-        transition-all duration-200
-        ${
-          isActive
-            ? "bg-[var(--color-primary)] text-white"
-            : "text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-soft)] hover:text-[var(--color-primary)]"
-        }`
+                `site-navigation-link${isActive ? " is-active" : ""}`
               }
               end
             >
@@ -100,14 +105,11 @@ const Navbar = () => {
             </NavLink>
           ))}
         </div>
-        {/* Account actions */}
-        <div className="hidden items-center gap-2 lg:gap-3 md:flex">
+
+        <div className="site-navigation-actions">
           {isAuthenticated ? (
             <>
-              <NavLink
-                to={profilePath}
-                className="inline-flex items-center gap-2 rounded-[var(--radius)] px-3 py-2.5 text-sm font-semibold text-[var(--color-temple-brown)] transition hover:bg-[var(--color-surface-soft)]"
-              >
+              <NavLink to={profilePath} className="site-navigation-profile">
                 <UserCircle size={18} />
                 {user?.fullName?.split(" ")[0] || "Profile"}
               </NavLink>
@@ -115,55 +117,45 @@ const Navbar = () => {
                 type="button"
                 onClick={handleLogout}
                 disabled={isLoading}
-                className="inline-flex items-center gap-2 rounded-[var(--radius)] bg-[var(--color-primary)] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[var(--color-primary-hover)] disabled:opacity-60"
+                className="site-navigation-primary"
               >
                 <LogOut size={17} /> Logout
               </button>
             </>
           ) : (
             <>
-              <NavLink
-                to="/login"
-                className="rounded-[var(--radius)] px-4 py-2.5 text-sm font-semibold text-[var(--color-temple-brown)] transition hover:bg-[var(--color-surface-soft)]"
-              >
-                Login
+              <NavLink to="/login" className="site-navigation-profile">
+                Sign In
               </NavLink>
-              <NavLink
-                to="/register"
-                className="rounded-[var(--radius)] bg-[var(--color-primary)] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-[var(--color-primary-hover)] hover:shadow-[var(--shadow-hover)]"
-              >
-                Register
+              <NavLink to="/register" className="site-navigation-primary">
+                <UserCircle aria-hidden="true" size={17} />
+                Create Account
               </NavLink>
             </>
           )}
         </div>
 
-        {/* Mobile Menu */}
         <button
           type="button"
-          className="rounded-[var(--radius)] p-2 text-[var(--color-temple-brown)] hover:bg-[var(--color-surface-soft)] md:hidden"
+          className="site-navigation-toggle"
           aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           aria-expanded={isMobileMenuOpen}
           onClick={() => setIsMobileMenuOpen((isOpen) => !isOpen)}
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
-      </div>
+      </nav>
 
       {isMobileMenuOpen && (
-        <div className="border-t border-[var(--color-border-warm)] bg-[var(--color-background)] px-4 py-4 md:hidden">
-          <div className="flex flex-col gap-1">
+        <div className="site-navigation-mobile">
+          <div className="site-navigation-mobile__links">
             {navItems.map((item) => (
               <NavLink
                 key={item.path}
                 to={item.path}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={({ isActive }) =>
-                  `rounded-[var(--radius)] px-4 py-3 text-base font-semibold ${
-                    isActive
-                      ? "bg-[var(--color-primary)] text-white"
-                      : "text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-soft)]"
-                  }`
+                  `site-navigation-mobile__link${isActive ? " is-active" : ""}`
                 }
                 end
               >
@@ -171,13 +163,13 @@ const Navbar = () => {
               </NavLink>
             ))}
 
-            <div className="mt-3 flex gap-2 border-t border-[var(--color-border-warm)] pt-3">
+            <div className="site-navigation-mobile__actions">
               {isAuthenticated ? (
                 <>
                   <NavLink
                     to={profilePath}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex-1 rounded-[var(--radius)] px-4 py-3 text-center text-sm font-semibold text-[var(--color-temple-brown)] hover:bg-[var(--color-surface-soft)]"
+                    className="site-navigation-profile"
                   >
                     Profile
                   </NavLink>
@@ -185,7 +177,7 @@ const Navbar = () => {
                     type="button"
                     onClick={handleLogout}
                     disabled={isLoading}
-                    className="flex-1 rounded-[var(--radius)] bg-[var(--color-primary)] px-4 py-3 text-center text-sm font-semibold text-white disabled:opacity-60"
+                    className="site-navigation-primary"
                   >
                     Logout
                   </button>
@@ -195,16 +187,16 @@ const Navbar = () => {
                   <NavLink
                     to="/login"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex-1 rounded-[var(--radius)] px-4 py-3 text-center text-sm font-semibold text-[var(--color-temple-brown)] hover:bg-[var(--color-surface-soft)]"
+                    className="site-navigation-profile"
                   >
-                    Login
+                    Sign In
                   </NavLink>
                   <NavLink
                     to="/register"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex-1 rounded-[var(--radius)] bg-[var(--color-primary)] px-4 py-3 text-center text-sm font-semibold text-white"
+                    className="site-navigation-primary"
                   >
-                    Register
+                    Create Account
                   </NavLink>
                 </>
               )}
@@ -212,7 +204,7 @@ const Navbar = () => {
           </div>
         </div>
       )}
-    </nav>
+    </header>
   );
 };
 

@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { createAdminPooja } from "../../state/adminActions";
 
 const initialForm = {
   name: "",
+  category: "",
   basePrice: "",
   duration: "",
   description: "",
+  images: [],
 };
 
 const AdminPoojas = ({ poojas }) => {
@@ -17,10 +19,38 @@ const AdminPoojas = ({ poojas }) => {
   );
   const [form, setForm] = useState(initialForm);
   const [formError, setFormError] = useState("");
+  const fileInputRef = useRef(null);
+  const [imagePreviews, setImagePreviews] = useState([]);
+
+  useEffect(() => {
+    const previews = form.images.map((file) => URL.createObjectURL(file));
+    setImagePreviews(previews);
+    return () => previews.forEach((preview) => URL.revokeObjectURL(preview));
+  }, [form.images]);
 
   const handleChange = (event) => {
     setFormError("");
-    setForm({ ...form, [event.target.name]: event.target.value });
+    const { name, value, files } = event.target;
+    const selectedImages = Array.from(files || []);
+    if (
+      name === "images" &&
+      (selectedImages.length > 5 ||
+        selectedImages.some(
+          (image) =>
+            image.size > 5 * 1024 * 1024 ||
+            !["image/jpeg", "image/png", "image/webp"].includes(image.type),
+        ))
+    ) {
+      setFormError(
+        "Choose up to 5 JPG, PNG, or WebP images, each no larger than 5 MB.",
+      );
+      event.target.value = "";
+      return;
+    }
+    setForm({
+      ...form,
+      [name]: name === "images" ? selectedImages : value,
+    });
   };
 
   const handleSubmit = async (event) => {
@@ -28,14 +58,19 @@ const AdminPoojas = ({ poojas }) => {
     setFormError("");
 
     try {
+      const formData = new FormData();
+      formData.append("name", form.name);
+      formData.append("category", form.category);
+      formData.append("basePrice", form.basePrice);
+      formData.append("duration", form.duration);
+      formData.append("description", form.description);
+      form.images.forEach((image) => formData.append("images", image));
+
       const response = await dispatch(
-        createAdminPooja({
-          ...form,
-          basePrice: Number(form.basePrice),
-          duration: form.duration ? Number(form.duration) : undefined,
-        }),
+        createAdminPooja(formData),
       ).unwrap();
       setForm(initialForm);
+      if (fileInputRef.current) fileInputRef.current.value = "";
       toast.success(response.message);
     } catch (error) {
       setFormError(
@@ -80,6 +115,22 @@ const AdminPoojas = ({ poojas }) => {
             />
           </label>
           <label className="block text-sm font-semibold text-[var(--color-booking-ink)]">
+            Category
+            <select
+              className="booking-input mt-2"
+              name="category"
+              onChange={handleChange}
+              value={form.category}
+            >
+              <option value="">Choose a category</option>
+              <option>Griha &amp; Vastu</option>
+              <option>Festivals &amp; Vrat</option>
+              <option>Havans &amp; Yagnas</option>
+              <option>Naming &amp; Sanskars</option>
+              <option>Ancestral (Shraadh)</option>
+            </select>
+          </label>
+          <label className="block text-sm font-semibold text-[var(--color-booking-ink)]">
             Duration (minutes)
             <input
               className="booking-input mt-2"
@@ -103,6 +154,33 @@ const AdminPoojas = ({ poojas }) => {
               value={form.description}
             />
           </label>
+          <label className="block text-sm font-semibold text-[var(--color-booking-ink)]">
+            Puja images
+            <input
+              accept="image/jpeg,image/png,image/webp"
+              className="booking-input mt-2 cursor-pointer file:mr-3 file:rounded-md file:border-0 file:bg-[var(--color-booking-muted)] file:px-3 file:py-2 file:text-sm file:font-semibold file:text-[var(--color-booking-ink)]"
+              multiple
+              name="images"
+              onChange={handleChange}
+              ref={fileInputRef}
+              type="file"
+            />
+            <span className="mt-1 block text-xs font-normal text-[var(--color-booking-muted-ink)]">
+              Up to 5 JPG, PNG, or WebP images, maximum 5 MB each.
+            </span>
+          </label>
+          {imagePreviews.length > 0 && (
+            <div className="grid grid-cols-3 gap-2">
+              {imagePreviews.map((preview, index) => (
+                <img
+                  alt={`Selected puja image ${index + 1}`}
+                  className="h-20 w-full rounded-lg object-cover"
+                  key={preview}
+                  src={preview}
+                />
+              ))}
+            </div>
+          )}
           {(formError || createPoojaError) && (
             <p
               className="rounded-lg bg-[var(--color-error-light)] p-3 text-sm text-[var(--color-error)]"
@@ -151,13 +229,22 @@ const AdminPoojas = ({ poojas }) => {
                     </p>
                   )}
                 </div>
-                <span className="shrink-0 font-bold text-[var(--color-primary-dark)]">
-                  {new Intl.NumberFormat("en-IN", {
-                    style: "currency",
-                    currency: "INR",
-                    maximumFractionDigits: 0,
-                  }).format(pooja.basePrice)}
-                </span>
+                <div className="flex shrink-0 items-center gap-3">
+                  {pooja.images?.[0] && (
+                    <img
+                      alt={`${pooja.name} puja`}
+                      className="h-12 w-16 rounded-md object-cover"
+                      src={pooja.images[0]}
+                    />
+                  )}
+                  <span className="font-bold text-[var(--color-primary-dark)]">
+                    {new Intl.NumberFormat("en-IN", {
+                      style: "currency",
+                      currency: "INR",
+                      maximumFractionDigits: 0,
+                    }).format(pooja.basePrice)}
+                  </span>
+                </div>
               </li>
             ))}
           </ul>

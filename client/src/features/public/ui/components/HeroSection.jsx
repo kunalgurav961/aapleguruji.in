@@ -7,223 +7,280 @@ import {
   MapPin,
   Star,
   Utensils,
+  BadgeCheck,
 } from "lucide-react";
-import { useHomeHook } from "../../hooks/useHomeHook";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addBooking } from "../../../booking/state/bookingSlice";
 
-const HeroSection = () => {
-  const { handleSubmit, handleBook, register } = useHomeHook();
+const getLocalDate = () => {
+  const now = new Date();
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+};
+
+const HeroSection = ({ poojas, poojaState }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const [selectedPooja, setSelectedPooja] = useState("");
+  const [city, setCity] = useState("Pune & PCMC");
+  const [language, setLanguage] = useState("Marathi");
+  const [date, setDate] = useState(getLocalDate);
+  const [includeSamagri, setIncludeSamagri] = useState(true);
+  const [isPreparingBooking, setIsPreparingBooking] = useState(false);
+
+  useEffect(() => {
+    if (!isPreparingBooking) return undefined;
+
+    const transitionTimer = window.setTimeout(() => {
+      navigate("/book-pooja", {
+        state: {
+          poojaId: selectedPooja,
+          booking: { bookingDate: date, city, language, includeSamagri },
+        },
+      });
+    }, 1600);
+
+    return () => window.clearTimeout(transitionTimer);
+  }, [
+    city,
+    date,
+    includeSamagri,
+    isPreparingBooking,
+    language,
+    navigate,
+    selectedPooja,
+  ]);
+
+  useEffect(() => {
+    if (!selectedPooja && poojas.length > 0) {
+      setSelectedPooja(poojas[0]._id);
+    }
+  }, [poojas, selectedPooja]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(
+      addBooking({
+        puja: selectedPooja,
+        bookingDate: date,
+        city,
+        language,
+        includeSamagri,
+      }),
+    );
+    if (isAuthenticated) {
+      navigate("/home/book-pooja", { state: { poojaId: selectedPooja } });
+      return;
+    }
+
+    setIsPreparingBooking(true);
+  };
+
   return (
-    <section
-      id="home"
-      className="hero-gradient relative isolate overflow-hidden font-sans pt-24 sm:pt-28"
-    >
-      <div className="pointer-events-none absolute left-1/2 top-[-280px] h-[620px] w-[820px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_50%_72%,rgba(255,220,207,.9),rgba(255,236,229,.5)_48%,transparent_74%)] blur-2xl" />
-
-      <div className="w-full px-8 sm:px-5">
-        <div className="grid lg:p-20 md:p-5 sm:p-2 w-full min-h-[calc(100vh-112px)] items-center gap-10 lg:grid-cols-[1.08fr_.92fr] lg:gap-12 lg:py-0">
-          <div className="relative z-10">
-            <div className="glass mb-7 inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[.08em] text-deepMaroon sm:text-sm">
-              <span className="text-base">🪔</span>
-              <span>
-                Maharashtra&apos;s most trusted spiritual platform • 50,000+
-                blessings
-              </span>
-            </div>
-
-            <h1 className="max-w-3xl font-[var(--font-heading)] text-5xl font-bold leading-[1.08] tracking-[-.02em] text-dark sm:text-6xl lg:text-[clamp(3.8rem,5.2vw,5.3rem)]">
-              Bring Divine Blessings to Your Home with
-              <span className="text-gradient block italic">
-                Trusted Vedic Pandits
-              </span>
-            </h1>
-
-            <p className="mt-7 max-w-2xl text-lg leading-8 text-[#604d45] sm:text-xl">
-              Experience authentic Vedic ceremonies performed by
-              background-verified, pathshala-trained Gurujis. Complete, 100%
-              consecrated samagri kits delivered fresh to your doorstep.
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-4">
-              <button
-                type="button"
-                onClick={() => handleBook()}
-                className="group inline-flex items-center gap-3 rounded-lg bg-saffron px-7 py-4 font-semibold text-white shadow-lg shadow-orange-200 transition hover:bg-maroon"
-              >
-                Book a Puja
-                <ArrowRight className="h-5 w-5 transition group-hover:translate-x-1" />
-              </button>
-              <a
-                href="#services"
-                className="inline-flex items-center gap-3 rounded-lg bg-[#e7edff] px-7 py-4 font-semibold text-deepMaroon transition hover:bg-[#dbe5ff]"
-              >
-                <Utensils className="h-5 w-5" />
-                Explore Services
-              </a>
-            </div>
-
-            <div className="mt-9 grid max-w-3xl gap-3 sm:grid-cols-3">
-              <div className="rounded-lg bg-[#edf2ff] px-4 py-3 text-sm text-[#25324b]">
-                <div className="flex items-center gap-2 font-semibold">
-                  <span className="text-xl text-[#e49a00]">✥</span> 100%
-                  Certified
-                </div>
-                <p className="pl-7 text-xs text-[#59647a]">Vedic Gurujis</p>
-              </div>
-              <div className="rounded-lg bg-[#edf2ff] px-4 py-3 text-sm text-[#25324b]">
-                <div className="flex items-center gap-2 font-semibold">
-                  <Star className="h-5 w-5 fill-[#e49a00] text-[#e49a00]" /> 4.9
-                  / 5 Rating
-                </div>
-                <p className="pl-7 text-xs text-[#59647a]">12,400+ Families</p>
-              </div>
-              <div className="rounded-lg bg-[#edf2ff] px-4 py-3 text-sm text-[#25324b]">
-                <div className="flex items-center gap-2 font-semibold">
-                  <Utensils className="h-5 w-5 text-[#b95018]" /> Pure Samagri
-                </div>
-                <p className="pl-7 text-xs text-[#59647a]">100% Kit Included</p>
-              </div>
-            </div>
+    <section className="landing-hero" id="home">
+      <div className="hero-aura hero-aura-one" />
+      <div className="hero-aura hero-aura-two" />
+      <div className="home-container hero-layout">
+        <div className="hero-copy">
+          <span className="hero-trust-pill">
+            <span aria-hidden="true">🕉️</span>
+            Maharashtra&apos;s Most Trusted Spiritual Platform • 50,000+ Blessings
+          </span>
+          <h1>
+            Bring Divine Blessings to Your Home with{" "}
+            <em>Trusted Vedic Pandits</em>
+          </h1>
+          <p className="hero-description">
+            Experience authentic Vedic ceremonies performed by
+            background-verified, pathshala-trained Gurujis. Complete, 100%
+            consecrated samagri kits delivered fresh to your doorstep.
+          </p>
+          <div className="hero-actions">
+            <a className="hero-primary-link" href="#quick-booking">
+              Book a Puja <ArrowRight size={18} />
+            </a>
+            <a className="hero-secondary-link" href="#services-grid">
+              <span aria-hidden="true">🛕</span> Explore Services
+            </a>
           </div>
-
-          <div className="relative mx-auto w-full max-w-[540px]">
-            <div className="glass overflow-hidden rounded-2xl border-t-8 border-saffron bg-white/90 p-6 shadow-[0_20px_35px_rgba(28,36,58,.14)] sm:p-7">
-              <div className="mb-5 flex items-start justify-between gap-4">
-                <div>
-                  <h2 className="font-[var(--font-heading)] text-2xl font-bold text-dark sm:text-3xl">
-                    🪔 Quick Pandit Booking
-                  </h2>
-                  <p className="mt-2 text-sm leading-6 text-[#604d45]">
-                    Check authentic Pandit availability and auspicious muhurats
-                    in under 60 seconds.
-                  </p>
-                </div>
-                <span className="shrink-0 rounded bg-cream px-3 py-1.5 text-xs font-semibold text-deepMaroon">
-                  Instant Check
-                </span>
-              </div>
-
-              <form className="space-y-4" onSubmit={handleSubmit(handleBook)}>
-                {/* Puja */}
-                <label className="block text-sm font-semibold text-[#182338]">
-                  <span className="mb-1.5 flex justify-between">
-                    <span>Select Sacred Puja</span>
-                    <span className="font-normal text-[#b95018]">
-                      25+ Rituals
-                    </span>
-                  </span>
-
-                  <span className="relative block">
-                    <select
-                      {...register("puja", {
-                        required: "Please select a puja",
-                      })}
-                      className="w-full appearance-none rounded-lg border-0 bg-[#edf2ff] px-4 py-3 pr-10 font-normal text-[#25324b] outline-none ring-[#ff7415] focus:ring-2"
-                    >
-                      <option value="">Select a Puja</option>
-                      <option value="griha-pravesh">
-                        Griha Pravesh Puja (गृहप्रवेश पूजा)
-                      </option>
-                      <option value="satyanarayan">Satyanarayan Puja</option>
-                      <option value="vastu-shanti">Vastu Shanti Puja</option>
-                    </select>
-
-                    <ChevronDown className="pointer-events-none absolute right-3 top-3.5 h-4 w-4 text-[#604d45]" />
-                  </span>
-                </label>
-
-                {/* City + Language */}
-                <div className="grid gap-4 sm:grid-cols-2">
-                  {/* City */}
-                  <label className="text-sm font-semibold text-[#182338]">
-                    <span className="mb-1.5 block">Your City</span>
-
-                    <span className="relative block">
-                      <input
-                        {...register("city", {
-                          required: "City is required",
-                        })}
-                        placeholder="Pune & PCMC"
-                        className="w-full rounded-lg border-0 bg-[#edf2ff] px-4 py-3 pr-10 font-normal text-[#25324b] outline-none ring-[#ff7415] focus:ring-2"
-                      />
-
-                      <MapPin className="pointer-events-none absolute right-3 top-3.5 h-4 w-4 text-[#604d45]" />
-                    </span>
-                  </label>
-
-                  {/* Language */}
-                  <label className="text-sm font-semibold text-[#182338]">
-                    <span className="mb-1.5 block">Language</span>
-
-                    <span className="relative block">
-                      <select
-                        {...register("language", {
-                          required: "Language is required",
-                        })}
-                        className="w-full appearance-none rounded-lg border-0 bg-[#edf2ff] px-4 py-3 pr-10 font-normal text-[#25324b] outline-none ring-[#ff7415] focus:ring-2"
-                      >
-                        <option value="">Select Language</option>
-                        <option value="marathi">Marathi (मराठी)</option>
-                        <option value="hindi">Hindi (हिंदी)</option>
-                        <option value="english">English</option>
-                      </select>
-
-                      <Languages className="pointer-events-none absolute right-3 top-3.5 h-4 w-4 text-[#604d45]" />
-                    </span>
-                  </label>
-                </div>
-
-                {/* Date */}
-                <label className="block text-sm font-semibold text-[#182338]">
-                  <span className="mb-1.5 flex justify-between">
-                    <span>Auspicious Date / Muhurat</span>
-
-                    <span className="font-normal text-[#b95018]">
-                      Free Panchang check
-                    </span>
-                  </span>
-
-                  <span className="relative block">
-                    <input
-                      type="date"
-                      {...register("date", {
-                        required: "Please select a date",
-                      })}
-                      className="w-full rounded-lg border-0 bg-[#edf2ff] px-4 py-3 font-normal text-[#25324b] outline-none ring-[#ff7415] focus:ring-2"
-                    />
-
-                    <CalendarDays className="pointer-events-none absolute right-3 top-3.5 h-4 w-4 text-[#604d45]" />
-                  </span>
-                </label>
-
-                {/* Samagri */}
-                <label className="flex items-center gap-3 rounded-lg bg-[#edf2ff] px-4 py-3 text-sm text-[#182338]">
-                  <input
-                    type="checkbox"
-                    {...register("includeSamagri")}
-                    className="h-4 w-4 accent-[#b95018]"
-                  />
-                  <Utensils className="h-4 w-4 text-[#b95018]" />
-                  Include 100% Consecrated Samagri Kit
-                </label>
-
-                {/* Submit */}
-                <button
-                  type="submit"
-                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#ff7415] px-4 py-4 font-semibold text-white shadow-lg shadow-orange-200 transition hover:bg-[#e85f05]"
-                >
-                  Check Pandit Availability
-                  <CalendarDays className="h-5 w-5" />
-                </button>
-              </form>
-
-              <p className="mt-4 flex items-center justify-center gap-2 text-xs text-[#604d45]">
-                <LockKeyhole className="h-4 w-4 text-[#b95018]" />
-                No advance payment required for verification
-              </p>
+          <div className="hero-trust-grid">
+            <div className="hero-trust-tile">
+              <BadgeCheck aria-hidden="true" />
+              <span>
+                <strong>100% Certified</strong>
+                <small>Vedic Gurujis</small>
+              </span>
+            </div>
+            <div className="hero-trust-tile">
+              <Star aria-hidden="true" fill="currentColor" />
+              <span>
+                <strong>4.9 / 5 Rating</strong>
+                <small>12,400+ Families</small>
+              </span>
+            </div>
+            <div className="hero-trust-tile">
+              <Utensils aria-hidden="true" />
+              <span>
+                <strong>Pure Samagri</strong>
+                <small>100% Kit Included</small>
+              </span>
             </div>
           </div>
         </div>
+
+        <div className="quick-booking-card" id="quick-booking">
+          <div className="booking-card-ribbon" />
+          <div className="quick-booking-heading">
+            <div>
+              <span aria-hidden="true">🪔</span>
+              <h2>Quick Pandit Booking</h2>
+            </div>
+            <span className="instant-check">Instant Check</span>
+          </div>
+          <p className="quick-booking-copy">
+            Check authentic Pandit availability and auspicious muhurats in
+            under 60 seconds.
+          </p>
+          <form className="quick-booking-form" onSubmit={handleSubmit}>
+            <label>
+              <span className="field-label-row">
+                <strong>Select Sacred Puja</strong>
+                <span>{Math.max(poojas.length, 25)}+ Rituals</span>
+              </span>
+              <span className="select-wrap">
+                <select
+                  onChange={(event) => setSelectedPooja(event.target.value)}
+                  required
+                  value={selectedPooja}
+                >
+                  <option value="">
+                    {poojaState === "loading"
+                      ? "Loading pujas…"
+                      : "Select a Puja"}
+                  </option>
+                  {poojas.map((pooja) => (
+                    <option key={pooja._id} value={pooja._id}>
+                      {pooja.name}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown aria-hidden="true" />
+              </span>
+            </label>
+
+            <div className="quick-booking-row">
+              <label>
+                <span className="field-label-row">
+                  <strong>Your City</strong>
+                </span>
+                <span className="select-wrap">
+                  <select
+                    onChange={(event) => setCity(event.target.value)}
+                    value={city}
+                  >
+                    <option>Pune & PCMC</option>
+                    <option>Mumbai & Suburbs</option>
+                    <option>Thane & Navi Mumbai</option>
+                    <option>Nashik</option>
+                    <option>Nagpur</option>
+                  </select>
+                  <MapPin aria-hidden="true" />
+                </span>
+              </label>
+              <label>
+                <span className="field-label-row">
+                  <strong>Language</strong>
+                </span>
+                <span className="select-wrap">
+                  <select
+                    onChange={(event) => setLanguage(event.target.value)}
+                    value={language}
+                  >
+                    <option>Marathi</option>
+                    <option>Hindi</option>
+                    <option>Sanskrit</option>
+                    <option>Gujarati</option>
+                  </select>
+                  <Languages aria-hidden="true" />
+                </span>
+              </label>
+            </div>
+
+            <label>
+              <span className="field-label-row">
+                <strong>Auspicious Date / Muhurat</strong>
+                <span className="muhurat-link">Free Panchang check</span>
+              </span>
+              <span className="date-wrap">
+                <input
+                  min={getLocalDate()}
+                  onChange={(event) => setDate(event.target.value)}
+                  required
+                  type="date"
+                  value={date}
+                />
+                <CalendarDays aria-hidden="true" />
+              </span>
+            </label>
+
+            <label className="samagri-toggle">
+              <span>
+                <Utensils aria-hidden="true" />
+                Include 100% Consecrated Samagri Kit
+              </span>
+              <input
+                checked={includeSamagri}
+                onChange={(event) => setIncludeSamagri(event.target.checked)}
+                type="checkbox"
+              />
+            </label>
+            <button
+              className="availability-button"
+              disabled={
+                isPreparingBooking ||
+                poojaState !== "loaded" ||
+                poojas.length === 0
+              }
+              type="submit"
+            >
+              Check Pandit Availability <CalendarDays aria-hidden="true" />
+            </button>
+            <p className="booking-reassurance">
+              <LockKeyhole aria-hidden="true" />
+              No advance payment required for verification
+            </p>
+          </form>
+        </div>
       </div>
+      {isPreparingBooking && (
+        <div
+          className="booking-devotional-transition"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          <div className="booking-devotional-transition__glow" aria-hidden="true" />
+          <div className="booking-devotional-transition__content">
+            <div className="booking-devotional-transition__lamp" aria-hidden="true">
+              🪔
+            </div>
+            <span className="booking-devotional-transition__eyebrow">
+              आपल्या पूजेचा संकल्प
+            </span>
+            <h2>कृपया आपली माहिती द्या</h2>
+            <p>
+              तुमच्यासाठी योग्य गुरुजी आणि शुभ मुहूर्त शोधण्यासाठी, बुकिंगची
+              पुढची पायरी पाहा.
+            </p>
+            <span className="booking-devotional-transition__next">
+              <span aria-hidden="true" />
+              बुकिंग पृष्ठावर जात आहोत
+            </span>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

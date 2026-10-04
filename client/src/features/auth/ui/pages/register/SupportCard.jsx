@@ -12,9 +12,12 @@ const SupportCard = () => {
           Need Booking Guidance?
         </p>
 
-        <h3 className="text-base font-bold text-[var(--color-text-primary)]">
-          1800-200-VEDA
-        </h3>
+        <a
+          className="text-base font-bold text-[var(--color-text-primary)] hover:text-[var(--color-primary-dark)]"
+          href="tel:+918888333430"
+        >
+          +91 8888333430
+        </a>
 
         <p className="text-[10px] text-[var(--color-text-secondary)]">
           Speak with our Acharyas 7:00 AM - 9:00 PM

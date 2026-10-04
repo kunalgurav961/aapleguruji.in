@@ -30,3 +30,15 @@ export const bookPooja = createAsyncThunk(
     }
   },
 );
+
+export const fetchMyBookings = createAsyncThunk(
+  "booking/fetchMine",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get("booking/mine");
+      return response.data.bookings;
+    } catch (error) {
+      return rejectWithValue(getApiError(error));
+    }
+  },
+);

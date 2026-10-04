@@ -12,6 +12,7 @@ import TrustPanel from "./register/TrustPanel";
 import SupportCard from "./register/SupportCard";
 import RegistrationBenefits from "./register/RegistrationBenefits";
 import { useAuthHook } from "../../hooks/useAuthHook";
+import "./AuthPages.css";
 
 const RegisterPage = () => {
   let {
@@ -31,24 +32,26 @@ const RegisterPage = () => {
   } = useAuthHook();
 
   return (
-    <main className="min-h-screen bg-[var(--color-register-bg)] py-8 px-4">
-      <div className="container-app">
-        <RegisterHeader />
+    <main className="auth-page auth-register">
+      <div className="auth-page__inner auth-register__inner">
+        <div className="auth-page__topbar auth-register__topbar">
+          <RegisterHeader />
+        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,2.1fr)_minmax(300px,1fr)] gap-8">
+        <div className="auth-register__grid">
           {/* LEFT */}
-          <section>
-            <div className="relative overflow-hidden bg-[var(--color-surface-white)] rounded-[var(--radius-lg)] border border-[var(--color-border-warm)] shadow-[var(--shadow-modal)]">
+          <section className="auth-register__main">
+            <div className="auth-register__card">
               {/* subtle decoration */}
               <div className="absolute top-0 right-0 w-56 h-56 rounded-full bg-orange-100/30 blur-3xl pointer-events-none" />
 
-              <div className="relative p-6 sm:p-8 lg:p-9">
+              <div className="auth-register__card-content">
                 <div className="mb-6">
                   <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-100 text-[var(--color-temple-brown)] text-xs font-semibold">
                     🪷 शुभ आरंभ • Join Aaple Guruji
                   </div>
 
-                  <h1 className="mt-5 text-3xl sm:text-4xl font-bold tracking-tight">
+                  <h1 className="auth-register__title">
                     Create Your Account{" "}
                     <span className="text-[var(--color-temple-brown)]">
                       / नवीन खाते तयार करा
@@ -82,7 +85,7 @@ const RegisterPage = () => {
                   </p>
                 )}
 
-                <form onSubmit={handleSubmit(formSubmit)} className="space-y-5">
+                <form onSubmit={handleSubmit(formSubmit)} className="auth-register__form">
                   <FormInput
                     label="Full Name / पूर्ण नाव"
                     name="fullName"
@@ -192,7 +195,7 @@ const RegisterPage = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full flex items-center justify-center gap-2 py-3.5 rounded-[var(--radius)] bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] text-white font-bold shadow-[var(--shadow-hover)] transition-all disabled:opacity-60"
+                    className="auth-register__submit"
                   >
                     {isSubmitting
                       ? "Creating Account..."
@@ -212,7 +215,7 @@ const RegisterPage = () => {
           </section>
 
           {/* RIGHT */}
-          <aside className="space-y-5">
+          <aside className="auth-register__aside">
             <TrustPanel />
             <SupportCard />
             <RegistrationBenefits />

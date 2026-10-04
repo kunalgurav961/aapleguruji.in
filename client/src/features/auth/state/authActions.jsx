@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import axiosInstance from "../../../config/api";
 import { getCurrentUser, loginAccount, logoutAccount, refreshSession, registerAccount } from "../api/authApi";
 import { setAccessToken } from "../../../config/api";
 
@@ -54,6 +55,18 @@ export const logoutUser = createAsyncThunk(
     try {
       const response = await logoutAccount();
       setAccessToken(null);
+      return response;
+    } catch (error) {
+      return rejectWithValue(apiError(error));
+    }
+  },
+);
+
+export const updateUserProfile = createAsyncThunk(
+  "auth/updateProfile",
+  async (profile, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.patch("auth/profile", profile);
       return response;
     } catch (error) {
       return rejectWithValue(apiError(error));

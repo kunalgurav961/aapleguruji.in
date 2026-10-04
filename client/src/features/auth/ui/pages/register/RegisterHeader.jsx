@@ -1,12 +1,11 @@
 import { ArrowLeft, Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const RegisterHeader = () => {
   return (
-    <div className="flex items-center justify-between mb-7 px-1">
-      {/* Back */}
-      <button
-        type="button"
-        onClick={() => window.history.back()}
+    <div className="auth-register__header flex items-center justify-between mb-7 px-1">
+      <Link
+        to="/"
         className="group flex items-center gap-2 text-sm font-medium text-[var(--color-text-primary)] hover:text-[var(--color-primary-dark)] transition-colors"
       >
         <ArrowLeft
@@ -18,9 +17,8 @@ const RegisterHeader = () => {
         <span>
           Back to Home <span className="font-marathi">/ मुख्यपृष्ठावर जा</span>
         </span>
-      </button>
+      </Link>
 
-      {/* Muhurat Status */}
       <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-100 shadow-sm">
         <span className="relative flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-60 animate-ping" />
