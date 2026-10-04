@@ -28,10 +28,10 @@ const parseBookingDate = (value) => {
 
 export const getPoojas = async (req, res) => {
   try {
-    const poojas = await Pooja.find(
-      { isActive: true },
-      { name: 1, basePrice: 1 },
-    ).sort({ name: 1 });
+    const poojas = await Pooja.find({ isActive: true })
+      .select("name slug basePrice description shortDescription duration images languages category badge")
+      .sort({ name: 1 })
+      .lean();
 
     return res.status(200).json({ poojas });
   } catch (error) {
@@ -43,10 +43,27 @@ export const getPoojas = async (req, res) => {
   }
 };
 
+export const getMyBookings = async (req, res) => {
+  try {
+    const bookings = await Booking.find({ userId: req.user._id })
+      .sort({ createdAt: -1 })
+      .limit(100)
+      .populate("poojaId", "name basePrice duration images")
+      .lean();
+
+    return res.status(200).json({ bookings });
+  } catch (error) {
+    console.error("Get user bookings error:", error);
+
+    return res.status(500).json({
+      message: "Unable to load your bookings.",
+    });
+  }
+};
+
 export const createBooking = async (req, res) => {
   try {
     const {
-      userId,
       poojaId,
       bookingDate,
       bookingTime,
@@ -64,7 +81,7 @@ export const createBooking = async (req, res) => {
     }
 
     // Find user
-    const user = await userModel.findById(userId);
+    const user = await userModel.findById(req.user._id);
 
     if (!user) {
       return res.status(404).json({
@@ -86,7 +103,7 @@ export const createBooking = async (req, res) => {
     const booking = await Booking.create({
       bookingId,
       bookingNumber: `AG-${bookingId}`,
-      userId,
+      userId: user._id,
       poojaId,
 
       bookingDate: parsedBookingDate,

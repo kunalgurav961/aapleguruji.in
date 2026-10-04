@@ -33,7 +33,12 @@ const toPublicUser = (user) => ({
   role: user.role,
   city: user.city,
   mobileNumber: user.mobileNumber,
+  whatsappUpdates: user.whatsappUpdates,
+  acceptedTermsAt: user.acceptedTermsAt,
+  vedicShakha: user.vedicShakha,
+  experience: user.experience,
   panditApplicationStatus: user.panditApplicationStatus,
+  createdAt: user.createdAt,
 });
 
 const setRefreshCookie = (res, refreshToken) => {
@@ -62,6 +67,68 @@ const createSession = async (user) => {
 
 export const getRegistrationOptionsController = (req, res) => {
   res.status(200).json({ data: registrationOptions });
+};
+
+export const updateProfileController = async (req, res) => {
+  const { fullName, mobileNumber, city, whatsappUpdates, vedicShakha, experience } =
+    req.body || {};
+  const normalizedMobileNumber =
+    typeof mobileNumber === "string" ? mobileNumber.replace(/\s/g, "") : "";
+  const errors = [];
+
+  if (typeof fullName !== "string" || fullName.trim().length < 3 || fullName.trim().length > 255) {
+    errors.push(fieldError("fullName", "Full name must be between 3 and 255 characters."));
+  }
+  if (!/^[6-9]\d{9}$/.test(normalizedMobileNumber)) {
+    errors.push(fieldError("mobileNumber", "Enter a valid 10-digit Indian mobile number."));
+  }
+  if (!registrationOptions.cities.some((item) => item.value === city)) {
+    errors.push(fieldError("city", "Select a valid city."));
+  }
+  if (typeof whatsappUpdates !== "boolean") {
+    errors.push(fieldError("whatsappUpdates", "Choose whether to receive WhatsApp updates."));
+  }
+  if (
+    req.user.role === "pandit" &&
+    !registrationOptions.vedicShakhas.some((item) => item.value === vedicShakha)
+  ) {
+    errors.push(fieldError("vedicShakha", "Select your Vedic Shakha."));
+  }
+  if (
+    req.user.role === "pandit" &&
+    (typeof experience !== "string" || experience.trim().length > 100)
+  ) {
+    errors.push(fieldError("experience", "Experience must be 100 characters or fewer."));
+  }
+
+  if (errors.length) {
+    return res.status(422).json({
+      message: "Please correct the highlighted profile details.",
+      errors,
+    });
+  }
+
+  try {
+    req.user.fullName = fullName.trim();
+    req.user.mobileNumber = normalizedMobileNumber;
+    req.user.city = city;
+    req.user.whatsappUpdates = whatsappUpdates;
+    if (req.user.role === "pandit") {
+      req.user.vedicShakha = vedicShakha;
+      req.user.experience = experience.trim();
+    }
+    await req.user.save();
+
+    return res.status(200).json({
+      message: "Your profile has been updated.",
+      data: { user: toPublicUser(req.user) },
+    });
+  } catch (error) {
+    console.error("Update profile error:", error);
+    return res.status(500).json({
+      message: "Unable to update your profile. Please try again.",
+    });
+  }
 };
 
 export const registerController = async (req, res) => {

@@ -1,17 +1,13 @@
 import express from 'express';
-import bookingModel from '../models/bookingModel.js';
-import { createBooking, getPoojas } from '../controllers/bookingController.js';
+import { createBooking, getMyBookings, getPoojas } from '../controllers/bookingController.js';
+import { requireAuth } from '../middleware/authMiddleware.js';
 
 
 const bookingRouter = express.Router();
 
 
-bookingRouter.get('/', async (req, res) => {
-    const bookings = await bookingModel.find()
-    res.status(200).json(bookings)
-})
-
 bookingRouter.get('/poojas', getPoojas)
-bookingRouter.post('/create', createBooking)
+bookingRouter.get('/mine', requireAuth, getMyBookings)
+bookingRouter.post('/create', requireAuth, createBooking)
 
 export default bookingRouter;

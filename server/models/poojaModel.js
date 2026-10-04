@@ -18,7 +18,10 @@ const poojaSchema = new mongoose.Schema(
     },
     description: String,
     duration: Number,
-    images: [String],
+    images: {
+      type: [String],
+      default: [],
+    },
     isActive: {
       type: Boolean,
       default: true,
@@ -27,6 +30,16 @@ const poojaSchema = new mongoose.Schema(
     locationType: String,
     requirements: [String],
     shortDescription: String,
+    category: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+    badge: {
+      type: String,
+      trim: true,
+      default: "",
+    },
   },
   {
     timestamps: true,
