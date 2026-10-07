@@ -8,31 +8,45 @@ import {
   pandit_navigations,
   admin_navigations,
 } from "../../constants/navigations";
+import LandingLayout from "../layout/LandingLayout";
+import LandingPage from "../../features/public/ui/pages/Landing/LandingPage";
 
 const AppRoutes = () => {
   const router = createBrowserRouter([
+    // {
+    //   path: "/",
+    //   element: <PublicProtected />,
+    //   children: [
+    // original routes
+    // {
+    //   path: "",
+    //   element: <MainLayout />,
+    //   children: [
+    //     ...public_navigations,
+    //     {
+    //       element: <RoleProtected allowedRoles={["devotee"]} />,
+    //       children: [...user_navigations],
+    //     },
+    //     {
+    //       element: <RoleProtected allowedRoles={["pandit"]} />,
+    //       children: [...pandit_navigations],
+    //     },
+    //     {
+    //       element: <RoleProtected allowedRoles={["admin"]} />,
+    //       children: [...admin_navigations],
+    //     },
+    //   ],
+    // },
+    //   ],
+    // },
+
     {
       path: "/",
-      element: <PublicProtected />,
+      element: <LandingLayout />,
       children: [
         {
           path: "",
-          element: <MainLayout />,
-          children: [
-            ...public_navigations,
-            {
-              element: <RoleProtected allowedRoles={["devotee"]} />,
-              children: [...user_navigations],
-            },
-            {
-              element: <RoleProtected allowedRoles={["pandit"]} />,
-              children: [...pandit_navigations],
-            },
-            {
-              element: <RoleProtected allowedRoles={["admin"]} />,
-              children: [...admin_navigations],
-            },
-          ],
+          element: <LandingPage />,
         },
       ],
     },

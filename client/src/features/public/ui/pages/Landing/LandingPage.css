@@ -1,0 +1,36 @@
+/* Editorial typography styles tailored for elegant Marathi Devanagari scale */
+.headline-marathi-hero {
+  font-family: "Rozha One", "Noto Serif Devanagari", serif;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+.headline-marathi {
+  font-family: "Noto Serif Devanagari", "Rozha One", serif;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+.tag-marathi-mono {
+  font-family: "Mukta", "JetBrains Mono", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  font-size: 11px;
+}
+/* Subtle hover lifts & transitions */
+.editorial-card {
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.editorial-card:hover {
+  transform: translateY(-4px);
+}
+.img-zoom {
+  overflow: hidden;
+}
+.img-zoom img {
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.img-zoom:hover img {
+  transform: scale(1.04);
+}

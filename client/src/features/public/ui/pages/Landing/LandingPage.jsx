@@ -1,0 +1,1782 @@
+import React, { useEffect, useRef, useState } from "react";
+
+const LandingPage = () => {
+  const navRef = useRef(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Sticky navbar height reduction on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (navRef.current) {
+        if (window.scrollY > 40) {
+          navRef.current.classList.add("shadow-md", "py-2");
+          navRef.current.classList.remove("py-3");
+        } else {
+          navRef.current.classList.remove("shadow-md", "py-2");
+          navRef.current.classList.add("py-3");
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <>
+      <style>{`
+        /* Editorial typography styles tailored for elegant Marathi Devanagari scale */
+        .headline-marathi-hero {
+          font-family: 'Rozha One', 'Noto Serif Devanagari', serif;
+          line-height: 1.08;
+          letter-spacing: -0.02em;
+        }
+        .headline-marathi {
+          font-family: 'Noto Serif Devanagari', 'Rozha One', serif;
+          font-weight: 800;
+          line-height: 1.15;
+          letter-spacing: -0.01em;
+        }
+        .tag-marathi-mono {
+          font-family: 'Mukta', 'JetBrains Mono', sans-serif;
+          font-weight: 700;
+          letter-spacing: 0.05em;
+          font-size: 11px;
+        }
+        /* Subtle hover lifts & transitions */
+        .editorial-card {
+          transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .editorial-card:hover {
+          transform: translateY(-4px);
+        }
+        .img-zoom {
+          overflow: hidden;
+        }
+        .img-zoom img {
+          transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .img-zoom:hover img {
+          transform: scale(1.04);
+        }
+      `}</style>
+      <div className="bg-warm text-carbon font-sans antialiased selection:bg-voltage selection:text-carbon min-h-screen">
+        <header className="fixed top-0 inset-x-0 z-50 pt-4 px-4 sm:px-6 md:px-8 pointer-events-none">
+          <div className="max-w-7xl mx-auto flex items-center justify-between pointer-events-auto">
+            <nav
+              ref={navRef}
+              className="w-full bg-paper border border-ash/50 rounded-full px-4 sm:px-6 py-2.5 md:py-3 shadow-sm transition-all duration-300 flex items-center justify-between"
+              id="mainNav"
+            >
+              <a className="flex items-center gap-3 group" href="#hero">
+                <img
+                  alt="आपले गुरुजी — Aaple Guruji"
+                  className="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-105"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAV6P5qBTd4TNjfLXsGQbginzMYY1NVuSMZTseEQQ1u8_-g5DOOjKBbNBgE9zNZ1vXXIjpxSXEHpB4Wjv11Ck0I_moQdhs0IICJiodv2p1LIPNbTok3YSlZW-EJ1DNmiWjGAJX-SX6_nztxtS-nCVUszkD70Uy59xOBb0OY8yT0Ozf8Qcv93FL-i8V798fKZCeqgDm3kiCyjMLcWmFXEG8788wCmLuMe84LuO4FS513ZCe_wvjbqR-f"
+                />
+              </a>
+
+              <div className="hidden lg:flex items-center bg-mist rounded-full px-3 py-1.5 border border-ash/30">
+                <a
+                  className="px-3.5 py-1 text-xs font-sans font-bold text-carbon hover:text-carbon rounded-full hover:bg-paper transition-all"
+                  href="#hero"
+                >
+                  मुख्यपृष्ठ
+                </a>
+                <a
+                  className="px-3.5 py-1 text-xs font-sans font-medium text-slate hover:text-carbon rounded-full hover:bg-paper transition-all"
+                  href="#pujas"
+                >
+                  पूजा विधी
+                </a>
+                <a
+                  className="px-3.5 py-1 text-xs font-sans font-medium text-slate hover:text-carbon rounded-full hover:bg-paper transition-all"
+                  href="#pandits"
+                >
+                  वेदोक्त गुरुजी
+                </a>
+                <a
+                  className="px-3.5 py-1 text-xs font-sans font-medium text-slate hover:text-carbon rounded-full hover:bg-paper transition-all"
+                  href="#samagri"
+                >
+                  पूजा साहित्य
+                </a>
+                <a
+                  className="px-3.5 py-1 text-xs font-sans font-medium text-slate hover:text-carbon rounded-full hover:bg-paper transition-all"
+                  href="#astrology"
+                >
+                  ज्योतिष व मुहूर्त
+                </a>
+                <a
+                  className="px-3.5 py-1 text-xs font-sans font-medium text-slate hover:text-carbon rounded-full hover:bg-paper transition-all"
+                  href="#why-us"
+                >
+                  आमच्याबद्दल
+                </a>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <a
+                  className="hidden sm:inline-block px-4 py-2 text-xs font-sans font-bold text-carbon hover:text-slate transition-colors"
+                  href="#login"
+                >
+                  लॉगिन
+                </a>
+                <a
+                  className="inline-flex items-center gap-2 bg-carbon text-paper hover:bg-voltage hover:text-carbon px-5 py-2.5 rounded-full font-sans font-bold text-xs tracking-wide transition-all shadow-sm group"
+                  href="#pujas"
+                >
+                  <span>पूजा बुक करा</span>
+                  <span className="inline-block transition-transform group-hover:translate-x-0.5">
+                    →
+                  </span>
+                </a>
+
+                <button
+                  aria-label="मेनू उघडा"
+                  className="lg:hidden p-2 text-carbon hover:bg-mist rounded-full"
+                  id="mobileMenuBtn"
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      d="M4 6h16M4 12h16M4 18h16"
+                      strokeLinecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </nav>
+          </div>
+
+          <div
+            className={`${isMobileMenuOpen ? "" : "hidden"} max-w-7xl mx-auto mt-2 pointer-events-auto`}
+            id="mobileMenu"
+          >
+            <div className="bg-paper border border-ash/60 rounded-3xl p-6 shadow-xl flex flex-col gap-4">
+              <a
+                className="text-sm font-sans font-bold py-2 border-b border-mist"
+                href="#hero"
+              >
+                मुख्यपृष्ठ
+              </a>
+              <a
+                className="text-sm font-sans font-bold py-2 border-b border-mist"
+                href="#pujas"
+              >
+                पूजा विधी संच
+              </a>
+              <a
+                className="text-sm font-sans font-bold py-2 border-b border-mist"
+                href="#pandits"
+              >
+                प्रमाणित वेदोक्त गुरुजी
+              </a>
+              <a
+                className="text-sm font-sans font-bold py-2 border-b border-mist"
+                href="#samagri"
+              >
+                पूजा साहित्य व दालन
+              </a>
+              <a
+                className="text-sm font-sans font-bold py-2 border-b border-mist"
+                href="#astrology"
+              >
+                कुंडली व शुभ मुहूर्त
+              </a>
+              <a
+                className="text-sm font-sans font-bold py-2 border-b border-mist"
+                href="#why-us"
+              >
+                आपले गुरुजी का निवडावे?
+              </a>
+              <div className="flex gap-3 pt-2">
+                <a
+                  className="flex-1 text-center py-3 bg-mist rounded-full text-xs font-sans font-bold"
+                  href="#login"
+                >
+                  लॉगिन
+                </a>
+                <a
+                  className="flex-1 text-center py-3 bg-carbon text-paper rounded-full text-xs font-sans font-bold"
+                  href="#pujas"
+                >
+                  पूजा बुक करा →
+                </a>
+              </div>
+            </div>
+          </div>
+        </header>
+        <section
+          className="pt-28 md:pt-36 pb-12 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto"
+          id="hero"
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            <div className="lg:col-span-7 bg-paper border border-ash/40 rounded-4xl md:rounded-5xl p-8 sm:p-12 md:p-16 flex flex-col justify-between editorial-card">
+              <div>
+                <div className="flex flex-wrap items-center gap-2 mb-6 md:mb-8">
+                  <span className="tag-marathi-mono bg-mist px-3.5 py-1.5 rounded-full text-slate border border-ash/30">
+                    प्रमाणित गुरुजी
+                  </span>
+                  <span className="tag-marathi-mono bg-mist px-3.5 py-1.5 rounded-full text-slate border border-ash/30">
+                    शास्त्रोक्त विधी
+                  </span>
+                  <span className="tag-marathi-mono bg-voltage text-carbon px-3.5 py-1.5 rounded-full">
+                    भक्तीभावाने सेवा
+                  </span>
+                </div>
+
+                <h1 className="headline-marathi-hero text-5xl sm:text-7xl md:text-8xl lg:text-[88px] text-carbon tracking-tight mb-8">
+                  घरबसल्या मिळवा
+                  <br />
+                  दिव्य आशीर्वाद
+                  <br />
+                  <span className="inline-block bg-voltage px-3 sm:px-5 py-1 text-carbon mt-1">
+                    आपल्या घरी.
+                  </span>
+                </h1>
+
+                <p className="text-slate text-base sm:text-lg md:text-xl font-normal max-w-xl leading-relaxed mb-10">
+                  आपल्या घरातील प्रत्येक पूजा, हवन आणि मांगलिक कार्यासाठी
+                  पाठशाळा-प्रमाणित अनुभवी गुरुजी — थेट आपल्या घरपोच. शुद्ध,
+                  सात्त्विक साहित्य आणि १००% शास्त्रोक्त संकल्प.
+                </p>
+              </div>
+
+              <div className="pt-4 border-t border-mist flex flex-wrap items-center gap-4">
+                <a
+                  className="inline-flex items-center gap-3 bg-carbon text-paper hover:bg-voltage hover:text-carbon px-8 py-4 rounded-full font-sans font-bold text-sm tracking-wide transition-all group"
+                  href="#pujas"
+                >
+                  <span>पूजा बुक करा</span>
+                  <span className="text-base group-hover:translate-x-1 transition-transform">
+                    →
+                  </span>
+                </a>
+                <a
+                  className="inline-flex items-center gap-2 bg-mist hover:bg-warm text-carbon px-7 py-4 rounded-full font-sans text-xs font-bold tracking-wider transition-all border border-ash/40"
+                  href="#pujas"
+                >
+                  सर्व सेवा पहा
+                </a>
+                <div className="ml-auto hidden sm:flex items-center gap-2 text-xs font-sans text-smoke">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  आजच्या वेळापत्रकात जागा उपलब्ध
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-5 relative bg-carbon rounded-4xl md:rounded-5xl overflow-hidden editorial-card min-h-[460px] lg:min-h-full">
+              <img
+                alt="वेदमूर्ती गुरुजी यज्ञाग्नी समोर वेदोक्त मंत्रांनी आहुती देत असताना"
+                className="absolute inset-0 w-full h-full object-cover opacity-90 brightness-95"
+                src="https://lh3.googleusercontent.com/aida/AEtjO1WE2_U3VRfW7IhNX6zTpT3MMYwueJ3iUsGdP8bcqQHs971V-aeUGJuTLIj5RRavd1oa0q-Mk0l5DgMtG4buz95AD-xdF6XPGrij1BPrnFZhND_BO0bHeHuLjMpk_lEMMkrbdba7LSclDA9Tj_kwf4soPQupp-WEcNLqcDVY6rw_pIHGTNer3GWDF_-J8y7ptTZTk-wf1WAN-9V0qKf33NPC1B68h4yNopyrpBBSlpwh"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-carbon/90 via-carbon/20 to-transparent"></div>
+
+              <div className="absolute top-6 right-6">
+                <div className="bg-carbon/80 backdrop-blur-md border border-paper/20 rounded-full px-4 py-1.5 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-voltage"></span>
+                  <span className="tag-marathi-mono text-paper text-[11px]">
+                    वेदपाठशाळा प्रमाणित
+                  </span>
+                </div>
+              </div>
+
+              <div className="absolute bottom-6 inset-x-6">
+                <div className="bg-paper border border-ash/50 rounded-3xl p-5 shadow-2xl flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-12 h-12 rounded-2xl bg-voltage/30 border border-voltage flex items-center justify-center text-carbon font-display font-bold text-2xl">
+                      ॐ
+                    </div>
+                    <div>
+                      <span className="tag-marathi-mono text-smoke block text-[10px] mb-0.5">
+                        पुढील उपलब्ध वेळ
+                      </span>
+                      <p className="font-sans font-bold text-carbon text-sm sm:text-base leading-tight">
+                        श्री सत्यनारायण महापूजा · उद्या, स. ७:३० वा.
+                      </p>
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className="inline-flex items-center text-xs font-sans font-semibold text-carbon bg-mist px-2.5 py-0.5 rounded">
+                          ४.९ ★ (२,३४०+ समाधानी भाविक)
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <a
+                    className="hidden sm:inline-flex w-10 h-10 rounded-full bg-carbon text-paper items-center justify-center hover:bg-voltage hover:text-carbon transition-colors shrink-0"
+                    href="#pujas"
+                  >
+                    →
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 bg-paper border border-ash/40 rounded-3xl md:rounded-full p-4 sm:p-5 md:px-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 items-center divide-y md:divide-y-0 md:divide-x divide-mist">
+              <div className="flex items-center gap-3 pt-2 md:pt-0">
+                <div className="w-7 h-7 rounded-full bg-mint text-carbon flex items-center justify-center font-bold text-sm shrink-0">
+                  ✓
+                </div>
+                <div>
+                  <span className="font-marathi font-bold text-carbon tracking-tight text-base sm:text-lg block leading-none">
+                    प्रमाणित वेदोक्त गुरुजी
+                  </span>
+                  <span className="font-sans text-[11px] text-smoke">
+                    ऋग्वेद व यजुर्वेद प्रशिक्षित
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 pt-2 md:pt-0 md:pl-8">
+                <div className="w-7 h-7 rounded-full bg-mint text-carbon flex items-center justify-center font-bold text-sm shrink-0">
+                  ✓
+                </div>
+                <div>
+                  <span className="font-marathi font-bold text-carbon tracking-tight text-base sm:text-lg block leading-none">
+                    १००% शास्त्रोक्त विधी
+                  </span>
+                  <span className="font-sans text-[11px] text-smoke">
+                    धर्मशास्त्र व कुलपरंपरेनुसार
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 pt-2 md:pt-0 md:pl-8">
+                <div className="w-7 h-7 rounded-full bg-mint text-carbon flex items-center justify-center font-bold text-sm shrink-0">
+                  ✓
+                </div>
+                <div>
+                  <span className="font-marathi font-bold text-carbon tracking-tight text-base sm:text-lg block leading-none">
+                    सुलभ ऑनलाईन बुकिंग
+                  </span>
+                  <span className="font-sans text-[11px] text-smoke">
+                    तारीख, वेळ व मुहूर्त काही मिनिटांत
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 pt-2 md:pt-0 md:pl-8">
+                <div className="w-7 h-7 rounded-full bg-mint text-carbon flex items-center justify-center font-bold text-sm shrink-0">
+                  ✓
+                </div>
+                <div>
+                  <span className="font-marathi font-bold text-carbon tracking-tight text-base sm:text-lg block leading-none">
+                    महाराष्ट्रभर उपलब्ध
+                  </span>
+                  <span className="font-sans text-[11px] text-smoke">
+                    पुणे • मुंबई • नाशिक • पश्चिम महाराष्ट्र
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          className="py-12 md:py-16 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto"
+          id="why-us"
+        >
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+            <div>
+              <span className="tag-marathi-mono text-smoke mb-2 block">
+                पवित्रतेची १००% हमी
+              </span>
+              <h2 className="headline-marathi text-4xl sm:text-5xl md:text-6xl text-carbon">
+                तुमचा विश्वास.
+                <br />
+                आमची जबाबदारी.
+              </h2>
+            </div>
+            <p className="text-slate text-sm sm:text-base font-normal max-w-md">
+              आपल्या प्राचीन वैदिक परंपरांचे पावित्र्य जपत, आजच्या धावपळीच्या
+              युगात विश्वासार्ह आणि सुलभ सेवा देण्याचा आमचा प्रामाणिक संकल्प.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            <div className="lg:col-span-5 bg-carbon text-paper rounded-4xl md:rounded-5xl p-8 sm:p-12 flex flex-col justify-between editorial-card relative overflow-hidden">
+              <div className="relative z-10">
+                <span className="tag-marathi-mono bg-graphite text-voltage px-3.5 py-1.5 rounded-full inline-block mb-6">
+                  आमचे ध्येय
+                </span>
+                <h3 className="font-display font-normal text-3xl sm:text-4xl text-paper tracking-tight leading-snug mb-6">
+                  “परंपरेचा सन्मान, आधुनिक सुलभतेसह.”
+                </h3>
+                <p className="text-ash text-sm sm:text-base leading-relaxed mb-8">
+                  उच्चारलेला प्रत्येक मंत्र, होमकुंडात अर्पण केलेली प्रत्येक
+                  समिधा आणि काढलेला प्रत्येक शुभ मुहूर्त धर्मशास्त्राच्या
+                  नियमांनुसारच असेल.
+                </p>
+              </div>
+              <div className="pt-8 border-t border-graphite relative z-10">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <span className="font-display font-bold text-4xl text-voltage block">
+                      १००%
+                    </span>
+                    <span className="tag-marathi-mono text-smoke text-[10px]">
+                      पाठशाळा प्रमाणित परंपरा
+                    </span>
+                  </div>
+                  <div className="w-12 h-12 rounded-full bg-graphite flex items-center justify-center text-paper font-bold text-xl">
+                    ✓
+                  </div>
+                </div>
+              </div>
+
+              <div className="absolute -bottom-10 -right-10 w-44 h-44 rounded-full border border-graphite/60 opacity-30 pointer-events-none"></div>
+            </div>
+
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="bg-paper border border-ash/40 rounded-4xl p-8 flex flex-col justify-between editorial-card">
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="font-display font-bold text-3xl text-smoke">
+                      ०१
+                    </span>
+                    <div className="w-10 h-10 rounded-2xl bg-mist flex items-center justify-center text-carbon">
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewbox="0 0 24 24"
+                      >
+                        <path
+                          d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                          strokeLinecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="1.8"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <h4 className="font-marathi font-bold text-2xl text-carbon tracking-tight mb-3">
+                    प्रमाणित गुरुजी
+                  </h4>
+                  <p className="text-slate text-sm leading-relaxed">
+                    महाराष्ट्र शासनाने मान्यताप्राप्त वेदपाठशाळांमधून प्रशिक्षित
+                    व संस्कारित निष्णात वेदमूर्ती गुरुजी.
+                  </p>
+                </div>
+                <div className="pt-6 mt-6 border-t border-mist">
+                  <span className="tag-marathi-mono text-[10px] text-smoke">
+                    सत्यापित पार्श्वभूमी व वेद शिक्षण
+                  </span>
+                </div>
+              </div>
+
+              <div className="bg-paper border border-ash/40 rounded-4xl p-8 flex flex-col justify-between editorial-card">
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="font-display font-bold text-3xl text-smoke">
+                      ०२
+                    </span>
+                    <div className="w-10 h-10 rounded-2xl bg-mist flex items-center justify-center text-carbon">
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewbox="0 0 24 24"
+                      >
+                        <path
+                          d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343a7.975 7.975 0 010 11.314z"
+                          strokeLinecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="1.8"
+                        ></path>
+                        <path
+                          d="M9.879 16.121A3 3 0 1012.004 11c-.604.403-1.004 1.077-1.004 1.849 0 .86.58 1.586 1.385 1.802"
+                          strokeLinecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="1.8"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <h4 className="font-marathi font-bold text-2xl text-carbon tracking-tight mb-3">
+                    शास्त्रोक्त पूजा विधी
+                  </h4>
+                  <p className="text-slate text-sm leading-relaxed">
+                    प्राचीन धर्मशास्त्र आणि कुलपरंपरेनुसार १००% शुद्ध, सात्त्विक
+                    आणि विधिपूर्वक विधींचे संपादन.
+                  </p>
+                </div>
+                <div className="pt-6 mt-6 border-t border-mist">
+                  <span className="tag-marathi-mono text-[10px] text-smoke">
+                    स्पष्ट व शुद्ध वेदोक्त मंत्रोच्चार
+                  </span>
+                </div>
+              </div>
+
+              <div className="bg-paper border border-ash/40 rounded-4xl p-8 flex flex-col justify-between editorial-card">
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="font-display font-bold text-3xl text-smoke">
+                      ०३
+                    </span>
+                    <div className="w-10 h-10 rounded-2xl bg-mist flex items-center justify-center text-carbon">
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewbox="0 0 24 24"
+                      >
+                        <path
+                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                          strokeLinecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="1.8"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <h4 className="font-marathi font-bold text-2xl text-carbon tracking-tight mb-3">
+                    सुलभ ऑनलाईन बुकिंग
+                  </h4>
+                  <p className="text-slate text-sm leading-relaxed">
+                    आपली पूजा, तारीख आणि वेळ निवडा — बाकी सर्व तयारी आणि
+                    समन्वयाची जबाबदारी आमची.
+                  </p>
+                </div>
+                <div className="pt-6 mt-6 border-t border-mist">
+                  <span className="tag-marathi-mono text-[10px] text-smoke">
+                    पारदर्शक निश्चित दक्षिणा
+                  </span>
+                </div>
+              </div>
+
+              <div className="bg-paper border border-ash/40 rounded-4xl p-8 flex flex-col justify-between editorial-card">
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="font-display font-bold text-3xl text-smoke">
+                      ०४
+                    </span>
+                    <div className="w-10 h-10 rounded-2xl bg-mist flex items-center justify-center text-carbon">
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewbox="0 0 24 24"
+                      >
+                        <path
+                          d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                          strokeLinecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="1.8"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <h4 className="font-marathi font-bold text-2xl text-carbon tracking-tight mb-3">
+                    संपूर्ण साहित्यासह सेवा
+                  </h4>
+                  <p className="text-slate text-sm leading-relaxed">
+                    गुरुजींच्या आगमनापासून ते शुद्ध साहित्यापर्यंत सर्व काही
+                    घरपोच पारदर्शकपणे उपलब्ध.
+                  </p>
+                </div>
+                <div className="pt-6 mt-6 border-t border-mist">
+                  <span className="tag-marathi-mono text-[10px] text-smoke">
+                    पूर्ण पूजा व्यवस्थापन सहाय्य
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          className="py-12 md:py-16 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto"
+          id="pujas"
+        >
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+            <div>
+              <span className="tag-marathi-mono text-smoke mb-2 block">
+                संस्कार व मंगल कार्ये
+              </span>
+              <h2 className="headline-marathi text-4xl sm:text-5xl md:text-6xl text-carbon">
+                लोकप्रिय पूजा विधी
+              </h2>
+              <p className="text-slate text-base mt-2">
+                पवित्र विधी, अत्यंत सोप्या पद्धतीने.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              <span className="tag-marathi-mono bg-carbon text-paper px-4 py-2 rounded-full cursor-pointer">
+                सर्व पूजा विधी
+              </span>
+              <span className="tag-marathi-mono bg-paper text-slate hover:text-carbon px-4 py-2 rounded-full border border-ash/40 cursor-pointer">
+                घर व वास्तू
+              </span>
+              <span className="tag-marathi-mono bg-paper text-slate hover:text-carbon px-4 py-2 rounded-full border border-ash/40 cursor-pointer">
+                शांती व अनुष्ठान
+              </span>
+              <span className="tag-marathi-mono bg-paper text-slate hover:text-carbon px-4 py-2 rounded-full border border-ash/40 cursor-pointer">
+                व्यावसायिक
+              </span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="lg:col-span-2 bg-paper border border-ash/40 rounded-4xl overflow-hidden editorial-card flex flex-col justify-between">
+              <div className="img-zoom relative h-64 sm:h-72 w-full bg-mist">
+                <img
+                  alt="कुटुंब केळीच्या खांबांसमोर आणि दिव्यांसमोर श्री सत्यनारायण महापूजा संपन्न करत असताना"
+                  className="w-full h-full object-cover"
+                  src="https://lh3.googleusercontent.com/aida/AEtjO1WE2_U3VRfW7IhNX6zTpT3MMYwueJ3iUsGdP8bcqQHs971V-aeUGJuTLIj5RRavd1oa0q-Mk0l5DgMtG4buz95AD-xdF6XPGrij1BPrnFZhND_BO0bHeHuLjMpk_lEMMkrbdba7LSclDA9Tj_kwf4soPQupp-WEcNLqcDVY6rw_pIHGTNer3GWDF_-J8y7ptTZTk-wf1WAN-9V0qKf33NPC1B68h4yNopyrpBBSlpwh"
+                />
+                <div className="absolute top-4 left-4 bg-paper/95 backdrop-blur-sm px-3.5 py-1 rounded-full text-xs font-sans font-bold text-carbon">
+                  सर्वाधिक संपन्न होणारी पूजा
+                </div>
+                <div className="absolute bottom-4 right-4 bg-voltage text-carbon px-3.5 py-1 rounded-full text-xs font-sans font-bold">
+                  ₹२,१०० पासून सुरू
+                </div>
+              </div>
+              <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="font-marathi font-bold text-2xl sm:text-3xl text-carbon">
+                      श्री सत्यनारायण महापूजा
+                    </h3>
+                    <span className="tag-marathi-mono text-smoke">२.५ तास</span>
+                  </div>
+                  <p className="text-slate text-sm leading-relaxed mb-6">
+                    संपूर्ण कथा वाचन, पंचामृत विधी, हवन, आरती व आशीर्वाद.
+                    कौटुंबिक सौख्य, समाधान आणि समृद्धीसाठी पौर्णिमा किंवा शुभ
+                    दिनी.
+                  </p>
+                </div>
+                <div className="flex items-center justify-between pt-4 border-t border-mist">
+                  <span className="text-xs font-sans text-smoke">
+                    १ वेदोक्त गुरुजी • प्रसादाची संपूर्ण कथा
+                  </span>
+                  <a
+                    className="inline-flex items-center gap-2 bg-carbon text-paper hover:bg-voltage hover:text-carbon px-5 py-2.5 rounded-full font-sans font-bold text-xs transition-all group"
+                    href="#booking"
+                  >
+                    <span>आताच बुक करा</span>
+                    <span className="group-hover:translate-x-0.5 transition-transform">
+                      →
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-paper border border-ash/40 rounded-4xl overflow-hidden editorial-card flex flex-col justify-between">
+              <div className="img-zoom relative h-52 w-full bg-mist">
+                <img
+                  alt="उंबरठ्यावर आंब्याची पाने आणि नारळाने सजवलेला मंगल कलश"
+                  className="w-full h-full object-cover"
+                  src="https://lh3.googleusercontent.com/aida/AEtjO1WE2_U3VRfW7IhNX6zTpT3MMYwueJ3iUsGdP8bcqQHs971V-aeUGJuTLIj5RRavd1oa0q-Mk0l5DgMtG4buz95AD-xdF6XPGrij1BPrnFZhND_BO0bHeHuLjMpk_lEMMkrbdba7LSclDA9Tj_kwf4soPQupp-WEcNLqcDVY6rw_pIHGTNer3GWDF_-J8y7ptTZTk-wf1WAN-9V0qKf33NPC1B68h4yNopyrpBBSlpwh"
+                />
+                <div className="absolute top-4 left-4 bg-paper/95 px-3 py-1 rounded-full text-xs font-sans font-bold text-carbon">
+                  नवीन घर
+                </div>
+              </div>
+              <div className="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="font-marathi font-bold text-2xl text-carbon mb-2">
+                    गृहप्रवेश व वास्तुशांती
+                  </h3>
+                  <p className="text-slate text-xs leading-relaxed mb-4">
+                    नवीन वास्तूमध्ये सुख-समृद्धी, कलश स्थापना, दूध उकळवणे आणि
+                    सकारात्मक ऊर्जेच्या संचारासाठी संपूर्ण विधी.
+                  </p>
+                </div>
+                <div className="flex items-center justify-between pt-4 border-t border-mist">
+                  <span className="font-sans text-carbon font-bold text-sm">
+                    ₹५,७००
+                  </span>
+                  <a
+                    className="text-xs font-sans font-bold text-carbon hover:text-slate"
+                    href="#booking"
+                  >
+                    आताच बुक करा →
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-paper border border-ash/40 rounded-4xl overflow-hidden editorial-card flex flex-col justify-between">
+              <div className="img-zoom relative h-52 w-full bg-mist">
+                <img
+                  alt="नवीन कार्यालयासाठी प्रज्वलित समई आणि पूजेची थाळी"
+                  className="w-full h-full object-cover"
+                  src="https://lh3.googleusercontent.com/aida/AEtjO1WE2_U3VRfW7IhNX6zTpT3MMYwueJ3iUsGdP8bcqQHs971V-aeUGJuTLIj5RRavd1oa0q-Mk0l5DgMtG4buz95AD-xdF6XPGrij1BPrnFZhND_BO0bHeHuLjMpk_lEMMkrbdba7LSclDA9Tj_kwf4soPQupp-WEcNLqcDVY6rw_pIHGTNer3GWDF_-J8y7ptTZTk-wf1WAN-9V0qKf33NPC1B68h4yNopyrpBBSlpwh"
+                />
+                <div className="absolute top-4 left-4 bg-paper/95 px-3 py-1 rounded-full text-xs font-sans font-bold text-carbon">
+                  व्यावसायिक
+                </div>
+              </div>
+              <div className="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="font-marathi font-bold text-2xl text-carbon mb-2">
+                    कार्यालय व व्यवसाय उद्घाटन
+                  </h3>
+                  <p className="text-slate text-xs leading-relaxed mb-4">
+                    व्यापारात अखंड वृद्धी, कुबेर-लक्ष्मी आराधना आणि निर्विघ्न
+                    यशासाठी विघ्नहर्ता पूजन विधी.
+                  </p>
+                </div>
+                <div className="flex items-center justify-between pt-4 border-t border-mist">
+                  <span className="font-sans text-carbon font-bold text-sm">
+                    ₹४,२००
+                  </span>
+                  <a
+                    className="text-xs font-sans font-bold text-carbon hover:text-slate"
+                    href="#booking"
+                  >
+                    आताच बुक करा →
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-paper border border-ash/40 rounded-4xl overflow-hidden editorial-card flex flex-col justify-between">
+              <div className="img-zoom relative h-52 w-full bg-mist">
+                <img
+                  alt="दुर्वा आणि जास्वंदीच्या फुलांनी पूजलेली श्री गणेशाची मंगलमूर्ती"
+                  className="w-full h-full object-cover"
+                  src="https://lh3.googleusercontent.com/aida/AEtjO1WE2_U3VRfW7IhNX6zTpT3MMYwueJ3iUsGdP8bcqQHs971V-aeUGJuTLIj5RRavd1oa0q-Mk0l5DgMtG4buz95AD-xdF6XPGrij1BPrnFZhND_BO0bHeHuLjMpk_lEMMkrbdba7LSclDA9Tj_kwf4soPQupp-WEcNLqcDVY6rw_pIHGTNer3GWDF_-J8y7ptTZTk-wf1WAN-9V0qKf33NPC1B68h4yNopyrpBBSlpwh"
+                />
+                <div className="absolute top-4 left-4 bg-paper/95 px-3 py-1 rounded-full text-xs font-sans font-bold text-carbon">
+                  शुभ आरंभ
+                </div>
+              </div>
+              <div className="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="font-marathi font-bold text-2xl text-carbon mb-2">
+                    श्री गणेश महापूजा
+                  </h3>
+                  <p className="text-slate text-xs leading-relaxed mb-4">
+                    सर्व विघ्नांचे निवारण, २१ दुर्वांची जोडी, मोदक नैवेद्य आणि
+                    अथर्वशीर्ष पठणासह साग्रसंगीत प्रतिष्ठापना.
+                  </p>
+                </div>
+                <div className="flex items-center justify-between pt-4 border-t border-mist">
+                  <span className="font-sans text-carbon font-bold text-sm">
+                    ₹१,८००
+                  </span>
+                  <a
+                    className="text-xs font-sans font-bold text-carbon hover:text-slate"
+                    href="#booking"
+                  >
+                    आताच बुक करा →
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-paper border border-ash/40 rounded-4xl overflow-hidden editorial-card flex flex-col justify-between">
+              <div className="img-zoom relative h-52 w-full bg-mist">
+                <img
+                  alt="महालक्ष्मी पूजनासाठी तयार केलेली नाणी, कमळ आणि अक्षता"
+                  className="w-full h-full object-cover"
+                  src="https://lh3.googleusercontent.com/aida/AEtjO1WE2_U3VRfW7IhNX6zTpT3MMYwueJ3iUsGdP8bcqQHs971V-aeUGJuTLIj5RRavd1oa0q-Mk0l5DgMtG4buz95AD-xdF6XPGrij1BPrnFZhND_BO0bHeHuLjMpk_lEMMkrbdba7LSclDA9Tj_kwf4soPQupp-WEcNLqcDVY6rw_pIHGTNer3GWDF_-J8y7ptTZTk-wf1WAN-9V0qKf33NPC1B68h4yNopyrpBBSlpwh"
+                />
+                <div className="absolute top-4 left-4 bg-paper/95 px-3 py-1 rounded-full text-xs font-sans font-bold text-carbon">
+                  ऐश्वर्य व समृद्धी
+                </div>
+              </div>
+              <div className="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="font-marathi font-bold text-2xl text-carbon mb-2">
+                    महालक्ष्मी व कुबेर विधी
+                  </h3>
+                  <p className="text-slate text-xs leading-relaxed mb-4">
+                    श्री सूक्त पारायण, कमळ पुष्पांची पूजा आणि चिरंतन लक्ष्मीच्या
+                    आशीर्वादासाठी संपूर्ण धार्मिक अनुष्ठान.
+                  </p>
+                </div>
+                <div className="flex items-center justify-between pt-4 border-t border-mist">
+                  <span className="font-sans text-carbon font-bold text-sm">
+                    ₹२,५००
+                  </span>
+                  <a
+                    className="text-xs font-sans font-bold text-carbon hover:text-slate"
+                    href="#booking"
+                  >
+                    आताच बुक करा →
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-2 bg-paper border border-ash/40 rounded-4xl overflow-hidden editorial-card flex flex-col justify-between">
+              <div className="img-zoom relative h-64 sm:h-72 w-full bg-mist">
+                <img
+                  alt="समिधा आणि शुद्ध तुपाच्या आहुतीने संपन्न होणारा वैदिक हवन होमकुंड"
+                  className="w-full h-full object-cover"
+                  src="https://lh3.googleusercontent.com/aida/AEtjO1WE2_U3VRfW7IhNX6zTpT3MMYwueJ3iUsGdP8bcqQHs971V-aeUGJuTLIj5RRavd1oa0q-Mk0l5DgMtG4buz95AD-xdF6XPGrij1BPrnFZhND_BO0bHeHuLjMpk_lEMMkrbdba7LSclDA9Tj_kwf4soPQupp-WEcNLqcDVY6rw_pIHGTNer3GWDF_-J8y7ptTZTk-wf1WAN-9V0qKf33NPC1B68h4yNopyrpBBSlpwh"
+                />
+                <div className="absolute top-4 left-4 bg-paper/95 backdrop-blur-sm px-3.5 py-1 rounded-full text-xs font-sans font-bold text-carbon">
+                  संपूर्ण वास्तुदोष निवारण
+                </div>
+                <div className="absolute bottom-4 right-4 bg-voltage text-carbon px-3.5 py-1 rounded-full text-xs font-sans font-bold">
+                  ₹६,५०० पासून सुरू
+                </div>
+              </div>
+              <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="font-marathi font-bold text-2xl sm:text-3xl text-carbon">
+                      नवग्रह शांती व महाहवन
+                    </h3>
+                    <span className="tag-marathi-mono text-smoke">४ तास</span>
+                  </div>
+                  <p className="text-slate text-sm leading-relaxed mb-6">
+                    दिशांचे संतुलन, वास्तु पुरुषाची आराधना आणि नवग्रह समिधांच्या
+                    आहुतीने घरात अखंड शांती प्रस्थापित करणारा विधी.
+                  </p>
+                </div>
+                <div className="flex items-center justify-between pt-4 border-t border-mist">
+                  <span className="text-xs font-sans text-smoke">
+                    २ प्रमाणित वेदमूर्ती • संपूर्ण हवन संच
+                  </span>
+                  <a
+                    className="inline-flex items-center gap-2 bg-carbon text-paper hover:bg-voltage hover:text-carbon px-5 py-2.5 rounded-full font-sans font-bold text-xs transition-all group"
+                    href="#booking"
+                  >
+                    <span>आताच बुक करा</span>
+                    <span className="group-hover:translate-x-0.5 transition-transform">
+                      →
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-10 text-center">
+            <a
+              className="inline-flex items-center gap-3 bg-paper border border-ash/50 text-carbon hover:bg-carbon hover:text-paper px-8 py-3.5 rounded-full font-sans text-xs font-bold tracking-wider transition-all"
+              href="#pujas"
+            >
+              सर्व ४०+ धार्मिक पूजा व अनुष्ठाने पहा →
+            </a>
+          </div>
+        </section>
+        <section
+          className="py-12 md:py-16 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto"
+          id="how-it-works"
+        >
+          <div className="bg-carbon text-paper rounded-4xl md:rounded-5xl p-8 sm:p-12 md:p-16">
+            <div className="flex flex-col md:flex-row md:items-end justify-between pb-10 border-b border-graphite gap-6">
+              <div>
+                <span className="tag-marathi-mono text-voltage mb-2 block">
+                  सुटसुटीत व सोपी प्रक्रिया
+                </span>
+                <h2 className="headline-marathi text-4xl sm:text-5xl md:text-6xl text-paper">
+                  पवित्र विधी.
+                  <br />
+                  आता अत्यंत सोपे.
+                </h2>
+              </div>
+              <p className="text-ash text-sm sm:text-base max-w-md">
+                ४ सोप्या टप्प्यांत संपूर्ण पूजेची तयारी. खरेदीचा ताण नाही, गोंधळ
+                नाही आणि संभ्रमही नाही.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-10">
+              <div className="flex flex-col justify-between">
+                <div>
+                  <div className="font-display font-bold text-5xl sm:text-6xl text-voltage mb-4">
+                    ०१
+                  </div>
+                  <h3 className="font-marathi font-bold text-xl sm:text-2xl text-paper tracking-tight mb-2">
+                    आपली पूजा निवडा
+                  </h3>
+                  <p className="text-ash text-xs sm:text-sm leading-relaxed">
+                    ४०+ शास्त्रोक्त विधींमधून निवड करा किंवा आमच्या मुहूर्त
+                    सल्लागाराकडून योग्य तिथी जाणून घ्या.
+                  </p>
+                </div>
+                <div className="pt-6 mt-6 border-t border-graphite">
+                  <span className="tag-marathi-mono text-[10px] text-smoke">
+                    संकल्प पर्याय उपलब्ध
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex flex-col justify-between">
+                <div>
+                  <div className="font-display font-bold text-5xl sm:text-6xl text-graphite mb-4">
+                    ०२
+                  </div>
+                  <h3 className="font-marathi font-bold text-xl sm:text-2xl text-paper tracking-tight mb-2">
+                    गोत्र व माहिती भरा
+                  </h3>
+                  <p className="text-ash text-xs sm:text-sm leading-relaxed">
+                    कुटुंबाचे गोत्र, कुलदैवत, तारीख आणि पूजेचे ठिकाण प्रविष्ट
+                    करा. प्रत्येक मंत्र आपल्या नावाने उच्चारला जाईल.
+                  </p>
+                </div>
+                <div className="pt-6 mt-6 border-t border-graphite">
+                  <span className="tag-marathi-mono text-[10px] text-smoke">
+                    गोपनीय व आदरपूर्वक
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex flex-col justify-between">
+                <div>
+                  <div className="font-display font-bold text-5xl sm:text-6xl text-graphite mb-4">
+                    ०३
+                  </div>
+                  <h3 className="font-marathi font-bold text-xl sm:text-2xl text-paper tracking-tight mb-2">
+                    आम्ही सर्व तयारी करतो
+                  </h3>
+                  <p className="text-ash text-xs sm:text-sm leading-relaxed">
+                    प्रमाणित गुरुजींची नियुक्ती आणि अभिमंत्रित शुद्ध साहित्याचा
+                    बॉक्स पूजेपूर्वी २४ तास आपल्या घरी पोहोचेल.
+                  </p>
+                </div>
+                <div className="pt-6 mt-6 border-t border-graphite">
+                  <span className="tag-marathi-mono text-[10px] text-smoke">
+                    खरेदीची कोणतीही चिंता नाही
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex flex-col justify-between">
+                <div>
+                  <div className="font-display font-bold text-5xl sm:text-6xl text-voltage mb-4">
+                    ०४
+                  </div>
+                  <h3 className="font-marathi font-bold text-xl sm:text-2xl text-paper tracking-tight mb-2">
+                    भक्तीभावाने पूजा संपन्न करा
+                  </h3>
+                  <p className="text-ash text-xs sm:text-sm leading-relaxed">
+                    गुरुजी वेळेवर उपस्थित राहून शांतचित्ताने, शुचिर्भूत
+                    वातावरणात संपूर्ण विधी संपन्न करतील.
+                  </p>
+                </div>
+                <div className="pt-6 mt-6 border-t border-graphite">
+                  <span className="tag-marathi-mono text-[10px] text-smoke">
+                    ईश्वरी कृपेची अनुभूती
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          className="py-12 md:py-16 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto"
+          id="pandits"
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            <div className="lg:col-span-6 bg-paper border border-ash/40 rounded-4xl md:rounded-5xl overflow-hidden editorial-card relative min-h-[460px] lg:min-h-full">
+              <img
+                alt="पारंपरिक वेशभूषेत मंत्रोच्चार करणारे वेदमूर्ती गुरुजी"
+                className="w-full h-full object-cover object-top"
+                src="https://lh3.googleusercontent.com/aida/AEtjO1WE2_U3VRfW7IhNX6zTpT3MMYwueJ3iUsGdP8bcqQHs971V-aeUGJuTLIj5RRavd1oa0q-Mk0l5DgMtG4buz95AD-xdF6XPGrij1BPrnFZhND_BO0bHeHuLjMpk_lEMMkrbdba7LSclDA9Tj_kwf4soPQupp-WEcNLqcDVY6rw_pIHGTNer3GWDF_-J8y7ptTZTk-wf1WAN-9V0qKf33NPC1B68h4yNopyrpBBSlpwh"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-carbon/80 via-transparent to-transparent"></div>
+
+              <div className="absolute bottom-6 inset-x-6">
+                <div className="bg-paper/95 backdrop-blur-md border border-ash/40 rounded-3xl p-5 shadow-lg flex items-center justify-between">
+                  <div>
+                    <span className="tag-marathi-mono text-smoke block text-[10px]">
+                      ऋग्वेद आचार्य
+                    </span>
+                    <p className="font-marathi font-bold text-carbon text-lg">
+                      वेदमूर्ती दत्तात्रय कुलकर्णी
+                    </p>
+                    <p className="text-slate text-xs">
+                      वेदशास्त्रोत्तेजक सभा • १८+ वर्षांचा अनुभव
+                    </p>
+                  </div>
+                  <span className="inline-flex items-center px-3 py-1 bg-mint rounded-full text-carbon text-xs font-sans font-bold">
+                    ४.९५ ★
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-6 bg-paper border border-ash/40 rounded-4xl md:rounded-5xl p-8 sm:p-12 md:p-14 flex flex-col justify-between editorial-card">
+              <div>
+                <span className="tag-marathi-mono text-smoke mb-3 block">
+                  पांडित्य व परंपरा
+                </span>
+                <h2 className="headline-marathi text-4xl sm:text-5xl md:text-6xl text-carbon mb-4">
+                  प्रमाणित वेदोक्त गुरुजी
+                </h2>
+                <p className="font-display text-2xl text-slate tracking-tight mb-6">
+                  “पारंपरिक ज्ञान. आधुनिक सोय.”
+                </p>
+                <p className="text-slate text-base leading-relaxed mb-8">
+                  आपले गुरुजी व्यासपीठ महाराष्ट्रातील नामांकित वेद पाठशाळांमधील
+                  ऋग्वेदी व यजुर्वेदी विद्वानांना थेट तुमच्या कुटुंबाशी जोडते.
+                  प्रत्येक गुरुजींचे धर्मशास्त्र शिक्षण, उच्चारशुद्धता आणि
+                  चारित्र्य पडताळणी पूर्ण केलेली आहे.
+                </p>
+
+                <div className="space-y-3.5 mb-10">
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-mint text-carbon flex items-center justify-center font-bold text-xs shrink-0">
+                      ✓
+                    </div>
+                    <span className="font-sans font-semibold text-carbon text-sm">
+                      पाठशाळा-प्रमाणित वेदमूर्ती गुरुजी
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-mint text-carbon flex items-center justify-center font-bold text-xs shrink-0">
+                      ✓
+                    </div>
+                    <span className="font-sans font-semibold text-carbon text-sm">
+                      किमान १०+ वर्षांचा प्रत्यक्ष विधी संपन्न अनुभव
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-mint text-carbon flex items-center justify-center font-bold text-xs shrink-0">
+                      ✓
+                    </div>
+                    <span className="font-sans font-semibold text-carbon text-sm">
+                      मराठी, संस्कृत व हिंदी भाषेत अर्थ समजावून पूजा
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-mint text-carbon flex items-center justify-center font-bold text-xs shrink-0">
+                      ✓
+                    </div>
+                    <span className="font-sans font-semibold text-carbon text-sm">
+                      वास्तु, शांती, विवाह व अनुष्ठान विशेष निपुणता
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-mint text-carbon flex items-center justify-center font-bold text-xs shrink-0">
+                      ✓
+                    </div>
+                    <span className="font-sans font-semibold text-carbon text-sm">
+                      पारदर्शक निश्चित दक्षिणा — शून्य छुपे किंवा अवाजवी खर्च
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="pt-6 border-t border-mist flex items-center justify-between">
+                <a
+                  className="inline-flex items-center gap-2 bg-carbon text-paper hover:bg-voltage hover:text-carbon px-8 py-4 rounded-full font-sans font-bold text-sm tracking-wide transition-all group"
+                  href="#pandits"
+                >
+                  <span>आमच्या गुरुजींना भेटा</span>
+                  <span className="group-hover:translate-x-1 transition-transform">
+                    →
+                  </span>
+                </a>
+                <span className="tag-marathi-mono text-smoke text-xs hidden sm:inline">
+                  महाराष्ट्रभर ५००+ प्रमाणित गुरुजी
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          className="py-12 md:py-16 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto"
+          id="samagri"
+        >
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+            <div>
+              <span className="tag-marathi-mono text-smoke mb-2 block">
+                १००% शुद्ध व सात्त्विक साहित्य
+              </span>
+              <h2 className="headline-marathi text-4xl sm:text-5xl md:text-6xl text-carbon">
+                आपल्या पूजेसाठी सर्व काही.
+              </h2>
+            </div>
+            <p className="text-slate text-sm sm:text-base max-w-md">
+              कोणतेही रासायनिक घटक नसलेले, प्रयोगशाळेत तपासलेले आणि शास्त्रोक्त
+              पद्धतीने पॅक केलेले साहित्य थेट घरपोच.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            <div className="lg:col-span-5 bg-paper border border-ash/40 rounded-4xl md:rounded-5xl p-8 sm:p-12 flex flex-col justify-between editorial-card">
+              <div>
+                <span className="tag-marathi-mono bg-voltage text-carbon px-3.5 py-1.5 rounded-full inline-block font-bold mb-6">
+                  थेट घरपोच वितरण
+                </span>
+                <h3 className="headline-marathi text-4xl sm:text-5xl text-carbon mb-4">
+                  पूजा साहित्य
+                </h3>
+                <p className="font-display text-lg text-slate mb-6 leading-snug">
+                  “सर्व आवश्यक वस्तू. सुरक्षित पॅकिंगमध्ये आपल्या दारी.”
+                </p>
+                <p className="text-slate text-sm leading-relaxed mb-8">
+                  बाजारात दुर्मिळ वनौषधी, शुद्ध तूप किंवा भीमसेनी कापरासाठी
+                  भटकण्याची गरज नाही. आमच्या संचात धर्मसिंधू ग्रंथानुसार लागणारे
+                  प्रत्येक घटक समाविष्ट आहेत.
+                </p>
+              </div>
+              <div>
+                <a
+                  className="inline-flex items-center gap-3 bg-carbon text-paper hover:bg-voltage hover:text-carbon px-8 py-4 rounded-full font-sans font-bold text-sm tracking-wide transition-all group"
+                  href="#samagri"
+                >
+                  <span>साहित्य संच पहा</span>
+                  <span className="group-hover:translate-x-1 transition-transform">
+                    →
+                  </span>
+                </a>
+              </div>
+            </div>
+
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-6">
+              <div className="bg-paper border border-ash/40 rounded-4xl p-6 flex flex-col justify-between editorial-card">
+                <div>
+                  <div className="img-zoom h-44 rounded-3xl overflow-hidden bg-mist mb-5 relative">
+                    <img
+                      alt="गृहप्रवेश संपूर्ण साहित्य किट"
+                      className="w-full h-full object-cover"
+                      src="https://lh3.googleusercontent.com/aida/AEtjO1WE2_U3VRfW7IhNX6zTpT3MMYwueJ3iUsGdP8bcqQHs971V-aeUGJuTLIj5RRavd1oa0q-Mk0l5DgMtG4buz95AD-xdF6XPGrij1BPrnFZhND_BO0bHeHuLjMpk_lEMMkrbdba7LSclDA9Tj_kwf4soPQupp-WEcNLqcDVY6rw_pIHGTNer3GWDF_-J8y7ptTZTk-wf1WAN-9V0qKf33NPC1B68h4yNopyrpBBSlpwh"
+                    />
+                    <span className="absolute top-3 left-3 bg-paper text-[10px] font-sans px-2 py-0.5 rounded font-bold">
+                      ४२ घटक
+                    </span>
+                  </div>
+                  <h4 className="font-marathi font-bold text-xl text-carbon mb-1">
+                    गृहप्रवेश साहित्य संच
+                  </h4>
+                  <p className="text-slate text-xs mb-4">
+                    शुद्ध कुंकू, अष्टगंध, दर्भा, कलश वस्त्र, हवन समिधा आणि सर्व
+                    विधी साहित्य.
+                  </p>
+                </div>
+                <div className="flex items-center justify-between pt-4 border-t border-mist">
+                  <span className="font-sans text-sm font-bold text-carbon">
+                    ₹१,४९९
+                  </span>
+                  <span className="tag-marathi-mono text-smoke text-[10px]">
+                    उपलब्ध आहे
+                  </span>
+                </div>
+              </div>
+
+              <div className="bg-paper border border-ash/40 rounded-4xl p-6 flex flex-col justify-between editorial-card">
+                <div>
+                  <div className="img-zoom h-44 rounded-3xl overflow-hidden bg-mist mb-5 relative">
+                    <img
+                      alt="शुद्ध देशी गायीचे बिलोना तूप"
+                      className="w-full h-full object-cover"
+                      src="https://lh3.googleusercontent.com/aida/AEtjO1WE2_U3VRfW7IhNX6zTpT3MMYwueJ3iUsGdP8bcqQHs971V-aeUGJuTLIj5RRavd1oa0q-Mk0l5DgMtG4buz95AD-xdF6XPGrij1BPrnFZhND_BO0bHeHuLjMpk_lEMMkrbdba7LSclDA9Tj_kwf4soPQupp-WEcNLqcDVY6rw_pIHGTNer3GWDF_-J8y7ptTZTk-wf1WAN-9V0qKf33NPC1B68h4yNopyrpBBSlpwh"
+                    />
+                    <span className="absolute top-3 left-3 bg-paper text-[10px] font-sans px-2 py-0.5 rounded font-bold">
+                      A2 बिलोना
+                    </span>
+                  </div>
+                  <h4 className="font-marathi font-bold text-xl text-carbon mb-1">
+                    हवन बिलोना तूप
+                  </h4>
+                  <p className="text-slate text-xs mb-4">
+                    १००% अस्सल देशी गिर गायीच्या दह्यापासून घुसळलेले सात्त्विक
+                    वैदिक तूप.
+                  </p>
+                </div>
+                <div className="flex items-center justify-between pt-4 border-t border-mist">
+                  <span className="font-sans text-sm font-bold text-carbon">
+                    ₹८५०
+                  </span>
+                  <span className="tag-marathi-mono text-smoke text-[10px]">
+                    ५०० मिली
+                  </span>
+                </div>
+              </div>
+
+              <div className="bg-paper border border-ash/40 rounded-4xl p-6 flex flex-col justify-between editorial-card">
+                <div>
+                  <div className="img-zoom h-44 rounded-3xl overflow-hidden bg-mist mb-5 relative">
+                    <img
+                      alt="शुद्ध भीमसेनी कापूर"
+                      className="w-full h-full object-cover"
+                      src="https://lh3.googleusercontent.com/aida/AEtjO1WE2_U3VRfW7IhNX6zTpT3MMYwueJ3iUsGdP8bcqQHs971V-aeUGJuTLIj5RRavd1oa0q-Mk0l5DgMtG4buz95AD-xdF6XPGrij1BPrnFZhND_BO0bHeHuLjMpk_lEMMkrbdba7LSclDA9Tj_kwf4soPQupp-WEcNLqcDVY6rw_pIHGTNer3GWDF_-J8y7ptTZTk-wf1WAN-9V0qKf33NPC1B68h4yNopyrpBBSlpwh"
+                    />
+                    <span className="absolute top-3 left-3 bg-paper text-[10px] font-sans px-2 py-0.5 rounded font-bold">
+                      धूररहित
+                    </span>
+                  </div>
+                  <h4 className="font-marathi font-bold text-xl text-carbon mb-1">
+                    भीमसेनी कापूर
+                  </h4>
+                  <p className="text-slate text-xs mb-4">
+                    औषधी गुणधर्मांनी युक्त, धूर न करणारा शुद्ध नैसर्गिक स्फटिक
+                    कापूर.
+                  </p>
+                </div>
+                <div className="flex items-center justify-between pt-4 border-t border-mist">
+                  <span className="font-sans text-sm font-bold text-carbon">
+                    ₹३९९
+                  </span>
+                  <span className="tag-marathi-mono text-smoke text-[10px]">
+                    २५० ग्रॅम
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          className="py-12 md:py-16 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto"
+          id="live-puja"
+        >
+          <div className="bg-carbon text-paper rounded-4xl md:rounded-6xl overflow-hidden relative p-8 sm:p-14 md:p-20 editorial-card">
+            <img
+              alt="हवनाची ज्वाला आणि मंदिरात सुरू असलेली आरती"
+              className="absolute inset-0 w-full h-full object-cover opacity-25 mix-blend-luminosity filter blur-sm"
+              src="https://lh3.googleusercontent.com/aida/AEtjO1WE2_U3VRfW7IhNX6zTpT3MMYwueJ3iUsGdP8bcqQHs971V-aeUGJuTLIj5RRavd1oa0q-Mk0l5DgMtG4buz95AD-xdF6XPGrij1BPrnFZhND_BO0bHeHuLjMpk_lEMMkrbdba7LSclDA9Tj_kwf4soPQupp-WEcNLqcDVY6rw_pIHGTNer3GWDF_-J8y7ptTZTk-wf1WAN-9V0qKf33NPC1B68h4yNopyrpBBSlpwh"
+            />
+            <div className="relative z-10 max-w-3xl">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="w-2.5 h-2.5 rounded-full bg-voltage animate-ping"></span>
+                <span className="tag-marathi-mono text-voltage font-bold tracking-widest">
+                  थेट लाईव्ह डिजिटल दर्शन
+                </span>
+              </div>
+              <h2 className="headline-marathi text-4xl sm:text-6xl md:text-7xl text-paper tracking-tight mb-6">
+                कुठेही असाल तरी,
+                <br />
+                पूजेचा भाग व्हा.
+              </h2>
+              <p className="text-ash text-base sm:text-xl font-normal leading-relaxed mb-10">
+                “विदेशात किंवा दूर असाल तरी थेट लाईव्ह स्ट्रीमिंगद्वारे आपल्या
+                कुटुंबासह संकल्प आणि पूजेमध्ये सहभागी व्हा.” उच्च दर्जाचे डिजिटल
+                प्रक्षेपण, आपल्या गोत्राने गुरुजींकडून होणारा संकल्प आणि
+                अभिमंत्रित प्रसाद जगभरात थेट घरपोच.
+              </p>
+              <div className="flex flex-wrap items-center gap-4">
+                <a
+                  className="inline-flex items-center gap-3 bg-voltage text-carbon hover:bg-paper px-8 py-4 rounded-full font-sans font-bold text-sm tracking-wide transition-all group"
+                  href="#booking"
+                >
+                  <span>थेट लाईव्ह पूजा पहा</span>
+                  <span className="group-hover:translate-x-1 transition-transform">
+                    →
+                  </span>
+                </a>
+                <span className="tag-marathi-mono text-ash text-xs border border-graphite px-4 py-3.5 rounded-full">
+                  त्र्यंबकेश्वर • पुणे • वाराणसी मंदिरे
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="py-12 md:py-16 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
+          <div
+            className="bg-paper border border-ash/40 rounded-4xl md:rounded-5xl p-8 sm:p-12 mb-12 editorial-card"
+            id="prasad"
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-7">
+                <span className="tag-marathi-mono text-smoke mb-2 block">
+                  पवित्र प्रसादाची अनुभूती
+                </span>
+                <h2 className="headline-marathi text-4xl sm:text-5xl text-carbon mb-4">
+                  प्रसादाने पूर्ण करा ईश्वरी अनुभूती.
+                </h2>
+                <p className="text-slate text-base sm:text-lg mb-6 leading-relaxed">
+                  “पूजा संपन्न झाल्यावर तीर्थक्षेत्राचा शुद्ध, अभिमंत्रित प्रसाद
+                  सुरक्षित पॅकिंगसह थेट आपल्या घरी.” शुद्ध मोदक, सुकामेवा
+                  पंचामृत मिठाई आणि मंत्रसिद्ध रक्षासूत्र धागे सीलबंद स्वच्छ
+                  पॅकिंगमध्ये प्राप्त करा.
+                </p>
+                <div className="flex items-center gap-4 text-xs font-sans text-slate">
+                  <span className="bg-mist px-3.5 py-1.5 rounded-full border border-ash/30 font-semibold">
+                    ✓ १००% शुद्ध व सात्त्विक
+                  </span>
+                  <span className="bg-mist px-3.5 py-1.5 rounded-full border border-ash/30 font-semibold">
+                    ✓ तीर्थक्षेत्रातून अभिमंत्रित
+                  </span>
+                </div>
+              </div>
+              <div className="lg:col-span-5 img-zoom rounded-3xl overflow-hidden h-64 sm:h-72 bg-mist border border-ash/40">
+                <img
+                  alt="चांदीच्या वर्खाने सजवलेला शुद्ध मोदक व पेढे प्रसाद"
+                  className="w-full h-full object-cover"
+                  src="https://lh3.googleusercontent.com/aida/AEtjO1WE2_U3VRfW7IhNX6zTpT3MMYwueJ3iUsGdP8bcqQHs971V-aeUGJuTLIj5RRavd1oa0q-Mk0l5DgMtG4buz95AD-xdF6XPGrij1BPrnFZhND_BO0bHeHuLjMpk_lEMMkrbdba7LSclDA9Tj_kwf4soPQupp-WEcNLqcDVY6rw_pIHGTNer3GWDF_-J8y7ptTZTk-wf1WAN-9V0qKf33NPC1B68h4yNopyrpBBSlpwh"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div id="astrology">
+            <div className="mb-8">
+              <span className="tag-marathi-mono text-smoke mb-2 block">
+                वेदोक्त ज्योतिष व शुभ काळ
+              </span>
+              <h2 className="headline-marathi text-4xl sm:text-5xl text-carbon">
+                कुंडली, तिथी व शुभ मुहूर्त
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-paper border border-ash/40 rounded-4xl p-8 flex flex-col justify-between editorial-card">
+                <div>
+                  <div className="w-12 h-12 rounded-2xl bg-voltage/30 border border-voltage flex items-center justify-center font-display font-bold text-2xl text-carbon mb-6">
+                    कुं
+                  </div>
+                  <h3 className="font-marathi font-bold text-3xl text-carbon mb-2">
+                    कुंडली विश्लेषण
+                  </h3>
+                  <p className="font-sans text-slate text-sm font-semibold mb-4">
+                    आपली जन्मपत्रिका आणि ग्रहस्थिती जाणून घ्या.
+                  </p>
+                  <p className="text-slate text-xs leading-relaxed">
+                    सखोल ग्रह विचार, कालसर्प, मंगळ, पितृदोष निवारण आणि वैयक्तिक
+                    रत्न व धार्मिक शांती उपायांचे मार्गदर्शन.
+                  </p>
+                </div>
+                <div className="pt-6 mt-8 border-t border-mist">
+                  <a
+                    className="tag-marathi-mono text-carbon font-bold hover:text-slate"
+                    href="#astrology"
+                  >
+                    कुंडली तपासा →
+                  </a>
+                </div>
+              </div>
+
+              <div className="bg-paper border border-ash/40 rounded-4xl p-8 flex flex-col justify-between editorial-card">
+                <div>
+                  <div className="w-12 h-12 rounded-2xl bg-mist border border-ash/40 flex items-center justify-center font-display font-bold text-2xl text-carbon mb-6">
+                    मु
+                  </div>
+                  <h3 className="font-marathi font-bold text-3xl text-carbon mb-2">
+                    शुभ मुहूर्त
+                  </h3>
+                  <p className="font-sans text-slate text-sm font-semibold mb-4">
+                    मांगलिक कार्यांसाठी अचूक तिथी व वेळा.
+                  </p>
+                  <p className="text-slate text-xs leading-relaxed">
+                    गृहप्रवेश, विवाह, मुंडन, नवीन वाहन खरेदी आणि व्यवसाय
+                    उद्घाटनासाठी पंचांगानुसार अचूक शुभ काळ गणना.
+                  </p>
+                </div>
+                <div className="pt-6 mt-8 border-t border-mist">
+                  <a
+                    className="tag-marathi-mono text-carbon font-bold hover:text-slate"
+                    href="#astrology"
+                  >
+                    मुहूर्त काढा →
+                  </a>
+                </div>
+              </div>
+
+              <div className="bg-paper border border-ash/40 rounded-4xl p-8 flex flex-col justify-between editorial-card">
+                <div>
+                  <div className="w-12 h-12 rounded-2xl bg-mist border border-ash/40 flex items-center justify-center font-display font-bold text-2xl text-carbon mb-6">
+                    ज्यो
+                  </div>
+                  <h3 className="font-marathi font-bold text-3xl text-carbon mb-2">
+                    वैदिक ज्योतिष
+                  </h3>
+                  <p className="font-sans text-slate text-sm font-semibold mb-4">
+                    महत्त्वाच्या जीवन टप्प्यांसाठी तज्ज्ञ मार्गदर्शन.
+                  </p>
+                  <p className="text-slate text-xs leading-relaxed">
+                    करिअर, वैवाहिक सौख्य, संतती व आरोग्य या विषयी अनुभवी
+                    ज्योतिषाचार्यांशी थेट संवाद व शंका निरसन.
+                  </p>
+                </div>
+                <div className="pt-6 mt-8 border-t border-mist">
+                  <a
+                    className="tag-marathi-mono text-carbon font-bold hover:text-slate"
+                    href="#astrology"
+                  >
+                    मार्गदर्शन बुक करा →
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="py-12 md:py-16 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
+          <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <span className="tag-marathi-mono text-smoke mb-2 block">
+                भाविक कुटुंबांचे अनुभव
+              </span>
+              <h2 className="headline-marathi text-4xl sm:text-5xl text-carbon">
+                समाधानी भक्तांचे आशीर्वाद.
+              </h2>
+            </div>
+            <div className="flex items-center gap-2 text-sm font-sans text-slate">
+              <span className="font-bold text-carbon">४.९६/५.०</span> एकंदर समाधान
+              रेटिंग
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-paper border border-ash/40 rounded-4xl p-8 flex flex-col justify-between editorial-card">
+              <div>
+                <div className="text-carbon font-sans font-bold tracking-widest text-sm mb-4">
+                  ★★★★★
+                </div>
+                <p className="text-carbon font-sans text-base leading-relaxed mb-6">
+                  “आपले गुरुजींमार्फत गृहप्रवेश पूजा बुक करण्याचा निर्णय अत्यंत
+                  योग्य ठरला. गुरुजी वेळेच्या २० मिनिटे आधी आले, सर्व मंत्रांचा
+                  मराठीत अर्थ सांगितला आणि शुद्ध साहित्य आणले होते. मनात अत्यंत
+                  समाधान वाटले.”
+                </p>
+              </div>
+              <div className="pt-4 border-t border-mist">
+                <p className="font-marathi font-bold text-lg text-carbon">
+                  सुनीता व राजेश जोशी
+                </p>
+                <span className="tag-marathi-mono text-smoke text-[10px]">
+                  बाणेर, पुणे • गृहप्रवेश पूजा
+                </span>
+              </div>
+            </div>
+
+            <div className="bg-paper border border-ash/40 rounded-4xl p-8 flex flex-col justify-between editorial-card">
+              <div>
+                <div className="text-carbon font-sans font-bold tracking-widest text-sm mb-4">
+                  ★★★★★
+                </div>
+                <p className="text-carbon font-sans text-base leading-relaxed mb-6">
+                  “सामग्री आणण्याची धावपळ नाही किंवा दक्षिणेसाठी कोणताही वाद
+                  नाही. पारदर्शक दर आणि अत्यंत शांतचित्ताने झालेली श्री
+                  सत्यनारायण महापूजा. आपल्या परंपरेवर श्रद्धा असलेल्या
+                  प्रत्येकाने एकदा तरी अनुभव घ्यावा.”
+                </p>
+              </div>
+              <div className="pt-4 border-t border-mist">
+                <p className="font-marathi font-bold text-lg text-carbon">
+                  मकरंद देशपांडे
+                </p>
+                <span className="tag-marathi-mono text-smoke text-[10px]">
+                  ठाणे, मुंबई • कार्यालय उद्घाटन
+                </span>
+              </div>
+            </div>
+
+            <div className="bg-paper border border-ash/40 rounded-4xl p-8 flex flex-col justify-between editorial-card">
+              <div>
+                <div className="text-carbon font-sans font-bold tracking-widest text-sm mb-4">
+                  ★★★★★
+                </div>
+                <p className="text-carbon font-sans text-base leading-relaxed mb-6">
+                  “आम्ही लंडनमध्ये राहतो, आईसाठी नाशिकला नवग्रह शांती करायची
+                  होती. आपले गुरुजींच्या लाईव्ह स्ट्रीमिंगमुळे आम्ही कुटुंबासह
+                  संपूर्ण पूजेमध्ये प्रत्यक्ष बसल्यासारखे सहभागी झालो. खूप आभारी
+                  आहोत!”
+                </p>
+              </div>
+              <div className="pt-4 border-t border-mist">
+                <p className="font-marathi font-bold text-lg text-carbon">
+                  अनन्या कुलकर्णी व परिवार
+                </p>
+                <span className="tag-marathi-mono text-smoke text-[10px]">
+                  नाशिक / लंडन • लाईव्ह शांती विधी
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="py-12 md:py-16 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
+          <div className="bg-paper border border-ash/40 rounded-4xl md:rounded-5xl p-8 sm:p-12 md:p-16">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 divide-y sm:divide-y-0 sm:divide-x divide-mist">
+              <div className="pt-4 sm:pt-0">
+                <span className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-carbon block">
+                  १०,०००+
+                </span>
+                <span className="font-sans text-xs sm:text-sm font-bold text-slate uppercase tracking-wider block mt-2">
+                  यशस्वी संपन्न पूजा
+                </span>
+                <span className="tag-marathi-mono text-smoke text-[10px]">
+                  महाराष्ट्रभरातील भाविक
+                </span>
+              </div>
+
+              <div className="pt-4 sm:pt-0 sm:pl-8 lg:pl-12">
+                <span className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-carbon block">
+                  १,२००+
+                </span>
+                <span className="font-sans text-xs sm:text-sm font-bold text-slate uppercase tracking-wider block mt-2">
+                  प्रमाणित वेदोक्त गुरुजी
+                </span>
+                <span className="tag-marathi-mono text-smoke text-[10px]">
+                  वेदपाठशाळा मान्यताप्राप्त
+                </span>
+              </div>
+
+              <div className="pt-4 sm:pt-0 lg:pl-12">
+                <span className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-carbon block">
+                  ४५+
+                </span>
+                <span className="font-sans text-xs sm:text-sm font-bold text-slate uppercase tracking-wider block mt-2">
+                  विविध धार्मिक विधी
+                </span>
+                <span className="tag-marathi-mono text-smoke text-[10px]">
+                  गृह, वास्तू व संस्कार
+                </span>
+              </div>
+
+              <div className="pt-4 sm:pt-0 sm:pl-8 lg:pl-12">
+                <span className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-voltage block bg-carbon px-3 py-1 rounded-2xl w-fit">
+                  ४.९★
+                </span>
+                <span className="font-sans text-xs sm:text-sm font-bold text-slate uppercase tracking-wider block mt-2">
+                  भाविक समाधान रेटिंग
+                </span>
+                <span className="tag-marathi-mono text-smoke text-[10px]">
+                  २,३४०+ पडताळणी केलेले भाविक
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          className="py-12 md:py-16 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto"
+          id="booking"
+        >
+          <div className="bg-carbon text-paper rounded-4xl md:rounded-6xl p-8 sm:p-14 md:p-20 text-center relative overflow-hidden editorial-card">
+            <div className="inline-block bg-voltage text-carbon tag-marathi-mono font-bold px-5 py-2 rounded-full mb-8">
+              आपल्या मांगलिक कार्याचे नियोजन करा
+            </div>
+            <h2 className="headline-marathi text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-paper tracking-tight max-w-4xl mx-auto mb-8">
+              तुमची पूजा.
+              <br />
+              तुमची परंपरा.
+              <br />
+              <span className="text-voltage">आपले गुरुजी.</span>
+            </h2>
+            <p className="text-ash text-base sm:text-xl font-normal max-w-2xl mx-auto mb-10 leading-relaxed">
+              “पूजा व विधींची सर्व व्यवस्था आमच्यावर सोपवा, आणि तुम्ही फक्त
+              कुटुंब, श्रद्धा व ईश्वरी आशीर्वादाचा आनंद घ्या.”
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <a
+                className="inline-flex items-center gap-3 bg-voltage text-carbon hover:bg-paper px-9 py-4 rounded-full font-sans font-bold text-sm tracking-wide transition-all shadow-lg group"
+                href="#pujas"
+              >
+                <span>आताच पूजा बुक करा</span>
+                <span className="group-hover:translate-x-1 transition-transform">
+                  →
+                </span>
+              </a>
+              <a
+                className="inline-flex items-center gap-2 bg-graphite text-paper hover:bg-slate px-8 py-4 rounded-full font-sans text-xs font-bold tracking-wider transition-all border border-smoke/30"
+                href="#pujas"
+              >
+                सर्व सेवा जाणून घ्या
+              </a>
+            </div>
+
+            <p className="tag-marathi-mono text-smoke text-[11px] mt-10">
+              कोणतेही छुपे शुल्क नाही • मान्यताप्राप्त वैदिक विद्वान • मोफत
+              मुहूर्त सहाय्य
+            </p>
+          </div>
+        </section>
+
+        <footer className="bg-paper border-t border-ash/40 pt-16 pb-12 px-4 sm:px-6 md:px-8 mt-12">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-16 border-b border-mist">
+              <div className="lg:col-span-4">
+                <div className="flex items-center gap-3 mb-4">
+                  <img
+                    alt="आपले गुरुजी"
+                    className="h-14 w-auto object-contain"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8iVIFqM8y6Q4i_faE3tGbbsUxaBmFayxDxozHq8ZY68nkKkwxGO25WBOLj5QWcfz-IFtmilJCsiwNPVQfGIROVk8JF5OHabdO_s_N9gCda-5h1e1ZV6aT-h81bcYgVcZKdu2AB_nHHaGE32nwO9Xt2aVCyy2TJy-YsAsyGD_LgUQLjyw96BHLf2_s9XVhH5shnBF-PINzv0APZGw9OchwLki6JZq7zj1Z3tBXG8EIVtn7mK7BI79X"
+                  />
+                </div>
+                <p className="text-slate text-sm leading-relaxed max-w-sm mb-4 font-marathi">
+                  “धार्मिक कार्य जेथे, आपले गुरुजी तेथे.”
+                </p>
+                <p className="text-slate text-xs leading-relaxed max-w-sm mb-6">
+                  पारंपरिक हिंदू धार्मिक सेवा सुलभ, पारदर्शक आणि १००%
+                  विश्वासार्ह बनवणारे महाराष्ट्राचे अग्रगण्य व्यासपीठ.
+                </p>
+                <div className="tag-marathi-mono text-smoke text-xs">
+                  पुणे • मुंबई • नाशिक • पश्चिम महाराष्ट्र
+                </div>
+              </div>
+
+              <div className="lg:col-span-3">
+                <span className="tag-marathi-mono text-carbon font-bold block mb-4">
+                  पूजा व सेवा
+                </span>
+                <ul className="space-y-2.5 text-xs font-sans text-slate">
+                  <li>
+                    <a
+                      className="hover:text-carbon transition-colors"
+                      href="#pujas"
+                    >
+                      ऑनलाइन पूजा बुकिंग
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="hover:text-carbon transition-colors"
+                      href="#pujas"
+                    >
+                      गृहप्रवेश व सत्यनारायण
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="hover:text-carbon transition-colors"
+                      href="#live-puja"
+                    >
+                      थेट लाईव्ह पूजा दर्शन
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="hover:text-carbon transition-colors"
+                      href="#samagri"
+                    >
+                      पूजा साहित्य दालन
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="hover:text-carbon transition-colors"
+                      href="#prasad"
+                    >
+                      अभिमंत्रित महाप्रसाद
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="hover:text-carbon transition-colors"
+                      href="#astrology"
+                    >
+                      कुंडली विश्लेषण व मार्गदर्शन
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="hover:text-carbon transition-colors"
+                      href="#astrology"
+                    >
+                      शुभ तिथी व मुहूर्त गणना
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="lg:col-span-3">
+                <span className="tag-marathi-mono text-carbon font-bold block mb-4">
+                  संस्था व माहिती
+                </span>
+                <ul className="space-y-2.5 text-xs font-sans text-slate">
+                  <li>
+                    <a
+                      className="hover:text-carbon transition-colors"
+                      href="#why-us"
+                    >
+                      आमच्याबद्दल
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="hover:text-carbon transition-colors"
+                      href="#pandits"
+                    >
+                      प्रमाणित वेदोक्त गुरुजी
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="hover:text-carbon transition-colors"
+                      href="#contact"
+                    >
+                      संपर्क व साहाय्यता (1800-200-VEDA)
+                    </a>
+                  </li>
+                  <li>
+                    <a className="hover:text-carbon transition-colors" href="#faqs">
+                      वारंवार विचारले जाणारे प्रश्न
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="hover:text-carbon transition-colors"
+                      href="#careers"
+                    >
+                      गुरुजी नोंदणी (पंडित पोर्टल)
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="lg:col-span-2">
+                <span className="tag-marathi-mono text-carbon font-bold block mb-4">
+                  नियम व अटी
+                </span>
+                <ul className="space-y-2.5 text-xs font-sans text-slate mb-6">
+                  <li>
+                    <a
+                      className="hover:text-carbon transition-colors"
+                      href="#privacy"
+                    >
+                      गोपनीयता धोरण
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="hover:text-carbon transition-colors"
+                      href="#terms"
+                    >
+                      सेवा अटी व शर्ती
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="hover:text-carbon transition-colors"
+                      href="#sanctity"
+                    >
+                      पवित्रता आचारसंहिता
+                    </a>
+                  </li>
+                </ul>
+                <span className="tag-marathi-mono text-carbon font-bold block mb-3">
+                  सोशल मीडिया
+                </span>
+                <div className="flex flex-wrap gap-2 text-xs font-sans text-slate">
+                  <a className="hover:text-carbon" href="#instagram">
+                    इन्स्टाग्राम
+                  </a>{" "}
+                  •
+                  <a className="hover:text-carbon" href="#facebook">
+                    फेसबुक
+                  </a>{" "}
+                  •
+                  <a className="hover:text-carbon" href="#youtube">
+                    यूट्यूब
+                  </a>{" "}
+                  •
+                  <a className="hover:text-carbon" href="#whatsapp">
+                    व्हॉट्सअ‍ॅप
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs font-sans text-smoke gap-4">
+              <div>© २०२६ आपले गुरुजी (AapleGuruji.in) — सर्व हक्क राखीव.</div>
+              <div className="flex items-center gap-4">
+                <span className="font-marathi font-bold">धर्मो रक्षति रक्षितः</span>
+                <span>•</span>
+                <span>संस्थापना: महाराष्ट्र</span>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </>
+  );
+};
+
+export default LandingPage;
